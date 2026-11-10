@@ -292,31 +292,43 @@
 
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
                     <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div class="relative w-full md:w-96">
-                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
-                                <i class="fa-solid fa-search"></i>
-                            </span>
-                            <input type="text" id="searchInput" oninput="filterProducts()" 
-                                class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 text-base"
-                                placeholder="ค้นหาชื่อสินค้า...">
+                        <div class="flex items-center gap-3 w-full md:w-96">
+                            <div class="relative w-full">
+                                <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+                                    <i class="fa-solid fa-search"></i>
+                                </span>
+                                <input type="text" id="searchInput" oninput="filterProducts()" 
+                                    class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 text-base"
+                                    placeholder="ค้นหาชื่อสินค้า...">
+                            </div>
+                        </div>
+
+                        <!-- เพิ่มรายการสินค้าใหม่ (แทนที่แบนเนอร์เดิม) -->
+                        <div class="w-full md:flex-1 bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 px-4 py-3 rounded-xl flex items-center justify-between gap-3 text-red-800 text-sm shadow-sm">
+                            <div class="flex items-center gap-3 truncate">
+                                <i class="fa-solid fa-circle-plus text-red-600 text-xl shrink-0"></i>
+                                <div class="truncate">
+                                    <strong class="font-bold font-heading">ต้องการเพิ่มสินค้าเข้าระบบ?</strong> <span class="hidden sm:inline">กรอกข้อมูลสินค้าใหม่เพื่อเพิ่มลงตารางสั่งซื้อทันที</span>
+                                </div>
+                            </div>
+                            <button onclick="openAddProductModal()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs sm:text-sm shadow transition font-heading shrink-0 flex items-center gap-2">
+                                <i class="fa-solid fa-plus"></i> เพิ่มสินค้าใหม่
+                            </button>
                         </div>
 
                         <div class="flex items-center gap-3 w-full md:w-auto justify-end flex-wrap">
-                            <button onclick="toggleReorderSuggestions()" id="reorderBtn" class="px-4 py-3 bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold rounded-xl border border-amber-200 transition flex items-center gap-2">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> แนะนำสินค้าควรสั่ง (AI)
-                            </button>
                             <div class="flex items-center gap-2">
                                 <span class="text-slate-500 text-sm font-medium">เรียงตาม:</span>
                                 <select id="sortSelect" onchange="filterProducts()" class="bg-slate-50 border border-slate-300 px-4 py-3 rounded-xl text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-red-500">
                                     <option value="default">ค่าเริ่มต้น</option>
                                     <option value="stock-asc">จำนวนสต็อก (น้อย -> มาก)</option>
-                                    <option value="sale-desc">ยอดขาย (มาก -> น้อย)</option>
+                                    <option value="sale-desc">ยอดขายเฉลี่ยต่อเดือน (มาก -> น้อย)</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
                         <div>
                             <label class="block text-slate-600 text-sm font-semibold mb-1.5">กรองตามยี่ห้อสินค้า (Brand)</label>
                             <select id="brandFilter" onchange="filterProducts()" class="w-full bg-slate-50 border border-slate-300 px-4 py-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-base">
@@ -341,6 +353,12 @@
                                 <option value="บริษัท ไอดีล เพ็ท คลาสสิก">บริษัท ไอดีล เพ็ท คลาสสิก</option>
                             </select>
                         </div>
+
+                        <div class="flex items-end">
+                            <button onclick="filterExpiry90Days()" id="expiry90Btn" class="w-full px-4 py-3 bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold rounded-xl border border-amber-200 transition flex items-center justify-center gap-2 font-heading">
+                                <i class="fa-solid fa-triangle-exclamation"></i> สินค้าใกล้หมดอายุ 90 วัน
+                            </button>
+                        </div>
                     </div>
 
                     <div id="categoryTabs" class="flex items-center gap-2 overflow-x-auto pt-2 no-scrollbar"></div>
@@ -358,11 +376,11 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-50 text-slate-600 uppercase text-xs tracking-wider border-b border-slate-200 font-semibold font-heading">
-                                    <th class="py-4 px-6">ชื่อสินค้า / หมวดหมู่</th>
+                                    <th class="py-4 px-6">รหัส / ชื่อสินค้า / หมวดหมู่</th>
                                     <th class="py-4 px-6 text-center">ประวัติสั่งล่าสุด</th>
                                     <th class="py-4 px-6 text-center">สต็อกปัจจุบัน</th>
                                     <th class="py-4 px-6 text-center">วันหมดอายุ (เหลือ)</th>
-                                    <th class="py-4 px-6 text-center">ยอดขาย (1ด / 1ปี)</th>
+                                    <th class="py-4 px-6 text-center">ยอดขายเฉลี่ยต่อเดือน</th>
                                     <th class="py-4 px-6 text-center">สั่งซื้อ</th>
                                 </tr>
                             </thead>
@@ -426,6 +444,83 @@
     </div>
 
     <!-- MODALS -->
+    <!-- Add New Product Modal -->
+    <div id="addProductModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 transform transition-all">
+            <div class="bg-gradient-to-r from-red-600 to-rose-700 px-6 py-4 text-white flex items-center justify-between">
+                <h3 class="font-bold text-lg font-heading flex items-center gap-2"><i class="fa-solid fa-plus-circle"></i> เพิ่มรายการสินค้าใหม่เข้าคลัง</h3>
+                <button onclick="closeAddProductModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleAddNewProduct(event)" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
+                <div>
+                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">รหัสสินค้า (Product Code) <span class="text-slate-400 font-normal">(ไม่บังคับ ระบบสร้างให้อัตโนมัติหากเว้นว่าง)</span></label>
+                    <input type="text" id="newProdCode" placeholder="เช่น P-005" class="w-full bg-slate-50 border border-slate-300 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ชื่อสินค้า <span class="text-red-500">*</span></label>
+                    <input type="text" id="newProdName" required placeholder="ระบุชื่อสินค้า..." class="w-full bg-slate-50 border border-slate-300 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ราคาทุน (บาท)</label>
+                        <input type="number" id="newProdCost" placeholder="0.00" class="w-full bg-slate-50 border border-slate-300 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ราคาขาย (บาท)</label>
+                        <input type="number" id="newProdPrice" placeholder="0.00" class="w-full bg-slate-50 border border-slate-300 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ประเภทสินค้า</label>
+                    <select id="newProdCategory" class="w-full bg-slate-50 border border-slate-300 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:outline-none">
+                        <option value="ทรายแมว">ทรายแมว</option>
+                        <option value="อาหารแมว">อาหารแมว</option>
+                        <option value="อาหารสุนัข">อาหารสุนัข</option>
+                        <option value="อุปกรณ์">อุปกรณ์</option>
+                        <option value="ถุงขยะ">ถุงขยะ</option>
+                        <option value="เบ็ดเตล็ด">เบ็ดเตล็ด</option>
+                        <option value="เปียกแมว">เปียกแมว</option>
+                        <option value="กระป๋องแมว">กระป๋องแมว</option>
+                        <option value="เปียกสุนัข">เปียกสุนัข</option>
+                        <option value="กระป๋องสุนัข">กระป๋องสุนัข</option>
+                        <option value="สุนัขแมวเลีย">สุนัขแมวเลีย</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ยี่ห้อสินค้า (Brand)</label>
+                    <select id="newProdBrand" class="w-full bg-slate-50 border border-slate-300 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:outline-none">
+                        <option value="Kit Cat">Kit Cat</option>
+                        <option value="Pet Safari">Pet Safari</option>
+                        <option value="Royal Canin">Royal Canin</option>
+                        <option value="Whiskas">Whiskas</option>
+                        <option value="Pedigree">Pedigree</option>
+                        <option value="Me-O">Me-O</option>
+                        <option value="Ciao Churu">Ciao Churu</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">บริษัท Supplier</label>
+                    <select id="newProdSupplier" class="w-full bg-slate-50 border border-slate-300 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:outline-none">
+                        <option value="บริษัท เพ็ทโปร จำกัด">บริษัท เพ็ทโปร จำกัด</option>
+                        <option value="บริษัท สมาร์ทเพ็ท ซัพพลาย">บริษัท สมาร์ทเพ็ท ซัพพลาย</option>
+                        <option value="บริษัท ซีพีเอฟ (ประเทศไทย) จำกัด">บริษัท ซีพีเอฟ (ประเทศไทย) จำกัด</option>
+                        <option value="บริษัท ไอดีล เพ็ท คลาสสิก">บริษัท ไอดีล เพ็ท คลาสสิก</option>
+                    </select>
+                </div>
+
+                <div class="pt-4 flex gap-3">
+                    <button type="button" onclick="closeAddProductModal()" class="flex-1 py-3 bg-white font-bold rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 transition">ยกเลิก</button>
+                    <button type="submit" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg transition font-heading">บันทึกสินค้าใหม่</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between">
@@ -434,7 +529,10 @@
             </div>
             <div class="p-6 space-y-5">
                 <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                    <span id="modalProductCategory" class="px-2.5 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">หมวดหมู่</span>
+                    <div class="flex items-center justify-between">
+                        <span id="modalProductCategory" class="px-2.5 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">หมวดหมู่</span>
+                        <span id="modalProductCode" class="text-xs font-bold text-slate-500 font-heading">รหัส: SKU-000</span>
+                    </div>
                     <h4 id="modalProductName" class="font-bold text-slate-900 text-lg mt-2 font-heading">ชื่อสินค้า</h4>
                     <p id="modalProductBrandSupplier" class="text-xs text-slate-500 mt-1">ยี่ห้อ / บริษัท</p>
                     <p id="modalProductStock" class="text-sm font-semibold text-slate-700 mt-2">สต็อกปัจจุบัน: 0 หน่วย</p>
@@ -448,14 +546,137 @@
                         <option value="ชิ้น">ชิ้น (Piece)</option>
                     </select>
                 </div>
-                <div>
-                    <label class="block text-slate-700 font-semibold mb-2 text-sm font-heading">กรอกจำนวน</label>
-                    <input type="number" id="orderQuantity" value="1" min="1" class="w-full text-center bg-slate-50 border border-slate-300 py-3 rounded-xl text-xl font-bold">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2 text-sm font-heading">กรอกจำนวน</label>
+                        <input type="number" id="orderQuantity" value="1" min="1" class="w-full text-center bg-slate-50 border border-slate-300 py-3 rounded-xl text-xl font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-2 text-sm font-heading">ราคาต่อหน่วย (บาท)</label>
+                        <input type="number" id="orderPrice" value="450" min="1" class="w-full text-center bg-slate-50 border border-slate-300 py-3 rounded-xl text-xl font-bold">
+                    </div>
                 </div>
             </div>
             <div class="p-4 bg-slate-100 border-t border-slate-200 flex gap-3">
                 <button onclick="closeOrderModal()" class="flex-1 py-3 bg-white font-bold rounded-xl border border-slate-300">ยกเลิก</button>
                 <button onclick="addToCart()" class="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl shadow-lg">เพิ่มลงตะกร้า</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART & PURCHASE ORDER MODAL (Features 5 & 6) -->
+    <div id="cartModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full overflow-hidden border border-slate-200 max-h-[90vh] flex flex-col">
+            <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <h3 class="font-bold text-lg font-heading">ตะกร้าสินค้าและระบบสั่งซื้อ (Buy-001)</h3>
+                </div>
+                <button onclick="closeCartModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-6 overflow-y-auto flex-1">
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-2 text-slate-800 font-bold font-heading text-sm">
+                        <i class="fa-solid fa-clock-rotate-left text-red-600"></i> ประวัติการสั่งซื้อย้อนหลัง:
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <input type="date" id="historyDateFilter" onchange="filterHistoryByDate()" class="bg-white border border-slate-300 px-3 py-2 rounded-xl text-sm font-medium focus:ring-2 focus:ring-red-500">
+                        <button onclick="resetHistoryDate()" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl text-xs font-bold">วันนี้</button>
+                    </div>
+                </div>
+                <div id="historyLogContainer" class="text-xs text-slate-500 bg-slate-100 p-3 rounded-xl">
+                    กำลังแสดงประวัติการสั่งซื้อประจำวันที่: <span id="currentHistoryDateText" class="font-bold text-slate-700">11 พ.ย. 2569</span> (พบ 2 รายการ)
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 font-heading mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-basket-shopping text-red-600"></i> รายการสินค้าในตะกร้าปัจจุบัน
+                    </h4>
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-600 text-xs font-semibold uppercase font-heading border-b border-slate-200">
+                                    <th class="p-3">รหัส / สินค้า</th>
+                                    <th class="p-3">Supplier</th>
+                                    <th class="p-3 text-center">จำนวน & หน่วย</th>
+                                    <th class="p-3 text-right">ราคา (บาท)</th>
+                                    <th class="p-3 text-center">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cartTableBody" class="divide-y divide-slate-200 text-sm text-slate-700">
+                                <!-- Cart items injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-slate-100 border-t border-slate-200 flex items-center justify-between shrink-0">
+                <div class="text-sm font-bold text-slate-800">
+                    ยอดรวมทั้งสิ้น: <span id="cartTotalPrice" class="text-red-600 text-lg font-heading">0.00</span> บาท
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="closeCartModal()" class="px-5 py-3 bg-white font-bold rounded-xl border border-slate-300 text-sm">ปิด</button>
+                    <button onclick="submitOrderToSupplier()" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg text-sm font-heading flex items-center gap-2">
+                        <i class="fa-brands fa-line text-lg"></i> ส่งคำสั่งซื้อให้ Supplier (Line OA)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PURCHASE ORDER INVOICE POPUP MODAL (Feature 6) -->
+    <div id="invoiceModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200 max-h-[95vh] flex flex-col">
+            <div class="bg-gradient-to-r from-red-600 to-rose-700 px-6 py-4 text-white flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-file-invoice text-xl"></i>
+                    <h3 class="font-bold text-lg font-heading">เอกสารใบสั่งซื้อสินค้า (Purchase Order)</h3>
+                </div>
+                <button onclick="closeInvoiceModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-4 overflow-y-auto flex-1 bg-slate-50 text-sm">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-start border-b border-slate-100 pb-3">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-base font-heading">Memi Pet Station (สาขาใหญ่)</h4>
+                            <p class="text-xs text-slate-500">ผู้สั่งซื้อ: เถ้าแก่ Memi | memi Pets.station681@gmail.com</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading" id="invoiceTxId">TX-2026111101</span>
+                            <p class="text-xs text-slate-500 mt-1" id="invoiceDateText">วันที่: 11 พ.ย. 2569</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-slate-600">
+                        <div><strong>ช่องทางส่ง:</strong> Line OA Supplier อัตโนมัติ</div>
+                        <div><strong>สถานะ:</strong> ส่งคำสั่งซื้อสำเร็จ (Pending Approval)</div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 text-xs font-semibold uppercase font-heading border-b border-slate-200">
+                                <th class="p-3">รหัส / รายการสินค้า</th>
+                                <th class="p-3">Supplier</th>
+                                <th class="p-3 text-center">จำนวน</th>
+                                <th class="p-3 text-right">รวม (บาท)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoiceTableBody" class="divide-y divide-slate-200 text-xs text-slate-700">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-200 text-emerald-800 text-xs flex items-center gap-3">
+                    <i class="fa-solid fa-circle-check text-lg"></i>
+                    <div>
+                        <strong class="font-bold block font-heading">ระบบได้ทำการส่งข้อมูล JSON และเอกสารผ่าน Line OA ไปยัง Supplier เรียบร้อยแล้ว</strong>
+                        <span>Supplier จะตอบกลับยืนยันรอบจัดส่งผ่านแชทอัตโนมัติ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-white border-t border-slate-200 flex justify-end gap-3 shrink-0">
+                <button onclick="closeInvoiceModal()" class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow text-sm font-heading">ปิดหน้าต่าง</button>
             </div>
         </div>
     </div>
@@ -477,16 +698,16 @@
         ];
 
         const products = [
-            { id: 1, name: 'ทรายแมวเต้าหู้ธรรมชาติ 6 ลิตร', category: 'ทรายแมว', brand: 'Kit Cat', supplier: 'บริษัท สมาร์ทเพ็ท ซัพพลาย', lastOrder: '12 ก.พ. 2569 (50 ถุง)', stock: 14, expiryDays: 75, avgSale1M: '120 ถุง', avgSale1Y: '1,450 ถุง' },
-            { id: 2, name: 'ทรายแมวเบนโทไนท์ พรีเมียม 10กก.', category: 'ทรายแมว', brand: 'Pet Safari', supplier: 'บริษัท สมาร์ทเพ็ท ซัพพลาย', lastOrder: '01 ก.พ. 2569 (30 กระสอบ)', stock: 8, expiryDays: 45, avgSale1M: '85 กระสอบ', avgSale1Y: '980 กระสอบ' },
-            { id: 3, name: 'อาหารเม็ดแมวโต รสปลาทูน่า 10kg', category: 'อาหารแมว', brand: 'Royal Canin', supplier: 'บริษัท เพ็ทโปร จำกัด', lastOrder: '20 ม.ค. 2569 (25 กระสอบ)', stock: 5, expiryDays: 180, avgSale1M: '45 กระสอบ', avgSale1Y: '520 กระสอบ' },
-            { id: 4, name: 'ขนมแมวเลีย รสไก่และหอยเชลล์', category: 'สุนัขแมวเลีย', brand: 'Ciao Churu', supplier: 'บริษัท เพ็ทโปร จำกัด', lastOrder: '15 ก.พ. 2569 (100 แพ็ค)', stock: 3, expiryDays: 85, avgSale1M: '180 แพ็ค', avgSale1Y: '2,100 แพ็ค' }
+            { id: 1, code: 'P-001', name: 'ทรายแมวเต้าหู้ธรรมชาติ 6 ลิตร', category: 'ทรายแมว', brand: 'Kit Cat', supplier: 'บริษัท สมาร์ทเพ็ท ซัพพลาย', lastOrder: '11 พ.ย. 2569 (50 ถุง)', stock: 14, expiryDays: 75, avgSale1M: '120 ถุง', cost: 150, price: 220 },
+            { id: 2, code: 'P-002', name: 'ทรายแมวเบนโทไนท์ พรีเมียม 10กก.', category: 'ทรายแมว', brand: 'Pet Safari', supplier: 'บริษัท สมาร์ทเพ็ท ซัพพลาย', lastOrder: '01 พ.ย. 2569 (30 กระสอบ)', stock: 8, expiryDays: 45, avgSale1M: '85 กระสอบ', cost: 180, price: 280 },
+            { id: 3, code: 'P-003', name: 'อาหารเม็ดแมวโต รสปลาทูน่า 10kg', category: 'อาหารแมว', brand: 'Royal Canin', supplier: 'บริษัท เพ็ทโปร จำกัด', lastOrder: '20 ต.ค. 2569 (25 กระสอบ)', stock: 5, expiryDays: 180, avgSale1M: '45 กระสอบ', cost: 950, price: 1350 },
+            { id: 4, code: 'P-004', name: 'ขนมแมวเลีย รสไก่และหอยเชลล์', category: 'สุนัขแมวเลีย', brand: 'Ciao Churu', supplier: 'บริษัท เพ็ทโปร จำกัด', lastOrder: '11 พ.ย. 2569 (100 แพ็ค)', stock: 3, expiryDays: 85, avgSale1M: '180 แพ็ค', cost: 45, price: 75 }
         ];
 
         let currentCategory = 'all';
         let cart = [];
         let selectedProductForOrder = null;
-        let isReorderMode = false;
+        let isExpiry90Mode = false;
 
         function handleLogin(e) {
             e.preventDefault();
@@ -538,6 +759,11 @@
         function initDashboard() {
             renderCategoryTabs();
             renderProductsTable();
+            // Set default date to 2026-11-11
+            const dateInput = document.getElementById('historyDateFilter');
+            if(dateInput) dateInput.value = '2026-11-11';
+            const dateText = document.getElementById('currentHistoryDateText');
+            if(dateText) dateText.innerText = '11 พ.ย. 2569';
         }
 
         function renderCategoryTabs() {
@@ -567,12 +793,12 @@
                 const matchCat = currentCategory === 'all' || p.category === currentCategory;
                 const matchBrand = brandVal === 'all' || p.brand === brandVal;
                 const matchSupplier = supplierVal === 'all' || p.supplier === supplierVal;
-                const matchSearch = p.name.toLowerCase().includes(searchVal);
+                const matchSearch = p.name.toLowerCase().includes(searchVal) || p.code.toLowerCase().includes(searchVal);
                 return matchCat && matchBrand && matchSupplier && matchSearch;
             });
 
-            if (isReorderMode) {
-                filtered = filtered.filter(p => p.stock <= 8 || parseInt(p.avgSale1M) >= 60);
+            if (isExpiry90Mode) {
+                filtered = filtered.filter(p => p.expiryDays <= 90);
             }
 
             if (sortVal === 'stock-asc') filtered.sort((a, b) => a.stock - b.stock);
@@ -591,7 +817,7 @@
                 <tr class="hover:bg-slate-50 transition">
                     <td class="py-4 px-6">
                         <span class="px-2.5 py-0.5 bg-red-50 text-red-700 text-xs font-bold rounded-full">${p.category}</span>
-                        <div class="font-bold text-slate-900 text-base mt-1">${p.name}</div>
+                        <div class="font-bold text-slate-900 text-base mt-1">[${p.code}] ${p.name}</div>
                         <div class="text-xs text-slate-500 mt-0.5">ยี่ห้อ: ${p.brand} | Supplier: ${p.supplier}</div>
                     </td>
                     <td class="py-4 px-6 text-center text-sm text-slate-600">${p.lastOrder}</td>
@@ -607,8 +833,16 @@
             `).join('');
         }
 
-        function toggleReorderSuggestions() {
-            isReorderMode = !isReorderMode;
+        function filterExpiry90Days() {
+            isExpiry90Mode = !isExpiry90Mode;
+            const btn = document.getElementById('expiry90Btn');
+            if (isExpiry90Mode) {
+                btn.classList.add('bg-amber-600', 'text-white');
+                btn.classList.remove('bg-amber-50', 'text-amber-800');
+            } else {
+                btn.classList.remove('bg-amber-600', 'text-white');
+                btn.classList.add('bg-amber-50', 'text-amber-800');
+            }
             renderProductsTable();
         }
 
@@ -616,13 +850,58 @@
             renderProductsTable();
         }
 
+        function openAddProductModal() {
+            document.getElementById('newProdCode').value = '';
+            document.getElementById('newProdName').value = '';
+            document.getElementById('newProdCost').value = '';
+            document.getElementById('newProdPrice').value = '';
+            document.getElementById('addProductModal').classList.remove('hidden');
+        }
+
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').classList.add('hidden');
+        }
+
+        function handleAddNewProduct(e) {
+            e.preventDefault();
+            const customCode = document.getElementById('newProdCode').value.trim();
+            const code = customCode !== '' ? customCode : `P-00${products.length + 1}`;
+            const name = document.getElementById('newProdName').value.trim();
+            const cost = parseFloat(document.getElementById('newProdCost').value) || 0;
+            const price = parseFloat(document.getElementById('newProdPrice').value) || 0;
+            const category = document.getElementById('newProdCategory').value;
+            const brand = document.getElementById('newProdBrand').value;
+            const supplier = document.getElementById('newProdSupplier').value;
+
+            const newProduct = {
+                id: products.length + 1,
+                code,
+                name,
+                category,
+                brand,
+                supplier,
+                lastOrder: '11 พ.ย. 2569 (สินค้าใหม่)',
+                stock: 10,
+                expiryDays: 365,
+                avgSale1M: '50 หน่วย',
+                cost,
+                price
+            };
+
+            products.unshift(newProduct);
+            closeAddProductModal();
+            renderProductsTable();
+            alert('เพิ่มรายการสินค้าใหม่สำเร็จและซิงค์เข้าตารางรายการสั่งซื้อเรียบร้อยแล้ว (วันที่ปัจจุบัน: 11 พ.ย. 2569)');
+        }
+
         function openOrderModal(productId) {
             selectedProductForOrder = products.find(p => p.id === productId);
             if (!selectedProductForOrder) return;
             document.getElementById('modalProductCategory').innerText = selectedProductForOrder.category;
-            document.getElementById('modalProductName').innerText = selectedProductForOrder.name;
+            document.getElementById('modalProductName').innerText = `[${selectedProductForOrder.code}] ${selectedProductForOrder.name}`;
             document.getElementById('modalProductBrandSupplier').innerText = `ยี่ห้อ: ${selectedProductForOrder.brand} | Supplier: ${selectedProductForOrder.supplier}`;
             document.getElementById('modalProductStock').innerText = `สต็อกปัจจุบัน: ${selectedProductForOrder.stock} หน่วย`;
+            document.getElementById('orderPrice').value = selectedProductForOrder.cost > 0 ? selectedProductForOrder.cost : 450;
             document.getElementById('orderModal').classList.remove('hidden');
         }
 
@@ -633,13 +912,93 @@
         function addToCart() {
             const qty = parseInt(document.getElementById('orderQuantity').value) || 1;
             const unit = document.getElementById('orderUnit').value;
-            cart.push({ ...selectedProductForOrder, quantity: qty, unit });
+            const price = parseFloat(document.getElementById('orderPrice').value) || 0;
+            cart.push({ ...selectedProductForOrder, quantity: qty, unit, orderPrice: price });
             document.getElementById('cartBadge').innerText = cart.length;
             closeOrderModal();
+            alert('เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว');
         }
 
         function openCartModal() {
-            alert('เปิดหน้าตรวจสอบตะกร้าสินค้า');
+            const tbody = document.getElementById('cartTableBody');
+            if (cart.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">ยังไม่มีสินค้าในตะกร้า</td></tr>`;
+                document.getElementById('cartTotalPrice').innerText = '0.00';
+            } else {
+                let total = 0;
+                tbody.innerHTML = cart.map((item, idx) => {
+                    const lineTotal = (item.orderPrice || 450) * item.quantity;
+                    total += lineTotal;
+                    return `
+                        <tr>
+                            <td class="p-3">
+                                <div class="font-bold text-slate-900">[${item.code}] ${item.name}</div>
+                            </td>
+                            <td class="p-3 text-xs text-slate-500">${item.supplier}</td>
+                            <td class="p-3 text-center font-bold text-slate-700">${item.quantity} ${item.unit}</td>
+                            <td class="p-3 text-right font-bold text-red-600">${lineTotal.toLocaleString()}</td>
+                            <td class="p-3 text-center">
+                                <button onclick="removeFromCart(${idx})" class="text-red-500 hover:text-red-700 px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+                document.getElementById('cartTotalPrice').innerText = total.toLocaleString();
+            }
+            document.getElementById('cartModal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').classList.add('hidden');
+        }
+
+        function removeFromCart(idx) {
+            cart.splice(idx, 1);
+            document.getElementById('cartBadge').innerText = cart.length;
+            openCartModal();
+        }
+
+        function submitOrderToSupplier() {
+            if (cart.length === 0) {
+                alert('กรุณาเลือกสินค้าใส่ตะกร้าก่อนส่งคำสั่งซื้อ');
+                return;
+            }
+            closeCartModal();
+            
+            const invoiceTbody = document.getElementById('invoiceTableBody');
+            let total = 0;
+            invoiceTbody.innerHTML = cart.map(item => {
+                const lineTotal = (item.orderPrice || 450) * item.quantity;
+                total += lineTotal;
+                return `
+                    <tr>
+                        <td class="p-3"><strong>[${item.code}]</strong> ${item.name}</td>
+                        <td class="p-3">${item.supplier}</td>
+                        <td class="p-3 text-center">${item.quantity} ${item.unit}</td>
+                        <td class="p-3 text-right font-bold">${lineTotal.toLocaleString()} บาท</td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('invoiceTxId').innerText = `TX-202611110${Math.floor(10 + Math.random()*90)}`;
+            document.getElementById('invoiceDateText').innerText = 'วันที่: 11 พ.ย. 2569';
+            document.getElementById('invoiceModal').classList.remove('hidden');
+            cart = [];
+            document.getElementById('cartBadge').innerText = '0';
+        }
+
+        function closeInvoiceModal() {
+            document.getElementById('invoiceModal').classList.add('hidden');
+        }
+
+        function filterHistoryByDate() {
+            const val = document.getElementById('historyDateFilter').value;
+            document.getElementById('currentHistoryDateText').innerText = val ? val : '11 พ.ย. 2569';
+        }
+
+        function resetHistoryDate() {
+            document.getElementById('historyDateFilter').value = '2026-11-11';
+            document.getElementById('currentHistoryDateText').innerText = '11 พ.ย. 2569';
         }
     </script>
 </body>
