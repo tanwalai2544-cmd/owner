@@ -63,7 +63,6 @@
                 <p class="text-slate-500 mt-1 text-sm font-medium">Memi Pet Station Management Suite</p>
             </div>
 
-            <!-- Error Notification Alert Box -->
             <div id="loginError" class="hidden mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-r-xl text-sm flex items-start gap-3 shadow-sm">
                 <i class="fa-solid fa-triangle-exclamation text-lg mt-0.5"></i>
                 <div>
@@ -278,7 +277,7 @@
                 </div>
             </div>
 
-            <!-- MODULE B: ORDERING SYSTEM -->
+            <!-- MODULE B: ORDERING SYSTEM (ปรับปรุง UI ตามสั่ง) -->
             <div id="moduleOrdering" class="space-y-6 hidden">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
@@ -290,35 +289,40 @@
                     </button>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div class="flex items-center gap-3 w-full md:w-80">
-                            <div class="relative w-full">
-                                <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
-                                    <i class="fa-solid fa-search"></i>
-                                </span>
-                                <input type="text" id="searchInput" oninput="filterProducts()" 
-                                    class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 text-base"
-                                    placeholder="ค้นหาชื่อสินค้า...">
-                            </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+                    
+                    <!-- 1. AI สรุปโปรโมชันจาก Line OA (วางไว้ด้านบนสุด ยาวเต็มจอ สวยเด่นชัด) -->
+                    <div class="w-full bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 px-5 py-3.5 rounded-2xl flex items-center gap-3.5 text-red-800 shadow-2xs">
+                        <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center text-lg shrink-0 shadow-sm">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <div class="flex-1 truncate">
+                            <span class="font-bold font-heading text-slate-900">AI สรุปโปรโมชันจาก Line OA:</span> 
+                            <span class="text-slate-700 ml-1">ซื้อทรายแมวครบ 50 กระสอบแถมฟรี 3 กระสอบ! / อาหารเปียกแมวทูน่าเข้าใหม่พร้อมส่งทันที</span>
+                        </div>
+                        <span class="hidden sm:inline-block px-3 py-1 bg-red-200 text-red-800 font-bold text-xs rounded-full shrink-0">อัปเดตเรียลไทม์</span>
+                    </div>
+
+                    <!-- 2. แถวค้นหา (ช่องค้นหายาวเต็มที่) + ปุ่มจัดการ สมมาตรอยู่บรรทัดเดียวกัน -->
+                    <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+                        <!-- ช่องค้นหาชื่อสินค้า (ขยายยาวขึ้นเต็มพื้นที่) -->
+                        <div class="relative w-full lg:flex-1">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+                                <i class="fa-solid fa-search"></i>
+                            </span>
+                            <input type="text" id="searchInput" oninput="filterProducts()" 
+                                class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 text-base transition"
+                                placeholder="ค้นหาชื่อสินค้า รหัสสินค้า หรือยี่ห้อในคลัง...">
                         </div>
 
-                        <!-- ข้อ 2: ช่องแจ้งโปรโมชัน AI ด้านขวาช่องค้นหาชื่อสินค้า -->
-                        <div class="w-full md:flex-1 bg-red-50 border border-red-100 px-4 py-3 rounded-xl flex items-center gap-3 text-red-800 text-sm shadow-2xs">
-                            <i class="fa-solid fa-bullhorn text-red-600 text-lg shrink-0"></i>
-                            <div class="truncate">
-                                <span class="font-bold font-heading">AI สรุปโปรโมชันจาก Line OA:</span> ซื้อทรายแมวครบ 50 กระสอบแถมฟรี 3 กระสอบ! / อาหารเปียกแมวทูน่าเข้าใหม่พร้อมส่ง
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-3 w-full md:w-auto justify-end flex-wrap">
+                        <!-- กลุ่มปุ่มจัดการด้านขวา -->
+                        <div class="flex items-center gap-3 w-full lg:w-auto justify-end flex-wrap shrink-0">
                             <button onclick="openAddProductModal()" class="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition flex items-center gap-2 shadow-sm font-heading">
-                                <i class="fa-solid fa-plus-circle"></i> เพิ่มรายการสินค้าใหม่
+                                <i class="fa-solid fa-plus-circle"></i> เพิ่มสินค้าใหม่
                             </button>
                             <div class="flex items-center gap-2">
-                                <span class="text-slate-500 text-sm font-medium">เรียงตาม:</span>
                                 <select id="sortSelect" onchange="filterProducts()" class="bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
-                                    <option value="default">ค่าเริ่มต้น</option>
+                                    <option value="default">เรียงตาม: ค่าเริ่มต้น</option>
                                     <option value="stock-asc">จำนวนสต็อก (น้อย -> มาก)</option>
                                     <option value="sale-desc">ยอดขายเฉลี่ยต่อเดือน (มาก -> น้อย)</option>
                                 </select>
@@ -326,10 +330,11 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
+                    <!-- 3. แถวตัวกรองยี่ห้อ / บริษัท / และปุ่มใกล้หมดอายุ จัดเรียงสมมาตร 3 คอลัมน์ -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 border-t border-slate-100">
                         <div>
-                            <label class="block text-slate-600 text-sm font-semibold mb-1.5">กรองตามยี่ห้อสินค้า (Brand)</label>
-                            <select id="brandFilter" onchange="filterProducts()" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-base">
+                            <label class="block text-slate-600 text-xs font-bold mb-1.5 font-heading uppercase tracking-wider">กรองตามยี่ห้อสินค้า (Brand)</label>
+                            <select id="brandFilter" onchange="filterProducts()" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
                                 <option value="all">ทุกยี่ห้อ (All Brands)</option>
                                 <option value="Kit Cat">Kit Cat</option>
                                 <option value="Pet Safari">Pet Safari</option>
@@ -342,8 +347,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-slate-600 text-sm font-semibold mb-1.5">กรองตามบริษัท Supplier</label>
-                            <select id="supplierFilter" onchange="filterProducts()" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-base">
+                            <label class="block text-slate-600 text-xs font-bold mb-1.5 font-heading uppercase tracking-wider">กรองตามบริษัท Supplier</label>
+                            <select id="supplierFilter" onchange="filterProducts()" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
                                 <option value="all">ทุกบริษัท Supplier</option>
                                 <option value="บริษัท เพ็ทโปร จำกัด">บริษัท เพ็ทโปร จำกัด</option>
                                 <option value="บริษัท สมาร์ทเพ็ท ซัพพลาย">บริษัท สมาร์ทเพ็ท ซัพพลาย</option>
@@ -352,13 +357,14 @@
                             </select>
                         </div>
 
-                        <div class="flex items-end">
-                            <button onclick="filterExpiry90Days()" id="expiry90Btn" class="w-full px-4 py-3 bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold rounded-xl border border-amber-200 transition flex items-center justify-center gap-2 font-heading">
+                        <div class="flex flex-col justify-end">
+                            <button onclick="filterExpiry90Days()" id="expiry90Btn" class="w-full px-4 py-3 bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold rounded-xl border border-amber-200 transition flex items-center justify-center gap-2 font-heading text-sm">
                                 <i class="fa-solid fa-triangle-exclamation"></i> สินค้าใกล้หมดอายุ 90 วัน
                             </button>
                         </div>
                     </div>
 
+                    <!-- หมวดหมู่แท็บสินค้า -->
                     <div id="categoryTabs" class="flex items-center gap-2 overflow-x-auto pt-2 no-scrollbar"></div>
                 </div>
 
