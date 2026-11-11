@@ -108,7 +108,7 @@
         </div>
     </div>
 
-    <!-- ================= 2. LOG-001 POP-UP NOTIFICATION (อัปเดตตามสั่ง) ================= -->
+    <!-- ================= 2. LOG-001 POP-UP NOTIFICATION ================= -->
     <div id="logPopupModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100 transform transition-all">
             <div class="bg-gradient-to-r from-red-600 to-rose-700 px-6 py-4 text-white flex items-center justify-between">
@@ -129,7 +129,6 @@
             <div class="p-6 space-y-4 max-h-[65vh] overflow-y-auto text-slate-700">
                 <p class="text-xs text-slate-400 italic">💡 คลิกที่การ์ดแต่ละรายการด้านล่างเพื่อเปิดแชท Line OA ของ Supplier เจ้านั้นได้ทันทีครับ</p>
 
-                <!-- 1. สรุปโปรโมชั่นล่าสุด -->
                 <div onclick="openSupplierLineChat('เพ็ท โพรเทคท์ ฟู้ด')" class="p-4 bg-red-50 hover:bg-red-100 rounded-2xl border border-red-200 cursor-pointer transition shadow-2xs group">
                     <div class="flex items-center justify-between mb-1">
                         <div class="flex items-center gap-2 text-red-700 font-bold font-heading text-sm">
@@ -140,7 +139,6 @@
                     <p class="text-slate-700 text-sm">ซื้อ Kaniva / Kandy ครบ 50 ถุง/ซอง แถมฟรี 3 ถุง/ซอง ทันที (เฉพาะล็อตเดือน พ.ย. นี้)</p>
                 </div>
 
-                <!-- 2. สรุปประวัติแชทการคุยล่าสุด -->
                 <div onclick="openSupplierLineChat('เพอร์เฟค คอมพาเนียน กรุ๊ป')" class="p-4 bg-slate-50 hover:bg-slate-100 rounded-2xl border border-slate-200 cursor-pointer transition shadow-2xs group">
                     <div class="flex items-center justify-between mb-1">
                         <div class="flex items-center gap-2 text-slate-800 font-bold font-heading text-sm">
@@ -152,7 +150,6 @@
                     <span class="text-xs text-slate-400 mt-2 block">อัปเดตเมื่อ: 25 นาทีที่ผ่านมา | เพอร์เฟค คอมพาเนียน กรุ๊ป</span>
                 </div>
 
-                <!-- 3. Update การเข้าพบล่าสุด -->
                 <div onclick="openSupplierLineChat('ท็อป ฟีด มิลล์ จำกัด')" class="p-4 bg-emerald-50 hover:bg-emerald-100 rounded-2xl border border-emerald-200 cursor-pointer transition shadow-2xs group">
                     <div class="flex items-center justify-between mb-1">
                         <div class="flex items-center gap-2 text-emerald-800 font-bold font-heading text-sm">
@@ -164,7 +161,6 @@
                     <span class="text-xs text-emerald-600 mt-1 block">เมื่อวานนี้ 14:30 น. | ท็อป ฟีด มิลล์ จำกัด</span>
                 </div>
 
-                <!-- 4. Update CN ล่าสุด -->
                 <div onclick="openSupplierLineChat('โรยัล คานิน (ประเทศไทย) จำกัด')" class="p-4 bg-amber-50 hover:bg-amber-100 rounded-2xl border border-amber-200 cursor-pointer transition shadow-2xs group">
                     <div class="flex items-center justify-between mb-1">
                         <div class="flex items-center gap-2 text-amber-800 font-bold font-heading text-sm">
@@ -189,7 +185,7 @@
 
     <!-- ================= 3. MAIN DASHBOARD APPLICATION ================= -->
     <div id="mainDashboard" class="min-h-full flex flex-col flex-1 hidden">
-        <!-- Top Navigation Bar -->
+        <!-- Top Navigation Bar (เพิ่มปุ่ม "ระบบสั่งนับ" ที่ลิงก์ไปเว็บ pet2 ที่นี่แล้วครับ) -->
         <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                 <div class="flex items-center gap-3 cursor-pointer" onclick="switchModule('hub')">
@@ -206,6 +202,12 @@
                 <div class="flex items-center gap-3">
                     <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm font-heading flex items-center gap-2 transition">
                         <i class="fa-solid fa-house"></i> <span class="hidden sm:inline">หน้าแรก (Hub)</span>
+                    </button>
+
+                    <!-- ปุ่มระบบสั่งนับ (ลิงก์ตรงไปยังเว็บ pet2 ทันทีตามที่สั่ง) -->
+                    <button onclick="window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank')" class="px-4 py-2.5 bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold rounded-xl border border-purple-200 flex items-center gap-2 transition font-heading">
+                        <i class="fa-solid fa-clipboard-list text-lg"></i>
+                        <span class="hidden sm:inline">ระบบสั่งนับ</span>
                     </button>
 
                     <button onclick="openCartModal()" class="relative px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-xl border border-red-200 flex items-center gap-2 transition font-heading">
@@ -234,7 +236,7 @@
         <!-- Main Body Content Container -->
         <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-            <!-- MODULE A: GRID HUB MENU (เพิ่มปุ่ม "ระบบสั่งนับ" ตามสั่ง) -->
+            <!-- MODULE A: GRID HUB MENU (เหลือ 4 ช่องหลักสะอาดตาตามเดิม) -->
             <div id="moduleHub" class="space-y-8">
                 <div class="bg-gradient-to-r from-red-600 to-rose-800 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
                     <div class="relative z-10 max-w-2xl">
@@ -244,7 +246,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div onclick="switchModule('ordering')" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:border-red-500 hover:shadow-xl transition cursor-pointer group flex flex-col justify-between">
                         <div>
                             <div class="w-16 h-16 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl font-bold mb-4 group-hover:bg-red-600 group-hover:text-white transition shadow-sm">
@@ -300,21 +302,6 @@
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
                         </div>
                     </div>
-
-                    <!-- เพิ่มปุ่ม ระบบสั่งนับ ตามสั่ง -->
-                    <div onclick="window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank')" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 hover:border-purple-500 hover:shadow-xl transition cursor-pointer group flex flex-col justify-between">
-                        <div>
-                            <div class="w-16 h-16 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-2xl font-bold mb-4 group-hover:bg-purple-600 group-hover:text-white transition shadow-sm">
-                                <i class="fa-solid fa-clipboard-list"></i>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900 font-heading group-hover:text-purple-600 transition">5. ระบบสั่งนับ</h3>
-                            <p class="text-slate-500 text-sm mt-2">ระบบตรวจนับสต็อกสินค้าและจัดการรายการพิเศษภายนอก (Pet2)</p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-purple-600 font-bold text-sm font-heading">
-                            <span>เปิดระบบสั่งนับ</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square group-hover:translate-x-1 transition"></i>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -332,7 +319,6 @@
 
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
                     
-                    <!-- 1. AI สรุปโปรโมชันจาก Line OA -->
                     <div class="w-full bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 px-5 py-3.5 rounded-2xl flex items-center gap-3.5 text-red-800 shadow-2xs">
                         <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center text-lg shrink-0 shadow-sm">
                             <i class="fa-solid fa-bullhorn"></i>
@@ -344,7 +330,6 @@
                         <span class="hidden sm:inline-block px-3 py-1 bg-red-200 text-red-800 font-bold text-xs rounded-full shrink-0">อัปเดตเรียลไทม์</span>
                     </div>
 
-                    <!-- 2. แถวค้นหา + ปุ่มเพิ่มสินค้า -->
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
                         <div class="relative w-full lg:flex-1">
                             <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
@@ -368,7 +353,6 @@
                         </div>
                     </div>
 
-                    <!-- 3. แถวตัวกรองยี่ห้อ / บริษัท / และปุ่มใกล้หมดอายุ -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 border-t border-slate-100">
                         <div>
                             <label class="block text-slate-600 text-xs font-bold mb-1.5 font-heading uppercase tracking-wider">กรองตามยี่ห้อสินค้า (Brand)</label>
@@ -427,7 +411,6 @@
                         </div>
                     </div>
 
-                    <!-- หมวดหมู่แท็บสินค้า -->
                     <div id="categoryTabs" class="flex items-center gap-2 overflow-x-auto pt-2 no-scrollbar"></div>
                 </div>
 
@@ -511,7 +494,6 @@
     </div>
 
     <!-- MODALS -->
-    <!-- Add New Product Modal -->
     <div id="addProductModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between">
@@ -571,7 +553,6 @@
         </div>
     </div>
 
-    <!-- Order Single Item Modal -->
     <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between">
@@ -610,7 +591,6 @@
         </div>
     </div>
 
-    <!-- CART & PURCHASE ORDER MODAL -->
     <div id="cartModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full overflow-hidden border border-slate-100 max-h-[90vh] flex flex-col">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between shrink-0">
@@ -621,7 +601,6 @@
                 <button onclick="closeCartModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="p-6 space-y-6 overflow-y-auto flex-1">
-                <!-- ประวัติการสั่งซื้อย้อนหลัง -->
                 <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div class="flex items-center gap-2 text-slate-800 font-bold font-heading text-sm">
                         <i class="fa-solid fa-clock-rotate-left text-red-600"></i> ประวัติการสั่งซื้อย้อนหลัง:
@@ -635,7 +614,6 @@
                     กำลังแสดงประวัติการสั่งซื้อประจำวันที่: <span id="currentHistoryDateText" class="font-bold text-slate-700">11 พ.ย. 2569</span>
                 </div>
 
-                <!-- ตะกร้าสินค้าปัจจุบัน -->
                 <div>
                     <h4 class="font-bold text-slate-900 font-heading mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-basket-shopping text-red-600"></i> รายการสินค้าในตะกร้าปัจจุบัน
@@ -670,7 +648,6 @@
         </div>
     </div>
 
-    <!-- PURCHASE ORDER INVOICE POPUP MODAL -->
     <div id="invoiceModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-100 max-h-[95vh] flex flex-col">
             <div class="bg-gradient-to-r from-red-600 to-rose-700 px-6 py-4 text-white flex items-center justify-between shrink-0">
@@ -807,7 +784,6 @@
         }
 
         function openSupplierLineChat(supplierName) {
-            // จำลองการเปิดหน้าแชท Line OA เฉพาะ Supplier รายนั้นๆ
             window.open(`https://line.me/ti/p/~${encodeURIComponent(supplierName)}`, '_blank');
         }
 
