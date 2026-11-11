@@ -614,6 +614,22 @@
                 </div>
                 <button onclick="closeOrderHistoryModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
             </div>
+            <!-- ส่วนเพิ่ม Filter วันที่ (Default วันปัจจุบัน) และช่องค้นหา -->
+            <div class="p-4 bg-slate-50 border-b border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3 shrink-0">
+                <div>
+                    <label class="block text-slate-700 text-xs font-bold mb-1 font-heading">กรองตามวันที่ (Date Filter)</label>
+                    <input type="date" id="historyFilterDate" onchange="renderOrderHistory()" class="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-slate-700 text-xs font-bold mb-1 font-heading">ค้นหา (เลขธุรกรรม / รายการ / Supplier)</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                            <i class="fa-solid fa-search"></i>
+                        </span>
+                        <input type="text" id="historySearchInput" oninput="renderOrderHistory()" placeholder="ค้นหา..." class="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                </div>
+            </div>
             <div class="p-6 space-y-4 overflow-y-auto flex-1 bg-slate-50">
                 <div id="orderHistoryContainer" class="space-y-4">
                     <!-- รายการประวัติออเดอร์จะถูกเรนเดอร์ตรงนี้ -->
@@ -800,7 +816,7 @@
                 initDashboard();
                 setTimeout(() => document.getElementById('logPopupModal').classList.remove('hidden'), 400);
             } else {
-                document.getElementById('loginError').classList.remove('hidden');
+                document.getElementById('loginError').classList.add('hidden');
             }
         }
 
@@ -1096,10 +1112,23 @@
             orderTransactionCount++;
             const txId = `202611${String(orderTransactionCount).padStart(3, '0')}`;
             
+            // ดึงวันที่ปัจจุบันตามคอมพิวเตอร์ (รูปแบบ YYYY-MM-DD สำหรับเทียบค่าฟิลเตอร์ และรูปแบบไทยสวยงาม)
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const dateStrISO = `${year}-${month}-${day}`;
+            
+            const thaiMonths = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const dateStrFormatted = `${now.getDate()} ${thaiMonths[now.getMonth()]} ${now.getFullYear() + 543} ${hours}:${minutes}`;
+
             // บันทึกลงประวัติการสั่ง
             const newOrder = {
                 txId,
-                date: '11 พ.ย. 2569 15:21',
+                date: dateStrFormatted,
+                rawDate: dateStrISO,
                 items: [...cart],
                 status: 'ส่งออเดอร์แล้ว (รอ Supplier ยืนยัน)'
             };
@@ -1107,7 +1136,7 @@
             document.getElementById('orderHistoryBadge').innerText = orderHistory.length;
 
             document.getElementById('invoiceTxId').innerText = txId;
-            document.getElementById('invoiceDateText').innerText = 'วันที่: 11 พ.ย. 2569';
+            document.getElementById('invoiceDateText').innerText = `วันที่: ${dateStrFormatted}`;
 
             const invTbody = document.getElementById('invoiceTableBody');
             invTbody.innerHTML = cart.map(item => `
@@ -1131,6 +1160,16 @@
         }
 
         function openOrderHistoryModal() {
+            // เซ็ตค่า Date Filter ใน Pop-up ประวัติให้เป็นวันที่ปัจจุบันตามคอมพิวเตอร์โดยอัตโนมัติ
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const todayISO = `${year}-${month}-${day}`;
+            
+            document.getElementById('historyFilterDate').value = todayISO;
+            document.getElementById('historySearchInput').value = '';
+
             renderOrderHistory();
             document.getElementById('orderHistoryModal').classList.remove('hidden');
         }
@@ -1141,13 +1180,28 @@
 
         function renderOrderHistory() {
             const container = document.getElementById('orderHistoryContainer');
-            if (orderHistory.length === 0) {
-                container.innerHTML = `<div class="p-8 text-center text-slate-400 bg-white rounded-2xl border border-slate-200">ยังไม่มีประวัติการสั่งซื้อสินค้า</div>`;
+            const filterDate = document.getElementById('historyFilterDate').value;
+            const searchKeyword = document.getElementById('historySearchInput').value.toLowerCase().trim();
+
+            // กรองตามวันที่และคำค้นหา (เลขธุรกรรม, รายการสินค้า, Supplier)
+            let filteredHistory = orderHistory.filter(order => {
+                const matchDate = !filterDate || order.rawDate === filterDate;
+                
+                const matchSearch = !searchKeyword || 
+                    order.txId.toLowerCase().includes(searchKeyword) ||
+                    order.items.some(i => i.name.toLowerCase().includes(searchKeyword) || i.code.toLowerCase().includes(searchKeyword) || i.Supplier.toLowerCase().includes(searchKeyword));
+
+                return matchDate && matchSearch;
+            });
+
+            if (filteredHistory.length === 0) {
+                container.innerHTML = `<div class="p-8 text-center text-slate-400 bg-white rounded-2xl border border-slate-200">ไม่พบประวัติการสั่งซื้อตามเงื่อนไขที่เลือก</div>`;
                 return;
             }
 
-            container.innerHTML = orderHistory.map((order, idx) => {
+            container.innerHTML = filteredHistory.map((order, idx) => {
                 const total = order.items.reduce((sum, i) => sum + (i.quantity * i.unitPrice), 0);
+                const originalIndex = orderHistory.indexOf(order); // อ้างอิง index จริงในอาเรย์หลัก
                 return `
                     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
                         <div class="flex justify-between items-center border-b border-slate-100 pb-2">
@@ -1158,15 +1212,15 @@
                             <span class="text-xs font-bold px-2.5 py-1 rounded-full ${order.status.includes('ยกเลิก') ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}">${order.status}</span>
                         </div>
                         <div class="space-y-1 text-xs text-slate-700">
-                            ${order.items.map(i => `<div>• [${i.code}] ${i.name} จำนวน: ${i.quantity} ${i.unit} (${(i.quantity * i.unitPrice).toLocaleString()} บาท)</div>`).join('')}
+                            ${order.items.map(i => `<div>• [${i.code}] ${i.name} (Supplier: ${i.Supplier}) - จำนวน: ${i.quantity} ${i.unit} (${(i.quantity * i.unitPrice).toLocaleString()} บาท)</div>`).join('')}
                         </div>
                         <div class="flex justify-between items-center pt-2 border-t border-slate-100">
                             <span class="text-sm font-bold text-slate-900">ยอดรวม: <span class="text-red-600">${total.toLocaleString()}</span> บาท</span>
                             <div class="flex gap-2">
-                                <button onclick="cancelOrder(${idx})" class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs rounded-xl transition border border-red-200">
+                                <button onclick="cancelOrder(${originalIndex})" class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs rounded-xl transition border border-red-200">
                                     <i class="fa-solid fa-ban"></i> ยกเลิกการสั่ง
                                 </button>
-                                <button onclick="editAndResendOrder(${idx})" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition shadow-2xs">
+                                <button onclick="editAndResendOrder(${originalIndex})" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition shadow-2xs">
                                     <i class="fa-brands fa-line"></i> กลับไปแก้ไข & ส่งใหม่
                                 </button>
                             </div>
