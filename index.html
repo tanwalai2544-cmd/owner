@@ -312,9 +312,15 @@
                         <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">ระบบสั่งของ</span>
                         <h2 class="text-2xl font-bold text-slate-900 font-heading mt-1">คลังสินค้าและรายการสั่งซื้อ</h2>
                     </div>
-                    <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm font-heading transition">
-                        <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก Hub
-                    </button>
+                    <div class="flex items-center gap-3">
+                        <button onclick="openOrderHistoryModal()" class="relative px-4 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold rounded-xl border border-blue-200 flex items-center gap-2 transition font-heading text-sm">
+                            <i class="fa-solid fa-clock-rotate-left"></i> ประวัติการสั่ง
+                            <span id="orderHistoryBadge" class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                        </button>
+                        <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm font-heading transition">
+                            <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก Hub
+                        </button>
+                    </div>
                 </div>
 
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
@@ -513,7 +519,6 @@
                     </div>
                 </div>
 
-                <!-- ปรับปรุงช่องราคาทุนและเพิ่มช่องราคาขายแยกเป็นสัดส่วนชัดเจน สวยงาม -->
                 <div class="grid grid-cols-2 gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                     <div>
                         <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading"><i class="fa-solid fa-tags text-red-600"></i> ราคาทุน (Price ทุน)</label>
@@ -595,6 +600,27 @@
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex gap-3">
                 <button onclick="closeOrderModal()" class="flex-1 py-3 bg-white font-bold rounded-xl border border-slate-200 hover:bg-slate-100 transition">ยกเลิก</button>
                 <button onclick="addToCart()" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md transition font-heading">เพิ่มลงตะกร้า</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ประวัติการสั่งซื้อ (Order History & Management) -->
+    <div id="orderHistoryModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-100 max-h-[90vh] flex flex-col">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-4 text-white flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                    <h3 class="font-bold text-lg font-heading">ประวัติการสั่งซื้อและจัดการออเดอร์</h3>
+                </div>
+                <button onclick="closeOrderHistoryModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-4 overflow-y-auto flex-1 bg-slate-50">
+                <div id="orderHistoryContainer" class="space-y-4">
+                    <!-- รายการประวัติออเดอร์จะถูกเรนเดอร์ตรงนี้ -->
+                </div>
+            </div>
+            <div class="p-4 bg-white border-t border-slate-100 flex justify-end gap-3 shrink-0">
+                <button onclick="closeOrderHistoryModal()" class="px-6 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-sm font-heading transition">ปิดหน้าต่าง</button>
             </div>
         </div>
     </div>
@@ -758,6 +784,7 @@
 
         let currentCategory = 'all';
         let cart = [];
+        let orderHistory = []; // เก็บประวัติออเดอร์ที่สั่งแล้ว
         let selectedProductForOrder = null;
         let isExpiry90Mode = false;
         let orderTransactionCount = 0;
@@ -1068,6 +1095,16 @@
 
             orderTransactionCount++;
             const txId = `202611${String(orderTransactionCount).padStart(3, '0')}`;
+            
+            // บันทึกลงประวัติการสั่ง
+            const newOrder = {
+                txId,
+                date: '11 พ.ย. 2569 15:21',
+                items: [...cart],
+                status: 'ส่งออเดอร์แล้ว (รอ Supplier ยืนยัน)'
+            };
+            orderHistory.unshift(newOrder);
+            document.getElementById('orderHistoryBadge').innerText = orderHistory.length;
 
             document.getElementById('invoiceTxId').innerText = txId;
             document.getElementById('invoiceDateText').innerText = 'วันที่: 11 พ.ย. 2569';
@@ -1091,6 +1128,74 @@
 
             cart = [];
             document.getElementById('cartBadge').innerText = '0';
+        }
+
+        function openOrderHistoryModal() {
+            renderOrderHistory();
+            document.getElementById('orderHistoryModal').classList.remove('hidden');
+        }
+
+        function closeOrderHistoryModal() {
+            document.getElementById('orderHistoryModal').classList.add('hidden');
+        }
+
+        function renderOrderHistory() {
+            const container = document.getElementById('orderHistoryContainer');
+            if (orderHistory.length === 0) {
+                container.innerHTML = `<div class="p-8 text-center text-slate-400 bg-white rounded-2xl border border-slate-200">ยังไม่มีประวัติการสั่งซื้อสินค้า</div>`;
+                return;
+            }
+
+            container.innerHTML = orderHistory.map((order, idx) => {
+                const total = order.items.reduce((sum, i) => sum + (i.quantity * i.unitPrice), 0);
+                return `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                            <div>
+                                <span class="px-2.5 py-1 bg-blue-100 text-blue-700 font-bold text-xs rounded-full">ออเดอร์ #${order.txId}</span>
+                                <span class="text-xs text-slate-500 ml-2">${order.date}</span>
+                            </div>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full ${order.status.includes('ยกเลิก') ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}">${order.status}</span>
+                        </div>
+                        <div class="space-y-1 text-xs text-slate-700">
+                            ${order.items.map(i => `<div>• [${i.code}] ${i.name} จำนวน: ${i.quantity} ${i.unit} (${(i.quantity * i.unitPrice).toLocaleString()} บาท)</div>`).join('')}
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-100">
+                            <span class="text-sm font-bold text-slate-900">ยอดรวม: <span class="text-red-600">${total.toLocaleString()}</span> บาท</span>
+                            <div class="flex gap-2">
+                                <button onclick="cancelOrder(${idx})" class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs rounded-xl transition border border-red-200">
+                                    <i class="fa-solid fa-ban"></i> ยกเลิกการสั่ง
+                                </button>
+                                <button onclick="editAndResendOrder(${idx})" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition shadow-2xs">
+                                    <i class="fa-brands fa-line"></i> กลับไปแก้ไข & ส่งใหม่
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ยกเลิกการสั่ง: แจ้งเตือนไปหา Line Supplier ว่ายกเลิกออเดอร์
+        function cancelOrder(index) {
+            const order = orderHistory[index];
+            order.status = 'ยกเลิกออเดอร์แล้ว';
+            renderOrderHistory();
+            alert(`[Line Supplier Notification]\nแจ้งเตือนไปยัง Supplier: ขอยกเลิกออเดอร์เลขที่ #${order.txId} เรียบร้อยแล้วครับ`);
+        }
+
+        // กลับไปแก้ไข & ส่งออเดอร์ใหม่: แจ้งยกเลิกออเดอร์เดิม แล้วส่งออเดอร์ใหม่ไปอีกรอบ
+        function editAndResendOrder(index) {
+            const order = orderHistory[index];
+            order.status = 'ยกเลิกออเดอร์เดิม & ส่งออเดอร์ใหม่แล้ว';
+            
+            // นำรายการเดิมกลับใส่ตะกร้าเพื่อแก้ไข
+            cart = [...order.items];
+            document.getElementById('cartBadge').innerText = cart.length;
+            
+            closeOrderHistoryModal();
+            openCartModal();
+            alert(`[Line Supplier Notification]\nแจ้งเตือนไปยัง Supplier: ขอยกเลิกออเดอร์เลขที่ #${order.txId} เดิม\n\nระบบได้นำสินค้ากลับมาที่ตะกร้าเพื่อให้ท่านแก้ไขและกด "ส่งคำสั่งซื้อให้ Supplier" ใหม่อีกครั้งเรียบร้อยแล้วครับ`);
         }
 
         function closeInvoiceModal() {
