@@ -108,7 +108,7 @@
         </div>
     </div>
 
-    <!-- ================= 2. LOG-001 POP-UP NOTIFICATION ================= -->
+    <!-- ================= 2. LOG-001 POP-UP NOTIFICATION (อัปเดตตามสั่ง) ================= -->
     <div id="logPopupModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100 transform transition-all">
             <div class="bg-gradient-to-r from-red-600 to-rose-700 px-6 py-4 text-white flex items-center justify-between">
@@ -118,7 +118,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-lg font-heading">ประกาศแจ้งเตือนด่วน (Log-001)</h3>
-                        <p class="text-xs text-red-100">อัปเดตข้อมูลล่าสุดจาก Line OA Supplier</p>
+                        <p class="text-xs text-red-100">อัปเดตข้อมูลและแชทร้านค้าล่าสุดจาก Line OA Supplier</p>
                     </div>
                 </div>
                 <button onclick="closeLogPopup()" class="text-white/80 hover:text-white p-2 text-xl font-bold">
@@ -126,26 +126,59 @@
                 </button>
             </div>
             
-            <div class="p-6 space-y-4 max-h-[65vh] overflow-y-auto">
-                <div class="p-4 bg-red-50 rounded-2xl border border-red-100">
-                    <div class="flex items-center gap-2 text-red-700 font-bold mb-1 font-heading text-sm">
-                        <i class="fa-solid fa-bullhorn"></i> สรุปโปรโมชันล่าสุด
+            <div class="p-6 space-y-4 max-h-[65vh] overflow-y-auto text-slate-700">
+                <p class="text-xs text-slate-400 italic">💡 คลิกที่การ์ดแต่ละรายการด้านล่างเพื่อเปิดแชท Line OA ของ Supplier เจ้านั้นได้ทันทีครับ</p>
+
+                <!-- 1. สรุปโปรโมชั่นล่าสุด -->
+                <div onclick="openSupplierLineChat('เพ็ท โพรเทคท์ ฟู้ด')" class="p-4 bg-red-50 hover:bg-red-100 rounded-2xl border border-red-200 cursor-pointer transition shadow-2xs group">
+                    <div class="flex items-center justify-between mb-1">
+                        <div class="flex items-center gap-2 text-red-700 font-bold font-heading text-sm">
+                            <i class="fa-solid fa-bullhorn"></i> สรุปโปรโมชั่นล่าสุด
+                        </div>
+                        <span class="text-xs text-red-600 font-bold group-hover:underline flex items-center gap-1">แชทร้าน <i class="fa-brands fa-line text-base"></i></span>
                     </div>
-                    <p class="text-slate-700 text-sm">ซื้ออาหารเม็ดสุนัข/แมวครบ 50 ถุง แถมฟรี 3 ถุงทันที เฉพาะล็อตนี้เท่านั้น</p>
+                    <p class="text-slate-700 text-sm">ซื้อ Kaniva / Kandy ครบ 50 ถุง/ซอง แถมฟรี 3 ถุง/ซอง ทันที (เฉพาะล็อตเดือน พ.ย. นี้)</p>
                 </div>
 
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                    <div class="flex items-center gap-2 text-slate-800 font-bold mb-1 font-heading text-sm">
-                        <i class="fa-solid fa-comments text-blue-600"></i> อัปเดตแชทจาก Supplier ล่าสุด
+                <!-- 2. สรุปประวัติแชทการคุยล่าสุด -->
+                <div onclick="openSupplierLineChat('เพอร์เฟค คอมพาเนียน กรุ๊ป')" class="p-4 bg-slate-50 hover:bg-slate-100 rounded-2xl border border-slate-200 cursor-pointer transition shadow-2xs group">
+                    <div class="flex items-center justify-between mb-1">
+                        <div class="flex items-center gap-2 text-slate-800 font-bold font-heading text-sm">
+                            <i class="fa-solid fa-comments text-blue-600"></i> สรุปประวัติแชทการคุยล่าสุด
+                        </div>
+                        <span class="text-xs text-blue-600 font-bold group-hover:underline flex items-center gap-1">แชทร้าน <i class="fa-brands fa-line text-base"></i></span>
                     </div>
-                    <p class="text-slate-600 text-sm">"สวัสดีครับเถ้าแก่ สินค้ากลุ่มอาหารและเวชภัณฑ์ล็อตใหม่พร้อมจัดส่งทันที"</p>
-                    <span class="text-xs text-slate-400 mt-2 block">10 นาทีที่ผ่านมา | เพ็ท โพรเทคท์ ฟู้ด</span>
+                    <p class="text-slate-600 text-sm">"สวัสดีครับเถ้าแก่ อาหารสุนัข Luvcare และ Apro ล็อตใหม่เข้าโกดังแล้ว พร้อมจัดส่งรอบวันพรุ่งนี้ครับ"</p>
+                    <span class="text-xs text-slate-400 mt-2 block">อัปเดตเมื่อ: 25 นาทีที่ผ่านมา | เพอร์เฟค คอมพาเนียน กรุ๊ป</span>
+                </div>
+
+                <!-- 3. Update การเข้าพบล่าสุด -->
+                <div onclick="openSupplierLineChat('ท็อป ฟีด มิลล์ จำกัด')" class="p-4 bg-emerald-50 hover:bg-emerald-100 rounded-2xl border border-emerald-200 cursor-pointer transition shadow-2xs group">
+                    <div class="flex items-center justify-between mb-1">
+                        <div class="flex items-center gap-2 text-emerald-800 font-bold font-heading text-sm">
+                            <i class="fa-solid fa-user-tie text-emerald-600"></i> Update การเข้าพบล่าสุด
+                        </div>
+                        <span class="text-xs text-emerald-700 font-bold group-hover:underline flex items-center gap-1">แชทร้าน <i class="fa-brands fa-line text-base"></i></span>
+                    </div>
+                    <p class="text-slate-700 text-sm">เซลล์เข้าพบที่ร้าน "สถานีสัตว์เลี้ยง" สุราษฎร์ธานี (เสนอโปรโมชัน V55L อาหารหมูใหญ่ และอาหารลูกไก่)</p>
+                    <span class="text-xs text-emerald-600 mt-1 block">เมื่อวานนี้ 14:30 น. | ท็อป ฟีด มิลล์ จำกัด</span>
+                </div>
+
+                <!-- 4. Update CN ล่าสุด -->
+                <div onclick="openSupplierLineChat('โรยัล คานิน (ประเทศไทย) จำกัด')" class="p-4 bg-amber-50 hover:bg-amber-100 rounded-2xl border border-amber-200 cursor-pointer transition shadow-2xs group">
+                    <div class="flex items-center justify-between mb-1">
+                        <div class="flex items-center gap-2 text-amber-800 font-bold font-heading text-sm">
+                            <i class="fa-solid fa-file-invoice-dollar"></i> Update ใบลดหนี้ (CN) ล่าสุด
+                        </div>
+                        <span class="text-xs text-amber-700 font-bold group-hover:underline flex items-center gap-1">แชทร้าน <i class="fa-brands fa-line text-base"></i></span>
+                    </div>
+                    <p class="text-slate-700 text-sm">ใบลดหนี้เลขที่ <strong>CN-2026-110</strong> ยอดเงินคืน 850 บาท (กรณีสินค้า RC RENAL ชำรุดระหว่างขนส่ง)</p>
                 </div>
             </div>
 
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-3">
                 <button onclick="openLineChat()" class="px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-sm flex items-center gap-2 shadow transition flex-1 justify-center font-heading">
-                    <i class="fa-brands fa-line text-lg"></i> เปิด Line OA
+                    <i class="fa-brands fa-line text-lg"></i> เปิด Line OA ทั้งหมด
                 </button>
                 <button onclick="closeLogPopup()" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl text-sm shadow transition flex-1 justify-center font-heading">
                     เข้าสู่ระบบหลัก
@@ -291,7 +324,7 @@
                         </div>
                         <div class="flex-1 truncate">
                             <span class="font-bold font-heading text-slate-900">AI สรุปโปรโมชันจาก Line OA:</span> 
-                            <span class="text-slate-700 ml-1">ซื้ออาหารเม็ดครบ 50 ถุงแถมฟรี 3 ถุง! / สินค้าเวชภัณฑ์และอาหารสัตว์ล็อตใหม่พร้อมจัดส่งทันที</span>
+                            <span class="text-slate-700 ml-1">ซื้อ Kaniva / Kandy ครบ 50 ถุง/ซอง แถมฟรี 3 ถุง/ซอง! / สินค้าเวชภัณฑ์และอาหารสัตว์ล็อตใหม่พร้อมจัดส่งทันที</span>
                         </div>
                         <span class="hidden sm:inline-block px-3 py-1 bg-red-200 text-red-800 font-bold text-xs rounded-full shrink-0">อัปเดตเรียลไทม์</span>
                     </div>
@@ -687,27 +720,27 @@
 
         let productsFromSheet = [
             { code: "202407260002", name: "Kaniva หมา รสไก่ 1 กก.", Type: "อาหารสุนัข", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ถุง", priceทุน: 80, stock: 45, expiryDays: 120, avgSale1M: "90 ถุง" },
-            { code: "8850477015951", name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", Type: "อาหารสุนัข", brand: "Luvcare", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 12, expiryDays: 60, avgSale1M: "40 ถุง" }, // ใกล้หมดอายุไฮไลต์แดง
+            { code: "8850477015951", name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", Type: "อาหารสุนัข", brand: "Luvcare", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 12, expiryDays: 60, avgSale1M: "40 ถุง" },
             { code: "8850477033337", name: "SMH gold holistic สุนัขโต 1.5kg.", Type: "อาหารสุนัข", brand: "SmartHeart", Supplier: "Mars, Incorporated", unit: "ถุง", priceทุน: 275, stock: 25, expiryDays: 200, avgSale1M: "35 ถุง" },
-            { code: "8850477037014", name: "Apro โต ตับย่าง 1 กก.", Type: "อาหารสุนัข", brand: "Apro", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 60, stock: 8, expiryDays: 45, avgSale1M: "60 ถุง" }, // ใกล้หมดอายุไฮไลต์แดง
+            { code: "8850477037014", name: "Apro โต ตับย่าง 1 กก.", Type: "อาหารสุนัข", brand: "Apro", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 60, stock: 8, expiryDays: 45, avgSale1M: "60 ถุง" },
             { code: "8851759450385", name: "JH Meat as Meals รสไก่เม็ดนิ่ม 500g.", Type: "อาหารสุนัข", brand: "Jerhigh", Supplier: "อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด", unit: "ถุง", priceทุน: 109, stock: 30, expiryDays: 150, avgSale1M: "70 ถุง" },
 
-            { code: "8859720701016", name: "Smillie แมว รสแซลมอน", Type: "อาหารแมว", brand: "Smillie", Supplier: "เพ็ทพัล โปรดักส์ จำกัด (มหาชน)", unit: "ถุง", priceทุน: 30, stock: 15, expiryDays: 80, avgSale1M: "55 ถุง" }, // ใกล้หมดอายุไฮไลต์แดง
+            { code: "8859720701016", name: "Smillie แมว รสแซลมอน", Type: "อาหารแมว", brand: "Smillie", Supplier: "เพ็ทพัล โปรดักส์ จำกัด (มหาชน)", unit: "ถุง", priceทุน: 30, stock: 15, expiryDays: 80, avgSale1M: "55 ถุง" },
             { code: "8850011066999", name: "PurinaOne HairBall 380g.", Type: "อาหารแมว", brand: "PurinaOne", Supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", unit: "ถุง", priceทุน: 90, stock: 20, expiryDays: 180, avgSale1M: "80 ถุง" },
-            { code: "8850477002500", name: "Me-o Gold อินดอร์ 400g", Type: "อาหารแมว", brand: "Me-O", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 50, stock: 5, expiryDays: 30, avgSale1M: "110 ถุง" }, // ใกล้หมดอายุไฮไลต์แดง
+            { code: "8850477002500", name: "Me-o Gold อินดอร์ 400g", Type: "อาหารแมว", brand: "Me-O", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 50, stock: 5, expiryDays: 30, avgSale1M: "110 ถุง" },
             { code: "8850477022140", name: "Zoi Cat ทูน่า 1กก.", Type: "อาหารแมว", brand: "Zoi cat", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 40, expiryDays: 240, avgSale1M: "95 ถุง" },
             { code: "8851111045013", name: "Ginno ไก่และทูน่า 380 กรัม", Type: "อาหารแมว", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 50, stock: 18, expiryDays: 100, avgSale1M: "50 ถุง" },
 
             { code: "202403200003", name: "Alfafa สับเกรดลัคชู 500g.", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 10, expiryDays: 90, avgSale1M: "25 ถุง" },
             { code: "202403200002", name: "Timothy 500g", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 22, expiryDays: 200, avgSale1M: "30 ถุง" },
-            { code: "8850477017894", name: "SMH ZELECT Adult 500 กรัม", Type: "สัตว์ฟันแทะ", brand: "SmartHeart", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 100, stock: 7, expiryDays: 40, avgSale1M: "20 ถุง" }, // ใกล้หมดอายุไฮไลต์แดง
+            { code: "8850477017894", name: "SMH ZELECT Adult 500 กรัม", Type: "สัตว์ฟันแทะ", brand: "SmartHeart", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 100, stock: 7, expiryDays: 40, avgSale1M: "20 ถุง" },
             { code: "8859767903251", name: "PetHeng แฮมสเตอร์ รสตับ", Type: "สัตว์ฟันแทะ", brand: "PetHeng", Supplier: "บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด", unit: "ซอง", priceทุน: 50, stock: 25, expiryDays: 160, avgSale1M: "45 ถุง" },
             { code: "8853527041733", name: "Bok dog กระต่ายสูตรเบอร์รี่ 1 กก.", Type: "สัตว์ฟันแทะ", brand: "Bok dog", Supplier: "Bluefalo Petcare", unit: "ถุง", priceทุน: 50, stock: 14, expiryDays: 110, avgSale1M: "35 ถุง" },
 
             { code: "8859760301078", name: "Buzz/P CG01 ไก่เกรวี่ 70 กรัม", Type: "เปียก", brand: "Buzz", Supplier: "ออสแทม กู๊ดส์ จำกัด", unit: "ซอง", priceทุน: 16, stock: 50, expiryDays: 250, avgSale1M: "200 ซอง" },
             { code: "8859739230439", name: "Kandy C1 Kichen ทูน่าเนื้อไก่ เกรวี่ 70g", Type: "เปียก", brand: "Kandy", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 80, expiryDays: 300, avgSale1M: "350 ซอง" },
             { code: "8859739210035", name: "P/kaniva indoor gravy tuna with chicken 70g.", Type: "เปียก", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 65, expiryDays: 180, avgSale1M: "280 ซอง" },
-            { code: "8851111011018", name: "Gino ปลาทูน่าหน้าแซลมอน 60 กรัม", Type: "เปียก", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ซอง", priceทุน: 16, stock: 35, expiryDays: 70, avgSale1M: "150 ซอง" }, // ใกล้หมดอายุไฮไลต์แดง
+            { code: "8851111011018", name: "Gino ปลาทูน่าหน้าแซลมอน 60 กรัม", Type: "เปียก", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ซอง", priceทุน: 16, stock: 35, expiryDays: 70, avgSale1M: "150 ซอง" },
             { code: "8857122849893", name: "Maria 7C ซาดีน+ปลาข้าวสาร 70g", Type: "เปียก", brand: "Maria", Supplier: "อินเตอร์ ฟาร์มา จำกัด (มหาชน)", unit: "ซอง", priceทุน: 18, stock: 42, expiryDays: 140, avgSale1M: "120 ซอง" },
 
             { code: "20241401005", name: "อาหารหมูนมไก่ 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 25, stock: 30, expiryDays: 180, avgSale1M: "90 ถุง" },
@@ -717,9 +750,9 @@
             { code: "202403200001", name: "V55L อาหารหมู่ใหญ่ 30 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "กระสอบ", priceทุน: 390, stock: 15, expiryDays: 240, avgSale1M: "45 กระสอบ" },
 
             { code: "18859284600", name: "Omega 3 บำรุงผิวและขน 10เม็ด", Type: "ยาและเวชภัณฑ์", brand: "จำไม่ได้", Supplier: "จำไม่ได้", unit: "แผง", priceทุน: 15, stock: 25, expiryDays: 95, avgSale1M: "40 แผง" },
-            { code: "3182550914833", name: "RC RENAL 400g.", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 300, stock: 10, expiryDays: 85, avgSale1M: "30 ถุง" }, // ใกล้หมดอายุไฮไลต์แดง
+            { code: "3182550914833", name: "RC RENAL 400g.", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 300, stock: 10, expiryDays: 85, avgSale1M: "30 ถุง" },
             { code: "3661103067374", name: "NexGard Spectra15-30kg/เม็ด", Type: "ยาและเวชภัณฑ์", brand: "NexGard", Supplier: "โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์", unit: "เม็ด", priceทุน: 350, stock: 40, expiryDays: 250, avgSale1M: "80 เม็ด" },
-            { code: "3182550771252", name: "RC GASTRO 2Kg", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 1000, stock: 4, expiryDays: 50, avgSale1M: "12 ถุง" }, // ใกล้หมดอายุไฮไลต์แดง
+            { code: "3182550771252", name: "RC GASTRO 2Kg", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 1000, stock: 4, expiryDays: 50, avgSale1M: "12 ถุง" },
             { code: "5414736038051", name: "Revolution Plus สุนัข 2.6-5.0 ม่วง กล่อง", Type: "ยาและเวชภัณฑ์", brand: "Revolution", Supplier: "โซเอทิส อิงค์", unit: "กล่อง", priceทุน: 850, stock: 8, expiryDays: 130, avgSale1M: "25 กล่อง" }
         ];
 
@@ -756,6 +789,11 @@
 
         function openLineChat() {
             window.open('https://line.me', '_blank');
+        }
+
+        function openSupplierLineChat(supplierName) {
+            // จำลองการเปิดหน้าแชท Line OA เฉพาะ Supplier รายนั้นๆ
+            window.open(`https://line.me/ti/p/~${encodeURIComponent(supplierName)}`, '_blank');
         }
 
         function switchModule(moduleName) {
@@ -887,7 +925,6 @@
             const brand = document.getElementById('newProdBrand').value.trim() || 'ทั่วไป';
             const Supplier = document.getElementById('newProdSupplier').value.trim() || 'ทั่วไป';
 
-            // ตามเงื่อนไข: พึ่งเพิ่มสินค้าใหม่ให้สต็อกเป็น 0, วันหมดอายุเป็นค่าว่าง, ยอดขายเฉลี่ยต่อเดือนเป็น "0 หน่วย"
             const newProduct = {
                 code,
                 name,
