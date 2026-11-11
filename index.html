@@ -207,7 +207,7 @@
                     <!-- ปุ่มระบบสั่งนับ (ลิงก์ตรงไปยังเว็บ pet2 ทันที) -->
                     <button onclick="window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank')" class="px-4 py-2.5 bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold rounded-xl border border-purple-200 flex items-center gap-2 transition font-heading">
                         <i class="fa-solid fa-clipboard-list text-lg"></i>
-                        <span class="hidden sm:inline">เปิดเว็บระบบนับ (pet2)</span>
+                        <span class="hidden sm:inline">ระบบสั่งนับ</span>
                     </button>
 
                     <button onclick="openCartModal()" class="relative px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-xl border border-red-200 flex items-center gap-2 transition font-heading">
@@ -252,8 +252,8 @@
                             <div class="w-16 h-16 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl font-bold mb-4 group-hover:bg-red-600 group-hover:text-white transition shadow-sm">
                                 <i class="fa-solid fa-cart-plus"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 font-heading group-hover:text-red-600 transition">1. ระบบสั่งของ / สั่งนับ</h3>
-                            <p class="text-slate-500 text-sm mt-2">เลือกสินค้า คลังสินค้า สั่งซื้อสินค้า และออกคำสั่งนับสต็อกรายชิ้นเชื่อมต่อระบบ pet2</p>
+                            <h3 class="text-xl font-bold text-slate-900 font-heading group-hover:text-red-600 transition">1. ระบบสั่งของ</h3>
+                            <p class="text-slate-500 text-sm mt-2">เลือกสินค้าจากคลัง กรองตามหมวดหมู่ ยี่ห้อ บริษัท และสั่งซื้อเชื่อมต่อ Line OA Supplier</p>
                         </div>
                         <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-red-600 font-bold text-sm font-heading">
                             <span>เข้าสู่ระบบสั่งของ</span>
@@ -305,33 +305,29 @@
                 </div>
             </div>
 
-            <!-- MODULE B: ORDERING SYSTEM & STOCK COUNTING -->
+            <!-- MODULE B: ORDERING SYSTEM -->
             <div id="moduleOrdering" class="space-y-6 hidden">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
-                        <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">ระบบสั่งของ / สั่งนับสต็อก</span>
-                        <h2 class="text-2xl font-bold text-slate-900 font-heading mt-1">คลังสินค้าและการสั่งนับสต็อก (เชื่อมต่อระบบ pet2)</h2>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">ระบบสั่งของ</span>
+                        <h2 class="text-2xl font-bold text-slate-900 font-heading mt-1">คลังสินค้าและรายการสั่งซื้อ</h2>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <button onclick="window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank')" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-sm font-heading transition flex items-center gap-2 shadow">
-                            <i class="fa-solid fa-external-link-alt"></i> เปิดหน้าเว็บนับสต็อก pet2
-                        </button>
-                        <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm font-heading transition">
-                            <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก Hub
-                        </button>
-                    </div>
+                    <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm font-heading transition">
+                        <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก Hub
+                    </button>
                 </div>
 
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+                    
                     <div class="w-full bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 px-5 py-3.5 rounded-2xl flex items-center gap-3.5 text-red-800 shadow-2xs">
                         <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center text-lg shrink-0 shadow-sm">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
                         <div class="flex-1 truncate">
-                            <span class="font-bold font-heading text-slate-900">คำแนะนำเถ้าแก่:</span> 
-                            <span class="text-slate-700 ml-1">คลิกปุ่ม **"🔔 สั่งให้นับสต็อก"** ในแต่ละรายการสินค้าเพื่อส่งงานไปยังแอปพลิเคชันพนักงาน (pet2) ทันที</span>
+                            <span class="font-bold font-heading text-slate-900">AI สรุปโปรโมชันจาก Line OA:</span> 
+                            <span class="text-slate-700 ml-1">ซื้อ Kaniva / Kandy ครบ 50 ถุง/ซอง แถมฟรี 3 ถุง/ซอง! / สินค้าเวชภัณฑ์และอาหารสัตว์ล็อตใหม่พร้อมจัดส่งทันที</span>
                         </div>
-                        <span class="hidden sm:inline-block px-3 py-1 bg-red-200 text-red-800 font-bold text-xs rounded-full shrink-0">ซิงค์แบบเรียลไทม์</span>
+                        <span class="hidden sm:inline-block px-3 py-1 bg-red-200 text-red-800 font-bold text-xs rounded-full shrink-0">อัปเดตเรียลไทม์</span>
                     </div>
 
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
@@ -421,7 +417,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
                         <h3 class="font-bold text-lg text-slate-900 font-heading flex items-center gap-2">
-                            <i class="fa-solid fa-table-list text-red-600"></i> รายการสินค้าในคลังและการสั่งนับสต็อก
+                            <i class="fa-solid fa-table-list text-red-600"></i> รายการสินค้าในคลัง
                         </h3>
                         <span id="productCountBadge" class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">0 รายการ</span>
                     </div>
@@ -433,9 +429,10 @@
                                     <th class="py-4 px-6">รหัส / ชื่อสินค้า / ประเภท</th>
                                     <th class="py-4 px-6 text-center">หน่วย</th>
                                     <th class="py-4 px-6 text-center">สต็อกปัจจุบัน</th>
-                                    <th class="py-4 px-6 text-center">สถานะนับสต็อก (pet2)</th>
+                                    <th class="py-4 px-6 text-center">วันหมดอายุ (เหลือ)</th>
+                                    <th class="py-4 px-6 text-center">ยอดขายเฉลี่ยต่อเดือน</th>
+                                    <th class="py-4 px-6 text-center">สั่งนับสต็อก</th> <!-- เพิ่มหัวข้อเมนูสั่งนับ -->
                                     <th class="py-4 px-6 text-center">สั่งซื้อ</th>
-                                    <th class="py-4 px-6 text-center">สั่งนับสต็อก</th>
                                 </tr>
                             </thead>
                             <tbody id="productTableBody" class="divide-y divide-slate-100 text-slate-700 text-base"></tbody>
@@ -715,41 +712,41 @@
         ];
 
         let productsFromSheet = [
-            { code: "202407260002", name: "Kaniva หมา รสไก่ 1 กก.", Type: "อาหารสุนัข", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ถุง", priceทุน: 80, stock: 45, expiryDays: 120, avgSale1M: "90 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477015951", name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", Type: "อาหารสุนัข", brand: "Luvcare", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 12, expiryDays: 60, avgSale1M: "40 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477033337", name: "SMH gold holistic สุนัขโต 1.5kg.", Type: "อาหารสุนัข", brand: "SmartHeart", Supplier: "Mars, Incorporated", unit: "ถุง", priceทุน: 275, stock: 25, expiryDays: 200, avgSale1M: "35 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477037014", name: "Apro โต ตับย่าง 1 กก.", Type: "อาหารสุนัข", brand: "Apro", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 60, stock: 8, expiryDays: 45, avgSale1M: "60 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8851759450385", name: "JH Meat as Meals รสไก่เม็ดนิ่ม 500g.", Type: "อาหารสุนัข", brand: "Jerhigh", Supplier: "อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด", unit: "ถุง", priceทุน: 109, stock: 30, expiryDays: 150, avgSale1M: "70 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
+            { code: "202407260002", name: "Kaniva หมา รสไก่ 1 กก.", Type: "อาหารสุนัข", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ถุง", priceทุน: 80, stock: 45, expiryDays: 120, avgSale1M: "90 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8850477015951", name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", Type: "อาหารสุนัข", brand: "Luvcare", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 12, expiryDays: 60, avgSale1M: "40 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8850477033337", name: "SMH gold holistic สุนัขโต 1.5kg.", Type: "อาหารสุนัข", brand: "SmartHeart", Supplier: "Mars, Incorporated", unit: "ถุง", priceทุน: 275, stock: 25, expiryDays: 200, avgSale1M: "35 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8850477037014", name: "Apro โต ตับย่าง 1 กก.", Type: "อาหารสุนัข", brand: "Apro", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 60, stock: 8, expiryDays: 45, avgSale1M: "60 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8851759450385", name: "JH Meat as Meals รสไก่เม็ดนิ่ม 500g.", Type: "อาหารสุนัข", brand: "Jerhigh", Supplier: "อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด", unit: "ถุง", priceทุน: 109, stock: 30, expiryDays: 150, avgSale1M: "70 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
 
-            { code: "8859720701016", name: "Smillie แมว รสแซลมอน", Type: "อาหารแมว", brand: "Smillie", Supplier: "เพ็ทพัล โปรดักส์ จำกัด (มหาชน)", unit: "ถุง", priceทุน: 30, stock: 15, expiryDays: 80, avgSale1M: "55 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850011066999", name: "PurinaOne HairBall 380g.", Type: "อาหารแมว", brand: "PurinaOne", Supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", unit: "ถุง", priceทุน: 90, stock: 20, expiryDays: 180, avgSale1M: "80 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477002500", name: "Me-o Gold อินดอร์ 400g", Type: "อาหารแมว", brand: "Me-O", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 50, stock: 5, expiryDays: 30, avgSale1M: "110 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477022140", name: "Zoi Cat ทูน่า 1กก.", Type: "อาหารแมว", brand: "Zoi cat", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 40, expiryDays: 240, avgSale1M: "95 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8851111045013", name: "Ginno ไก่และทูน่า 380 กรัม", Type: "อาหารแมว", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 50, stock: 18, expiryDays: 100, avgSale1M: "50 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
+            { code: "8859720701016", name: "Smillie แมว รสแซลมอน", Type: "อาหารแมว", brand: "Smillie", Supplier: "เพ็ทพัล โปรดักส์ จำกัด (มหาชน)", unit: "ถุง", priceทุน: 30, stock: 15, expiryDays: 80, avgSale1M: "55 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8850011066999", name: "PurinaOne HairBall 380g.", Type: "อาหารแมว", brand: "PurinaOne", Supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", unit: "ถุง", priceทุน: 90, stock: 20, expiryDays: 180, avgSale1M: "80 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8850477002500", name: "Me-o Gold อินดอร์ 400g", Type: "อาหารแมว", brand: "Me-O", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 50, stock: 5, expiryDays: 30, avgSale1M: "110 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8850477022140", name: "Zoi Cat ทูน่า 1กก.", Type: "อาหารแมว", brand: "Zoi cat", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 40, expiryDays: 240, avgSale1M: "95 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8851111045013", name: "Ginno ไก่และทูน่า 380 กรัม", Type: "อาหารแมว", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 50, stock: 18, expiryDays: 100, avgSale1M: "50 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
 
-            { code: "202403200003", name: "Alfafa สับเกรดลัคชู 500g.", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 10, expiryDays: 90, avgSale1M: "25 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "202403200002", name: "Timothy 500g", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 22, expiryDays: 200, avgSale1M: "30 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477017894", name: "SMH ZELECT Adult 500 กรัม", Type: "สัตว์ฟันแทะ", brand: "SmartHeart", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 100, stock: 7, expiryDays: 40, avgSale1M: "20 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8859767903251", name: "PetHeng แฮมสเตอร์ รสตับ", Type: "สัตว์ฟันแทะ", brand: "PetHeng", Supplier: "บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด", unit: "ซอง", priceทุน: 50, stock: 25, expiryDays: 160, avgSale1M: "45 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8853527041733", name: "Bok dog กระต่ายสูตรเบอร์รี่ 1 กก.", Type: "สัตว์ฟันแทะ", brand: "Bok dog", Supplier: "Bluefalo Petcare", unit: "ถุง", priceทุน: 50, stock: 14, expiryDays: 110, avgSale1M: "35 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
+            { code: "202403200003", name: "Alfafa สับเกรดลัคชู 500g.", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 10, expiryDays: 90, avgSale1M: "25 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "202403200002", name: "Timothy 500g", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 22, expiryDays: 200, avgSale1M: "30 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8850477017894", name: "SMH ZELECT Adult 500 กรัม", Type: "สัตว์ฟันแทะ", brand: "SmartHeart", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 100, stock: 7, expiryDays: 40, avgSale1M: "20 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8859767903251", name: "PetHeng แฮมสเตอร์ รสตับ", Type: "สัตว์ฟันแทะ", brand: "PetHeng", Supplier: "บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด", unit: "ซอง", priceทุน: 50, stock: 25, expiryDays: 160, avgSale1M: "45 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8853527041733", name: "Bok dog กระต่ายสูตรเบอร์รี่ 1 กก.", Type: "สัตว์ฟันแทะ", brand: "Bok dog", Supplier: "Bluefalo Petcare", unit: "ถุง", priceทุน: 50, stock: 14, expiryDays: 110, avgSale1M: "35 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
 
-            { code: "8859760301078", name: "Buzz/P CG01 ไก่เกรวี่ 70 กรัม", Type: "เปียก", brand: "Buzz", Supplier: "ออสแทม กู๊ดส์ จำกัด", unit: "ซอง", priceทุน: 16, stock: 50, expiryDays: 250, avgSale1M: "200 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8859739230439", name: "Kandy C1 Kichen ทูน่าเนื้อไก่ เกรวี่ 70g", Type: "เปียก", brand: "Kandy", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 80, expiryDays: 300, avgSale1M: "350 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8859739210035", name: "P/kaniva indoor gravy tuna with chicken 70g.", Type: "เปียก", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 65, expiryDays: 180, avgSale1M: "280 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8851111011018", name: "Gino ปลาทูน่าหน้าแซลมอน 60 กรัม", Type: "เปียก", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ซอง", priceทุน: 16, stock: 35, expiryDays: 70, avgSale1M: "150 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8857122849893", name: "Maria 7C ซาดีน+ปลาข้าวสาร 70g", Type: "เปียก", brand: "Maria", Supplier: "อินเตอร์ ฟาร์มา จำกัด (มหาชน)", unit: "ซอง", priceทุน: 18, stock: 42, expiryDays: 140, avgSale1M: "120 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
+            { code: "8859760301078", name: "Buzz/P CG01 ไก่เกรวี่ 70 กรัม", Type: "เปียก", brand: "Buzz", Supplier: "ออสแทม กู๊ดส์ จำกัด", unit: "ซอง", priceทุน: 16, stock: 50, expiryDays: 250, avgSale1M: "200 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8859739230439", name: "Kandy C1 Kichen ทูน่าเนื้อไก่ เกรวี่ 70g", Type: "เปียก", brand: "Kandy", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 80, expiryDays: 300, avgSale1M: "350 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8859739210035", name: "P/kaniva indoor gravy tuna with chicken 70g.", Type: "เปียก", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 65, expiryDays: 180, avgSale1M: "280 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8851111011018", name: "Gino ปลาทูน่าหน้าแซลมอน 60 กรัม", Type: "เปียก", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ซอง", priceทุน: 16, stock: 35, expiryDays: 70, avgSale1M: "150 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "8857122849893", name: "Maria 7C ซาดีน+ปลาข้าวสาร 70g", Type: "เปียก", brand: "Maria", Supplier: "อินเตอร์ ฟาร์มา จำกัด (มหาชน)", unit: "ซอง", priceทุน: 18, stock: 42, expiryDays: 140, avgSale1M: "120 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
 
-            { code: "20241401005", name: "อาหารหมูนมไก่ 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 25, stock: 30, expiryDays: 180, avgSale1M: "90 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "20240410009", name: "ข้าวเปลือกสั้น 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 10, stock: 100, expiryDays: 360, avgSale1M: "400 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "202312010002", name: "อาหารลูกไก่ 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 15, stock: 50, expiryDays: 220, avgSale1M: "180 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "6810010000004", name: "จัมปูน 100g", Type: "วัตถุดิบ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 15, stock: 20, expiryDays: 120, avgSale1M: "60 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "202403200001", name: "V55L อาหารหมู่ใหญ่ 30 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "กระสอบ", priceทุน: 390, stock: 15, expiryDays: 240, avgSale1M: "45 กระสอบ", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
+            { code: "20241401005", name: "อาหารหมูนมไก่ 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 25, stock: 30, expiryDays: 180, avgSale1M: "90 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "20240410009", name: "ข้าวเปลือกสั้น 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 10, stock: 100, expiryDays: 360, avgSale1M: "400 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "202312010002", name: "อาหารลูกไก่ 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 15, stock: 50, expiryDays: 220, avgSale1M: "180 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "6810010000004", name: "จัมปูน 100g", Type: "วัตถุดิบ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 15, stock: 20, expiryDays: 120, avgSale1M: "60 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "202403200001", name: "V55L อาหารหมู่ใหญ่ 30 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "กระสอบ", priceทุน: 390, stock: 15, expiryDays: 240, avgSale1M: "45 กระสอบ", countStatus: "ยังไม่ได้สั่งนับ" },
 
-            { code: "18859284600", name: "Omega 3 บำรุงผิวและขน 10เม็ด", Type: "ยาและเวชภัณฑ์", brand: "จำไม่ได้", Supplier: "จำไม่ได้", unit: "แผง", priceทุน: 15, stock: 25, expiryDays: 95, avgSale1M: "40 แผง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "3182550914833", name: "RC RENAL 400g.", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 300, stock: 10, expiryDays: 85, avgSale1M: "30 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "3661103067374", name: "NexGard Spectra15-30kg/เม็ด", Type: "ยาและเวชภัณฑ์", brand: "NexGard", Supplier: "โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์", unit: "เม็ด", priceทุน: 350, stock: 40, expiryDays: 250, avgSale1M: "80 เม็ด", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "3182550771252", name: "RC GASTRO 2Kg", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 1000, stock: 4, expiryDays: 50, avgSale1M: "12 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "5414736038051", name: "Revolution Plus สุนัข 2.6-5.0 ม่วง กล่อง", Type: "ยาและเวชภัณฑ์", brand: "Revolution", Supplier: "โซเอทิส อิงค์", unit: "กล่อง", priceทุน: 850, stock: 8, expiryDays: 130, avgSale1M: "25 กล่อง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' }
+            { code: "18859284600", name: "Omega 3 บำรุงผิวและขน 10เม็ด", Type: "ยาและเวชภัณฑ์", brand: "จำไม่ได้", Supplier: "จำไม่ได้", unit: "แผง", priceทุน: 15, stock: 25, expiryDays: 95, avgSale1M: "40 แผง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "3182550914833", name: "RC RENAL 400g.", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 300, stock: 10, expiryDays: 85, avgSale1M: "30 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "3661103067374", name: "NexGard Spectra15-30kg/เม็ด", Type: "ยาและเวชภัณฑ์", brand: "NexGard", Supplier: "โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์", unit: "เม็ด", priceทุน: 350, stock: 40, expiryDays: 250, avgSale1M: "80 เม็ด", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "3182550771252", name: "RC GASTRO 2Kg", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 1000, stock: 4, expiryDays: 50, avgSale1M: "12 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
+            { code: "5414736038051", name: "Revolution Plus สุนัข 2.6-5.0 ม่วง กล่อง", Type: "ยาและเวชภัณฑ์", brand: "Revolution", Supplier: "โซเอทิส อิงค์", unit: "กล่อง", priceทุน: 850, stock: 8, expiryDays: 130, avgSale1M: "25 กล่อง", countStatus: "ยังไม่ได้สั่งนับ" }
         ];
 
         let currentCategory = 'all';
@@ -830,21 +827,14 @@
             renderProductsTable();
         }
 
-        // ฟังก์ชันสั่งให้นับสต็อก (ส่งไปยังเว็บ pet2 ทันที)
-        function triggerCountTask(productCode) {
-            const p = productsFromSheet.find(item => item.code === productCode);
-            if (!p) return;
-
-            const now = new Date();
-            const timeStr = now.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' }) + ', ' + now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) + ' น.';
-
-            p.needCount = true;
-            p.requestedTimestamp = timeStr;
-            p.countedQty = '';
-            p.countedTimestamp = '-';
-
-            renderProductsTable();
-            alert(`⚡ สั่งให้นับสต็อกสินค้า "${p.name}" เรียบร้อยแล้ว! สถานะอัปเดตเป็น "สั่งให้นับแล้ว" เชื่อมไปยังระบบ pet2 สำเร็จ`);
+        // ฟังก์ชันกดสั่งนับสต็อก: เปิดลิงก์ภายนอกและเปลี่ยนสถานะในตาราง
+        function triggerCountAction(productCode) {
+            const prod = productsFromSheet.find(p => p.code === productCode);
+            if (prod) {
+                prod.countStatus = "สั่งนับแล้ว";
+                renderProductsTable();
+            }
+            window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank');
         }
 
         function renderProductsTable() {
@@ -880,27 +870,8 @@
             tbody.innerHTML = filtered.map(p => {
                 const isNearExpiry = p.expiryDays !== "" && p.expiryDays <= 90;
                 const expiryText = p.expiryDays === "" ? "ยังไม่กำหนด" : `${p.expiryDays} วัน`;
+                const isCounted = p.countStatus === "สั่งนับแล้ว";
                 
-                // กำหนดป้ายสถานะการนับตามโค้ด pet2
-                let countStatusBadge = `<span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full">✓ สต็อกปกติ</span>`;
-                if (p.countedQty !== '') {
-                    const diff = p.countedQty - p.stock;
-                    const diffText = diff > 0 ? `เกิน +${diff}` : (diff < 0 ? `ขาด ${Math.abs(diff)}` : 'ตรงกัน');
-                    countStatusBadge = `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">นับแล้ว (${p.countedQty} | ${diffText})</span>`;
-                } else if (p.needCount) {
-                    countStatusBadge = `<span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full animate-pulse">⚡ สั่งให้นับแล้ว (รอผล)</span>`;
-                }
-
-                // ปุ่มสั่งนับ
-                let countButton = '';
-                if (p.countedQty !== '') {
-                    countButton = `<button onclick="triggerCountTask('${p.code}')" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition text-xs">สั่งนับซ้ำ</button>`;
-                } else if (p.needCount) {
-                    countButton = `<button disabled class="px-3 py-2 bg-amber-500 text-white font-bold rounded-xl transition text-xs opacity-75 cursor-not-allowed">รอนับอยู่</button>`;
-                } else {
-                    countButton = `<button onclick="triggerCountTask('${p.code}')" class="px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl shadow-2xs transition text-xs flex items-center gap-1 justify-center mx-auto"><i class="fa-solid fa-bell"></i> สั่งนับ</button>`;
-                }
-
                 return `
                     <tr class="hover:bg-slate-50/80 transition ${isNearExpiry ? 'bg-red-50/60' : ''}">
                         <td class="py-4 px-6">
@@ -909,12 +880,19 @@
                             <div class="text-xs text-slate-500 mt-0.5">ยี่ห้อ: ${p.brand} | Supplier: ${p.Supplier}</div>
                         </td>
                         <td class="py-4 px-6 text-center text-sm font-semibold text-slate-700">${p.unit}</td>
-                        <td class="py-4 px-6 text-center font-bold ${p.stock === 0 ? 'text-red-600' : 'text-emerald-700'}">${p.stock} หน่วย</td>
-                        <td class="py-4 px-6 text-center">${countStatusBadge}</td>
+                        <td class="py-4 px-6 text-center font-bold ${p.stock===0?'text-red-600':'text-emerald-700'}">${p.stock} หน่วย</td>
+                        <td class="py-4 px-6 text-center text-sm ${isNearExpiry?'text-red-600 font-bold bg-red-100/60 rounded-lg p-1':'text-slate-700'}">${expiryText}</td>
+                        <td class="py-4 px-6 text-center text-sm">
+                            <div class="font-bold text-slate-800">${p.avgSale1M}</div>
+                        </td>
+                        <td class="py-4 px-6 text-center">
+                            <button onclick="triggerCountAction('${p.code}')" class="px-4 py-2 font-bold rounded-xl shadow-2xs transition text-sm flex items-center justify-center gap-1.5 mx-auto ${isCounted ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'bg-purple-600 hover:bg-purple-700 text-white'}">
+                                <i class="fa-solid fa-bell"></i> ${p.countStatus}
+                            </button>
+                        </td>
                         <td class="py-4 px-6 text-center">
                             <button onclick="openOrderModal('${p.code}')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-2xs transition text-sm">สั่งสินค้า</button>
                         </td>
-                        <td class="py-4 px-6 text-center">${countButton}</td>
                     </tr>
                 `;
             }).join('');
@@ -966,10 +944,7 @@
                 stock: 0,
                 expiryDays: "",
                 avgSale1M: "0 หน่วย",
-                needCount: false,
-                countedQty: '',
-                requestedTimestamp: '-',
-                countedTimestamp: '-'
+                countStatus: "ยังไม่ได้สั่งนับ"
             };
 
             productsFromSheet.unshift(newProduct);
