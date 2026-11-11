@@ -59,15 +59,15 @@
                 <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-red-50 text-red-600 mb-4 shadow-inner border border-red-100">
                     <i class="fa-solid fa-store text-3xl"></i>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 font-heading">สถานีสัตว์เลี้ยงของเถ้าแก่ Memi</h1>
-                <p class="text-slate-500 mt-1 text-sm font-medium">Memi Pet Station Management Suite</p>
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 font-heading">สถานีสัตว์เลี้ยง Memi Pet Station</h1>
+                <p class="text-slate-500 mt-1 text-sm font-medium">เข้าสู่ระบบ (รองรับทั้งเถ้าแก่และพนักงาน)</p>
             </div>
 
             <div id="loginError" class="hidden mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-r-xl text-sm flex items-start gap-3 shadow-sm">
                 <i class="fa-solid fa-triangle-exclamation text-lg mt-0.5"></i>
                 <div>
                     <strong class="font-semibold block font-heading">เข้าสู่ระบบไม่สำเร็จ</strong>
-                    <span id="loginErrorMsg">กรุณาใช้อีเมล memi Pets.station681@gmail.com / รหัสผ่าน 4321</span>
+                    <span id="loginErrorMsg">กรุณาตรวจสอบอีเมลและรหัสผ่านใหม่อีกครั้ง</span>
                 </div>
             </div>
 
@@ -80,7 +80,7 @@
                         </span>
                         <input type="text" id="loginEmail" required 
                             class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white text-base transition"
-                            placeholder="memi Pets.station681@gmail.com" value="memi Pets.station681@gmail.com">
+                            placeholder="memi Pets.station681@gmail.com หรือ staff@gmail.com" value="memi Pets.station681@gmail.com">
                     </div>
                 </div>
 
@@ -92,18 +92,19 @@
                         </span>
                         <input type="password" id="loginPassword" required 
                             class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white text-base transition"
-                            placeholder="รหัสผ่าน 4 หลัก" value="4321">
+                            placeholder="รหัสผ่าน" value="4321">
                     </div>
                 </div>
 
                 <button type="submit" 
                     class="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition text-lg font-heading flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบเถ้าแก่ Memi
+                    <i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ
                 </button>
             </form>
 
             <div class="mt-8 pt-6 border-t border-slate-100 text-center text-xs text-slate-400">
-                ระบบเชื่อมต่อฐานข้อมูลสต็อกและ Line OA Supplier อัตโนมัติ (ปัจจุบัน: 11/11/2026)
+                <p>เถ้าแก่: memi Pets.station681@gmail.com / รหัส: 4321</p>
+                <p class="mt-1">พนักงาน: staff@gmail.com / รหัส: 1234</p>
             </div>
         </div>
     </div>
@@ -146,29 +147,7 @@
                         </div>
                         <span class="text-xs text-blue-600 font-bold group-hover:underline flex items-center gap-1">แชทร้าน <i class="fa-brands fa-line text-base"></i></span>
                     </div>
-                    <p class="text-slate-600 text-sm">"สวัสดีครับเถ้าแก่ อาหารสุนัข Luvcare และ Apro ล็อตใหม่เข้าโกดังแล้ว พร้อมจัดส่งรอบวันพรุ่งนี้ครับ"</p>
-                    <span class="text-xs text-slate-400 mt-2 block">อัปเดตเมื่อ: 25 นาทีที่ผ่านมา | เพอร์เฟค คอมพาเนียน กรุ๊ป</span>
-                </div>
-
-                <div onclick="openSupplierLineChat('ท็อป ฟีด มิลล์ จำกัด')" class="p-4 bg-emerald-50 hover:bg-emerald-100 rounded-2xl border border-emerald-200 cursor-pointer transition shadow-2xs group">
-                    <div class="flex items-center justify-between mb-1">
-                        <div class="flex items-center gap-2 text-emerald-800 font-bold font-heading text-sm">
-                            <i class="fa-solid fa-user-tie text-emerald-600"></i> Update การเข้าพบล่าสุด
-                        </div>
-                        <span class="text-xs text-emerald-700 font-bold group-hover:underline flex items-center gap-1">แชทร้าน <i class="fa-brands fa-line text-base"></i></span>
-                    </div>
-                    <p class="text-slate-700 text-sm">เซลล์เข้าพบที่ร้าน "สถานีสัตว์เลี้ยง" สุราษฎร์ธานี (เสนอโปรโมชัน V55L อาหารหมูใหญ่ และอาหารลูกไก่)</p>
-                    <span class="text-xs text-emerald-600 mt-1 block">เมื่อวานนี้ 14:30 น. | ท็อป ฟีด มิลล์ จำกัด</span>
-                </div>
-
-                <div onclick="openSupplierLineChat('โรยัล คานิน (ประเทศไทย) จำกัด')" class="p-4 bg-amber-50 hover:bg-amber-100 rounded-2xl border border-amber-200 cursor-pointer transition shadow-2xs group">
-                    <div class="flex items-center justify-between mb-1">
-                        <div class="flex items-center gap-2 text-amber-800 font-bold font-heading text-sm">
-                            <i class="fa-solid fa-file-invoice-dollar"></i> Update ใบลดหนี้ (CN) ล่าสุด
-                        </div>
-                        <span class="text-xs text-amber-700 font-bold group-hover:underline flex items-center gap-1">แชทร้าน <i class="fa-brands fa-line text-base"></i></span>
-                    </div>
-                    <p class="text-slate-700 text-sm">ใบลดหนี้เลขที่ <strong>CN-2026-110</strong> ยอดเงินคืน 850 บาท (กรณีสินค้า RC RENAL ชำรุดระหว่างขนส่ง)</p>
+                    <p class="text-slate-600 text-sm">"สวัสดีครับ อาหารสุนัข Luvcare และ Apro ล็อตใหม่เข้าโกดังแล้ว พร้อมจัดส่งรอบวันพรุ่งนี้ครับ"</p>
                 </div>
             </div>
 
@@ -185,7 +164,6 @@
 
     <!-- ================= 3. MAIN DASHBOARD APPLICATION ================= -->
     <div id="mainDashboard" class="min-h-full flex flex-col flex-1 hidden">
-        <!-- Top Navigation Bar -->
         <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                 <div class="flex items-center gap-3 cursor-pointer" onclick="switchModule('hub')">
@@ -194,20 +172,18 @@
                     </div>
                     <div>
                         <h1 class="text-lg font-bold text-slate-900 font-heading">Memi Pet Station</h1>
-                        <p class="text-xs text-slate-500">ระบบบริหารจัดการร้านของเถ้าแก่</p>
+                        <p class="text-xs text-slate-500" id="headerRoleSubtitle">ระบบบริหารจัดการร้าน</p>
                     </div>
                 </div>
 
-                <!-- Right Toolbar -->
                 <div class="flex items-center gap-3">
                     <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm font-heading flex items-center gap-2 transition">
                         <i class="fa-solid fa-house"></i> <span class="hidden sm:inline">หน้าแรก (Hub)</span>
                     </button>
 
-                    <!-- ปุ่มระบบสั่งนับ (ลิงก์ตรงไปยังเว็บ pet2 ทันที) -->
                     <button onclick="window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank')" class="px-4 py-2.5 bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold rounded-xl border border-purple-200 flex items-center gap-2 transition font-heading">
                         <i class="fa-solid fa-clipboard-list text-lg"></i>
-                        <span class="hidden sm:inline">เปิดเว็บระบบนับ (pet2)</span>
+                        <span class="hidden sm:inline">ระบบสั่งนับ</span>
                     </button>
 
                     <button onclick="openCartModal()" class="relative px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-xl border border-red-200 flex items-center gap-2 transition font-heading">
@@ -218,8 +194,8 @@
 
                     <div class="hidden md:flex items-center gap-3 pl-4 border-l border-slate-200">
                         <div class="text-right">
-                            <div class="font-bold text-slate-800 text-sm font-heading">เถ้าแก่ Memi</div>
-                            <div class="text-xs text-slate-500">ผู้บริหารสูงสุด</div>
+                            <div class="font-bold text-slate-800 text-sm font-heading" id="userNameDisplay">เถ้าแก่ Memi</div>
+                            <div class="text-xs text-slate-500" id="userRoleDisplay">ผู้บริหารสูงสุด</div>
                         </div>
                         <button onclick="handleLogout()" class="p-2.5 text-slate-400 hover:text-red-600 rounded-xl hover:bg-red-50 transition" title="ออกจากระบบ">
                             <i class="fa-solid fa-right-from-bracket text-xl"></i>
@@ -233,15 +209,14 @@
             </div>
         </header>
 
-        <!-- Main Body Content Container -->
         <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
             <!-- MODULE A: GRID HUB MENU -->
             <div id="moduleHub" class="space-y-8">
                 <div class="bg-gradient-to-r from-red-600 to-rose-800 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
                     <div class="relative z-10 max-w-2xl">
-                        <span class="px-3 py-1 bg-white/20 text-white text-xs font-bold rounded-full font-heading">ระบบหลักเถ้าแก่ Memi</span>
-                        <h2 class="text-2xl sm:text-4xl font-bold mt-3 font-heading">ยินดีต้อนรับกลับมาครับ เถ้าแก่ Memi</h2>
+                        <span class="px-3 py-1 bg-white/20 text-white text-xs font-bold rounded-full font-heading" id="hubWelcomeBadge">ระบบหลักเถ้าแก่ Memi</span>
+                        <h2 class="text-2xl sm:text-4xl font-bold mt-3 font-heading" id="hubWelcomeTitle">ยินดีต้อนรับกลับมาครับ เถ้าแก่ Memi</h2>
                         <p class="text-red-100 mt-2 text-base">เลือกใช้งานระบบบริหารจัดการสต็อก คำสั่งซื้อ ตรวจสอบหลักฐาน และระบบบัญชีครบวงจรในที่เดียว</p>
                     </div>
                 </div>
@@ -252,8 +227,8 @@
                             <div class="w-16 h-16 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl font-bold mb-4 group-hover:bg-red-600 group-hover:text-white transition shadow-sm">
                                 <i class="fa-solid fa-cart-plus"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 font-heading group-hover:text-red-600 transition">1. ระบบสั่งของ / สั่งนับ</h3>
-                            <p class="text-slate-500 text-sm mt-2">เลือกสินค้า คลังสินค้า สั่งซื้อสินค้า และออกคำสั่งนับสต็อกรายชิ้นเชื่อมต่อระบบ pet2</p>
+                            <h3 class="text-xl font-bold text-slate-900 font-heading group-hover:text-red-600 transition">1. ระบบสั่งของ</h3>
+                            <p class="text-slate-500 text-sm mt-2">เลือกสินค้าจากคลัง กรองตามหมวดหมู่ ยี่ห้อ บริษัท และสั่งซื้อเชื่อมต่อ Line OA Supplier</p>
                         </div>
                         <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-red-600 font-bold text-sm font-heading">
                             <span>เข้าสู่ระบบสั่งของ</span>
@@ -305,35 +280,19 @@
                 </div>
             </div>
 
-            <!-- MODULE B: ORDERING SYSTEM & STOCK COUNTING -->
+            <!-- MODULE B: ORDERING SYSTEM -->
             <div id="moduleOrdering" class="space-y-6 hidden">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
-                        <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">ระบบสั่งของ / สั่งนับสต็อก</span>
-                        <h2 class="text-2xl font-bold text-slate-900 font-heading mt-1">คลังสินค้าและการสั่งนับสต็อก (เชื่อมต่อระบบ pet2)</h2>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">ระบบสั่งของ</span>
+                        <h2 class="text-2xl font-bold text-slate-900 font-heading mt-1">คลังสินค้าและรายการสั่งซื้อ</h2>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <button onclick="window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank')" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-sm font-heading transition flex items-center gap-2 shadow">
-                            <i class="fa-solid fa-external-link-alt"></i> เปิดหน้าเว็บนับสต็อก pet2
-                        </button>
-                        <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm font-heading transition">
-                            <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก Hub
-                        </button>
-                    </div>
+                    <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm font-heading transition">
+                        <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก Hub
+                    </button>
                 </div>
 
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
-                    <div class="w-full bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 px-5 py-3.5 rounded-2xl flex items-center gap-3.5 text-red-800 shadow-2xs">
-                        <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center text-lg shrink-0 shadow-sm">
-                            <i class="fa-solid fa-bullhorn"></i>
-                        </div>
-                        <div class="flex-1 truncate">
-                            <span class="font-bold font-heading text-slate-900">คำแนะนำเถ้าแก่:</span> 
-                            <span class="text-slate-700 ml-1">คลิกปุ่ม **"🔔 สั่งให้นับสต็อก"** ในแต่ละรายการสินค้าเพื่อส่งงานไปยังแอปพลิเคชันพนักงาน (pet2) ทันที</span>
-                        </div>
-                        <span class="hidden sm:inline-block px-3 py-1 bg-red-200 text-red-800 font-bold text-xs rounded-full shrink-0">ซิงค์แบบเรียลไทม์</span>
-                    </div>
-
                     <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
                         <div class="relative w-full lg:flex-1">
                             <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
@@ -348,12 +307,10 @@
                             <button onclick="openAddProductModal()" class="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition flex items-center gap-2 shadow-sm font-heading">
                                 <i class="fa-solid fa-plus-circle"></i> เพิ่มสินค้าใหม่
                             </button>
-                            <div class="flex items-center gap-2">
-                                <select id="sortSelect" onchange="filterProducts()" class="bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
-                                    <option value="default">เรียงตาม: ค่าเริ่มต้น</option>
-                                    <option value="stock-asc">จำนวนสต็อก (น้อย -> มาก)</option>
-                                </select>
-                            </div>
+                            <select id="sortSelect" onchange="filterProducts()" class="bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
+                                <option value="default">เรียงตาม: ค่าเริ่มต้น</option>
+                                <option value="stock-asc">จำนวนสต็อก (น้อย -> มาก)</option>
+                            </select>
                         </div>
                     </div>
 
@@ -370,18 +327,7 @@
                                 <option value="Smillie">Smillie</option>
                                 <option value="PurinaOne">PurinaOne</option>
                                 <option value="Me-O">Me-O</option>
-                                <option value="Zoi cat">Zoi cat</option>
-                                <option value="Ginno">Ginno</option>
-                                <option value="KingRabbit">KingRabbit</option>
-                                <option value="PetHeng">PetHeng</option>
-                                <option value="Bok dog">Bok dog</option>
-                                <option value="Buzz">Buzz</option>
-                                <option value="Kandy">Kandy</option>
-                                <option value="Maria">Maria</option>
-                                <option value="Topfeed">Topfeed</option>
                                 <option value="Royalcanin">Royalcanin</option>
-                                <option value="NexGard">NexGard</option>
-                                <option value="Revolution">Revolution</option>
                             </select>
                         </div>
 
@@ -391,20 +337,8 @@
                                 <option value="all">ทุกบริษัท Supplier</option>
                                 <option value="เพ็ท โพรเทคท์ ฟู้ด">เพ็ท โพรเทคท์ ฟู้ด</option>
                                 <option value="เพอร์เฟค คอมพาเนียน กรุ๊ป">เพอร์เฟค คอมพาเนียน กรุ๊ป</option>
-                                <option value="Mars, Incorporated">Mars, Incorporated</option>
-                                <option value="อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด">อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด</option>
-                                <option value="เพ็ทพัล โปรดักส์ จำกัด (มหาชน)">เพ็ทพัล โปรดักส์ จำกัด (มหาชน)</option>
-                                <option value="เนสท์เล่ พูริน่า เพ็ทแคร์">เนสท์เล่ พูริน่า เพ็ทแคร์</option>
-                                <option value="ยูนิ.ชาร์ม (ประเทศไทย) จำกัด">ยูนิ.ชาร์ม (ประเทศไทย) จำกัด</option>
-                                <option value="KingRabbit">KingRabbit</option>
-                                <option value="บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด">บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด</option>
-                                <option value="Bluefalo Petcare">Bluefalo Petcare</option>
-                                <option value="ออสแทม กู๊ดส์ จำกัด">ออสแทม กู๊ดส์ จำกัด</option>
-                                <option value="อินเตอร์ ฟาร์มา จำกัด (มหาชน)">อินเตอร์ ฟาร์มา จำกัด (มหาชน)</option>
                                 <option value="ท็อป ฟีด มิลล์ จำกัด">ท็อป ฟีด มิลล์ จำกัด</option>
                                 <option value="โรยัล คานิน (ประเทศไทย) จำกัด">โรยัล คานิน (ประเทศไทย) จำกัด</option>
-                                <option value="โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์">โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์</option>
-                                <option value="โซเอทิส อิงค์">โซเอทิส อิงค์</option>
                             </select>
                         </div>
 
@@ -421,7 +355,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
                         <h3 class="font-bold text-lg text-slate-900 font-heading flex items-center gap-2">
-                            <i class="fa-solid fa-table-list text-red-600"></i> รายการสินค้าในคลังและการสั่งนับสต็อก
+                            <i class="fa-solid fa-table-list text-red-600"></i> รายการสินค้าในคลัง
                         </h3>
                         <span id="productCountBadge" class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">0 รายการ</span>
                     </div>
@@ -433,9 +367,10 @@
                                     <th class="py-4 px-6">รหัส / ชื่อสินค้า / ประเภท</th>
                                     <th class="py-4 px-6 text-center">หน่วย</th>
                                     <th class="py-4 px-6 text-center">สต็อกปัจจุบัน</th>
-                                    <th class="py-4 px-6 text-center">สถานะนับสต็อก (pet2)</th>
-                                    <th class="py-4 px-6 text-center">สั่งซื้อ</th>
+                                    <th class="py-4 px-6 text-center">วันหมดอายุ</th>
+                                    <th class="py-4 px-6 text-center">ยอดขายเฉลี่ย</th>
                                     <th class="py-4 px-6 text-center">สั่งนับสต็อก</th>
+                                    <th class="py-4 px-6 text-center">สั่งซื้อ</th>
                                 </tr>
                             </thead>
                             <tbody id="productTableBody" class="divide-y divide-slate-100 text-slate-700 text-base"></tbody>
@@ -493,7 +428,7 @@
         </main>
 
         <footer class="bg-white border-t border-slate-200 py-6 text-center text-slate-500 text-sm font-heading">
-            Memi Pet Station Management Suite © 2026 - ออกแบบเพื่อความสะดวกของเถ้าแก่
+            Memi Pet Station Management Suite © 2026 - ออกแบบเพื่อความสะดวกของเถ้าแก่และพนักงาน
         </footer>
     </div>
 
@@ -505,53 +440,17 @@
                 <button onclick="closeAddProductModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="handleAddNewProduct(event)" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">รหัสสินค้า (code)</label>
-                        <input type="text" id="newProdCode" placeholder="เช่น 202407260002" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ชื่อสินค้า (name)</label>
-                        <input type="text" id="newProdName" placeholder="ชื่อสินค้า..." class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ราคาทุน (priceทุน)</label>
-                        <input type="number" id="newProdCost" placeholder="0.00" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">หน่วย (unit)</label>
-                        <input type="text" id="newProdUnit" placeholder="ถุง, ซอง, ฯลฯ" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none" value="ถุง">
-                    </div>
-                </div>
-
                 <div>
-                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ประเภทสินค้า (Type)</label>
-                    <select id="newProdType" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
-                        <option value="อาหารสุนัข">อาหารสุนัข</option>
-                        <option value="อาหารแมว">อาหารแมว</option>
-                        <option value="สัตว์ฟันแทะ">สัตว์ฟันแทะ</option>
-                        <option value="เปียก">เปียก</option>
-                        <option value="สัตว์เศรษฐกิจ">สัตว์เศรษฐกิจ</option>
-                        <option value="ยาและเวชภัณฑ์">ยาและเวชภัณฑ์</option>
-                    </select>
+                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">รหัสสินค้า (code)</label>
+                    <input type="text" id="newProdCode" placeholder="เช่น 202407260002" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 outline-none">
                 </div>
-
                 <div>
-                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ยี่ห้อสินค้า (brand)</label>
-                    <input type="text" id="newProdBrand" placeholder="ยี่ห้อสินค้า..." class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
+                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ชื่อสินค้า (name)</label>
+                    <input type="text" id="newProdName" placeholder="ชื่อสินค้า..." class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 outline-none">
                 </div>
-
-                <div>
-                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">บริษัท Supplier</label>
-                    <input type="text" id="newProdSupplier" placeholder="ชื่อบริษัท Supplier..." class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
-                </div>
-
                 <div class="pt-4 flex gap-3">
-                    <button type="button" onclick="closeAddProductModal()" class="flex-1 py-3 bg-white font-bold rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition">ยกเลิก</button>
-                    <button type="submit" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md transition font-heading">บันทึกสินค้าใหม่ (สต็อกเป็น 0)</button>
+                    <button type="button" onclick="closeAddProductModal()" class="flex-1 py-3 bg-white font-bold rounded-xl border border-slate-200 text-slate-700">ยกเลิก</button>
+                    <button type="submit" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md font-heading">บันทึกสินค้าใหม่</button>
                 </div>
             </form>
         </div>
@@ -560,37 +459,22 @@
     <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between">
-                <h3 class="font-bold text-lg font-heading">สั่งซื้อสินค้าเพิ่มเติม (Buy-001)</h3>
+                <h3 class="font-bold text-lg font-heading">สั่งซื้อสินค้าเพิ่มเติม</h3>
                 <button onclick="closeOrderModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="p-6 space-y-5">
                 <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                    <div class="flex items-center justify-between">
-                        <span id="modalProductCategory" class="px-2.5 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">ประเภท</span>
-                        <span id="modalProductCode" class="text-xs font-bold text-slate-500 font-heading">รหัส: SKU-000</span>
-                    </div>
-                    <h4 id="modalProductName" class="font-bold text-slate-900 text-lg mt-2 font-heading">ชื่อสินค้า</h4>
-                    <p id="modalProductBrandSupplier" class="text-xs text-slate-500 mt-1">ยี่ห้อ / บริษัท</p>
+                    <h4 id="modalProductName" class="font-bold text-slate-900 text-lg font-heading">ชื่อสินค้า</h4>
                     <p id="modalProductStock" class="text-sm font-semibold text-slate-700 mt-2">สต็อกปัจจุบัน: 0 หน่วย</p>
                 </div>
                 <div>
-                    <label class="block text-slate-700 font-semibold mb-2 text-sm font-heading">หน่วยสั่งซื้อ</label>
-                    <input type="text" id="orderUnitDisplay" readonly class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-slate-700 font-bold outline-none">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-2 text-sm font-heading">กรอกจำนวน</label>
-                        <input type="number" id="orderQuantity" value="1" min="1" class="w-full text-center bg-slate-50 border border-slate-200 py-3 rounded-xl text-xl font-bold focus:ring-2 focus:ring-red-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-slate-700 font-semibold mb-2 text-sm font-heading">ราคาสั่งซื้อ</label>
-                        <input type="number" id="orderPrice" value="0" min="1" class="w-full text-center bg-slate-50 border border-slate-200 py-3 rounded-xl text-xl font-bold focus:ring-2 focus:ring-red-500 outline-none">
-                    </div>
+                    <label class="block text-slate-700 font-semibold mb-2 text-sm font-heading">กรอกจำนวนที่ต้องการสั่งซื้อ</label>
+                    <input type="number" id="orderQuantity" value="1" min="1" class="w-full text-center bg-slate-50 border border-slate-200 py-3 rounded-xl text-xl font-bold focus:ring-2 focus:ring-red-500 outline-none">
                 </div>
             </div>
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex gap-3">
-                <button onclick="closeOrderModal()" class="flex-1 py-3 bg-white font-bold rounded-xl border border-slate-200 hover:bg-slate-100 transition">ยกเลิก</button>
-                <button onclick="addToCart()" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md transition font-heading">เพิ่มลงตะกร้า</button>
+                <button onclick="closeOrderModal()" class="flex-1 py-3 bg-white font-bold rounded-xl border border-slate-200">ยกเลิก</button>
+                <button onclick="addToCart()" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md font-heading">เพิ่มลงตะกร้า</button>
             </div>
         </div>
     </div>
@@ -598,107 +482,31 @@
     <div id="cartModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full overflow-hidden border border-slate-100 max-h-[90vh] flex flex-col">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between shrink-0">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-cart-shopping text-xl"></i>
-                    <h3 class="font-bold text-lg font-heading">ตะกร้าสินค้าและระบบสั่งซื้อ</h3>
-                </div>
+                <h3 class="font-bold text-lg font-heading"><i class="fa-solid fa-cart-shopping"></i> ตะกร้าสินค้าและระบบสั่งซื้อ</h3>
                 <button onclick="closeCartModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="p-6 space-y-6 overflow-y-auto flex-1">
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div class="flex items-center gap-2 text-slate-800 font-bold font-heading text-sm">
-                        <i class="fa-solid fa-clock-rotate-left text-red-600"></i> ประวัติการสั่งซื้อย้อนหลัง:
-                    </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <input type="date" id="historyDateFilter" value="2026-11-11" onchange="filterHistoryByDate()" class="bg-white border border-slate-200 px-3 py-2 rounded-xl text-sm font-medium focus:ring-2 focus:ring-red-500 outline-none">
-                        <button onclick="resetHistoryDate()" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl text-xs font-bold transition">วันนี้</button>
-                    </div>
-                </div>
-                <div id="historyLogContainer" class="text-xs text-slate-600 bg-slate-100 p-3 rounded-xl">
-                    กำลังแสดงประวัติการสั่งซื้อประจำวันที่: <span id="currentHistoryDateText" class="font-bold text-slate-700">11 พ.ย. 2569</span>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-slate-900 font-heading mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-basket-shopping text-red-600"></i> รายการสินค้าในตะกร้าปัจจุบัน
-                    </h4>
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-50 text-slate-600 text-xs font-semibold uppercase font-heading border-b border-slate-200">
-                                    <th class="p-3">รหัส / สินค้า</th>
-                                    <th class="p-3">Supplier</th>
-                                    <th class="p-3 text-center">จำนวน & หน่วย</th>
-                                    <th class="p-3 text-right">ราคารวมทุน (บาท)</th>
-                                    <th class="p-3 text-center">จัดการ</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cartTableBody" class="divide-y divide-slate-100 text-sm text-slate-700"></tbody>
-                        </table>
-                    </div>
+                <div class="border border-slate-200 rounded-2xl overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-600 text-xs font-semibold uppercase font-heading border-b border-slate-200">
+                                <th class="p-3">รหัส / สินค้า</th>
+                                <th class="p-3 text-center">จำนวน</th>
+                                <th class="p-3 text-right">ราคารวม (บาท)</th>
+                                <th class="p-3 text-center">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartTableBody" class="divide-y divide-slate-100 text-sm text-slate-700"></tbody>
+                    </table>
                 </div>
             </div>
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between shrink-0">
                 <div class="text-sm font-bold text-slate-800">
                     ยอดรวมทั้งสิ้น: <span id="cartTotalPrice" class="text-red-600 text-lg font-heading">0.00</span> บาท
                 </div>
-                <div class="flex gap-3">
-                    <button onclick="closeCartModal()" class="px-5 py-3 bg-white font-bold rounded-xl border border-slate-200 text-sm hover:bg-slate-50 transition">ปิด</button>
-                    <button onclick="submitOrderToSupplier()" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md text-sm font-heading flex items-center gap-2 transition">
-                        <i class="fa-brands fa-line text-lg"></i> ส่งคำสั่งซื้อให้ Supplier (Line OA)
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="invoiceModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-100 max-h-[95vh] flex flex-col">
-            <div class="bg-gradient-to-r from-red-600 to-rose-700 px-6 py-4 text-white flex items-center justify-between shrink-0">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-file-invoice text-xl"></i>
-                    <h3 class="font-bold text-lg font-heading">เอกสารใบสั่งซื้อสินค้า (Purchase Order)</h3>
-                </div>
-                <button onclick="closeInvoiceModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="p-6 space-y-4 overflow-y-auto flex-1 bg-slate-50 text-sm">
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
-                    <div class="flex justify-between items-start border-b border-slate-100 pb-3">
-                        <div>
-                            <h4 class="font-bold text-slate-900 text-base font-heading">Memi Pet Station (สาขาใหญ่)</h4>
-                            <p class="text-xs text-slate-500">ผู้สั่งซื้อ: เถ้าแก่ Memi | memi Pets.station681@gmail.com</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading" id="invoiceTxId">202611001</span>
-                            <p class="text-xs text-slate-500 mt-1" id="invoiceDateText">วันที่: 11 พ.ย. 2569</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-600 text-xs font-semibold uppercase font-heading border-b border-slate-200">
-                                <th class="p-3">รหัส / รายการสินค้า</th>
-                                <th class="p-3">Supplier</th>
-                                <th class="p-3 text-center">จำนวน</th>
-                                <th class="p-3 text-right">รวม (บาท)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="invoiceTableBody" class="divide-y divide-slate-100 text-xs text-slate-700"></tbody>
-                    </table>
-                </div>
-
-                <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-emerald-800 text-xs flex items-center gap-3">
-                    <i class="fa-solid fa-circle-check text-lg"></i>
-                    <div>
-                        <strong class="font-bold block font-heading">ระบบได้ทำการส่งข้อมูล JSON และเอกสารผ่าน Line OA ไปยัง Supplier เรียบร้อยแล้ว</strong>
-                        <span>Supplier จะตอบกลับยืนยันรอบจัดส่งผ่านแชทอัตโนมัติ</span>
-                    </div>
-                </div>
-            </div>
-            <div class="p-4 bg-white border-t border-slate-100 flex justify-end gap-3 shrink-0">
-                <button onclick="closeInvoiceModal()" class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md text-sm font-heading transition">ปิดหน้าต่าง</button>
+                <button onclick="submitOrderToSupplier()" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md text-sm font-heading flex items-center gap-2 transition">
+                    <i class="fa-brands fa-line text-lg"></i> ส่งคำสั่งซื้อให้ Supplier (Line OA)
+                </button>
             </div>
         </div>
     </div>
@@ -715,48 +523,17 @@
         ];
 
         let productsFromSheet = [
-            { code: "202407260002", name: "Kaniva หมา รสไก่ 1 กก.", Type: "อาหารสุนัข", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ถุง", priceทุน: 80, stock: 45, expiryDays: 120, avgSale1M: "90 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477015951", name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", Type: "อาหารสุนัข", brand: "Luvcare", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 12, expiryDays: 60, avgSale1M: "40 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477033337", name: "SMH gold holistic สุนัขโต 1.5kg.", Type: "อาหารสุนัข", brand: "SmartHeart", Supplier: "Mars, Incorporated", unit: "ถุง", priceทุน: 275, stock: 25, expiryDays: 200, avgSale1M: "35 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477037014", name: "Apro โต ตับย่าง 1 กก.", Type: "อาหารสุนัข", brand: "Apro", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 60, stock: 8, expiryDays: 45, avgSale1M: "60 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8851759450385", name: "JH Meat as Meals รสไก่เม็ดนิ่ม 500g.", Type: "อาหารสุนัข", brand: "Jerhigh", Supplier: "อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด", unit: "ถุง", priceทุน: 109, stock: 30, expiryDays: 150, avgSale1M: "70 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-
-            { code: "8859720701016", name: "Smillie แมว รสแซลมอน", Type: "อาหารแมว", brand: "Smillie", Supplier: "เพ็ทพัล โปรดักส์ จำกัด (มหาชน)", unit: "ถุง", priceทุน: 30, stock: 15, expiryDays: 80, avgSale1M: "55 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850011066999", name: "PurinaOne HairBall 380g.", Type: "อาหารแมว", brand: "PurinaOne", Supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", unit: "ถุง", priceทุน: 90, stock: 20, expiryDays: 180, avgSale1M: "80 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477002500", name: "Me-o Gold อินดอร์ 400g", Type: "อาหารแมว", brand: "Me-O", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 50, stock: 5, expiryDays: 30, avgSale1M: "110 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477022140", name: "Zoi Cat ทูน่า 1กก.", Type: "อาหารแมว", brand: "Zoi cat", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 40, expiryDays: 240, avgSale1M: "95 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8851111045013", name: "Ginno ไก่และทูน่า 380 กรัม", Type: "อาหารแมว", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 50, stock: 18, expiryDays: 100, avgSale1M: "50 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-
-            { code: "202403200003", name: "Alfafa สับเกรดลัคชู 500g.", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 10, expiryDays: 90, avgSale1M: "25 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "202403200002", name: "Timothy 500g", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 22, expiryDays: 200, avgSale1M: "30 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8850477017894", name: "SMH ZELECT Adult 500 กรัม", Type: "สัตว์ฟันแทะ", brand: "SmartHeart", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 100, stock: 7, expiryDays: 40, avgSale1M: "20 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8859767903251", name: "PetHeng แฮมสเตอร์ รสตับ", Type: "สัตว์ฟันแทะ", brand: "PetHeng", Supplier: "บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด", unit: "ซอง", priceทุน: 50, stock: 25, expiryDays: 160, avgSale1M: "45 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8853527041733", name: "Bok dog กระต่ายสูตรเบอร์รี่ 1 กก.", Type: "สัตว์ฟันแทะ", brand: "Bok dog", Supplier: "Bluefalo Petcare", unit: "ถุง", priceทุน: 50, stock: 14, expiryDays: 110, avgSale1M: "35 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-
-            { code: "8859760301078", name: "Buzz/P CG01 ไก่เกรวี่ 70 กรัม", Type: "เปียก", brand: "Buzz", Supplier: "ออสแทม กู๊ดส์ จำกัด", unit: "ซอง", priceทุน: 16, stock: 50, expiryDays: 250, avgSale1M: "200 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8859739230439", name: "Kandy C1 Kichen ทูน่าเนื้อไก่ เกรวี่ 70g", Type: "เปียก", brand: "Kandy", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 80, expiryDays: 300, avgSale1M: "350 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8859739210035", name: "P/kaniva indoor gravy tuna with chicken 70g.", Type: "เปียก", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 65, expiryDays: 180, avgSale1M: "280 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8851111011018", name: "Gino ปลาทูน่าหน้าแซลมอน 60 กรัม", Type: "เปียก", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ซอง", priceทุน: 16, stock: 35, expiryDays: 70, avgSale1M: "150 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "8857122849893", name: "Maria 7C ซาดีน+ปลาข้าวสาร 70g", Type: "เปียก", brand: "Maria", Supplier: "อินเตอร์ ฟาร์มา จำกัด (มหาชน)", unit: "ซอง", priceทุน: 18, stock: 42, expiryDays: 140, avgSale1M: "120 ซอง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-
-            { code: "20241401005", name: "อาหารหมูนมไก่ 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 25, stock: 30, expiryDays: 180, avgSale1M: "90 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "20240410009", name: "ข้าวเปลือกสั้น 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 10, stock: 100, expiryDays: 360, avgSale1M: "400 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "202312010002", name: "อาหารลูกไก่ 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 15, stock: 50, expiryDays: 220, avgSale1M: "180 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "6810010000004", name: "จัมปูน 100g", Type: "วัตถุดิบ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 15, stock: 20, expiryDays: 120, avgSale1M: "60 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "202403200001", name: "V55L อาหารหมู่ใหญ่ 30 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "กระสอบ", priceทุน: 390, stock: 15, expiryDays: 240, avgSale1M: "45 กระสอบ", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-
-            { code: "18859284600", name: "Omega 3 บำรุงผิวและขน 10เม็ด", Type: "ยาและเวชภัณฑ์", brand: "จำไม่ได้", Supplier: "จำไม่ได้", unit: "แผง", priceทุน: 15, stock: 25, expiryDays: 95, avgSale1M: "40 แผง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "3182550914833", name: "RC RENAL 400g.", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 300, stock: 10, expiryDays: 85, avgSale1M: "30 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "3661103067374", name: "NexGard Spectra15-30kg/เม็ด", Type: "ยาและเวชภัณฑ์", brand: "NexGard", Supplier: "โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์", unit: "เม็ด", priceทุน: 350, stock: 40, expiryDays: 250, avgSale1M: "80 เม็ด", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "3182550771252", name: "RC GASTRO 2Kg", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 1000, stock: 4, expiryDays: 50, avgSale1M: "12 ถุง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' },
-            { code: "5414736038051", name: "Revolution Plus สุนัข 2.6-5.0 ม่วง กล่อง", Type: "ยาและเวชภัณฑ์", brand: "Revolution", Supplier: "โซเอทิส อิงค์", unit: "กล่อง", priceทุน: 850, stock: 8, expiryDays: 130, avgSale1M: "25 กล่อง", needCount: false, countedQty: '', requestedTimestamp: '-', countedTimestamp: '-' }
+            { code: "202407260002", name: "Kaniva หมา รสไก่ 1 กก.", Type: "อาหารสุนัข", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ถุง", priceทุน: 80, stock: 45, expiryDays: 120, avgSale1M: "90 ถุง", countStatus: "ปกติ" },
+            { code: "8850477015951", name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", Type: "อาหารสุนัข", brand: "Luvcare", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 12, expiryDays: 60, avgSale1M: "40 ถุง", countStatus: "ปกติ" },
+            { code: "8859720701016", name: "Smillie แมว รสแซลมอน", Type: "อาหารแมว", brand: "Smillie", Supplier: "เพ็ทพัล โปรดักส์", unit: "ถุง", priceทุน: 30, stock: 15, expiryDays: 80, avgSale1M: "55 ถุง", countStatus: "ปกติ" },
+            { code: "3182550914833", name: "RC RENAL 400g.", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน", unit: "ถุง", priceทุน: 300, stock: 10, expiryDays: 85, avgSale1M: "30 ถุง", countStatus: "ปกติ" }
         ];
 
         let currentCategory = 'all';
         let cart = [];
         let selectedProductForOrder = null;
         let isExpiry90Mode = false;
-        let orderTransactionCount = 0;
+        let currentUserRole = 'boss'; // 'boss' หรือ 'staff'
 
         function handleLogin(e) {
             e.preventDefault();
@@ -764,13 +541,32 @@
             const pass = document.getElementById('loginPassword').value.trim();
 
             if (email === 'memi Pets.station681@gmail.com' && pass === '4321') {
-                document.getElementById('loginView').classList.add('hidden');
-                document.getElementById('mainDashboard').classList.remove('hidden');
-                initDashboard();
-                setTimeout(() => document.getElementById('logPopupModal').classList.remove('hidden'), 400);
+                currentUserRole = 'boss';
+                setRoleUI("เถ้าแก่ Memi", "ผู้บริหารสูงสุด", "ระบบหลักเถ้าแก่ Memi", "ยินดีต้อนรับกลับมาครับ เถ้าแก่ Memi");
+                loginSuccess();
+            } else if (email === 'staff@gmail.com' && pass === '1234') {
+                currentUserRole = 'staff';
+                setRoleUI("พนักงานร้าน", "เจ้าหน้าที่ปฏิบัติการ", "ระบบปฏิบัติการพนักงาน", "ยินดีต้อนรับพนักงานทุกท่าน");
+                loginSuccess();
             } else {
                 document.getElementById('loginError').classList.remove('hidden');
+                document.getElementById('loginErrorMsg').innerText = "อีเมลหรือรหัสผ่านไม่ถูกต้อง (เถ้าแก่: memi Pets.station681@gmail.com / 4321 หรือ พนักงาน: staff@gmail.com / 1234)";
             }
+        }
+
+        function setRoleUI(name, role, badge, title) {
+            document.getElementById('userNameDisplay').innerText = name;
+            document.getElementById('userRoleDisplay').innerText = role;
+            document.getElementById('headerRoleSubtitle').innerText = role;
+            document.getElementById('hubWelcomeBadge').innerText = badge;
+            document.getElementById('hubWelcomeTitle').innerText = title;
+        }
+
+        function loginSuccess() {
+            document.getElementById('loginView').classList.add('hidden');
+            document.getElementById('mainDashboard').classList.remove('hidden');
+            initDashboard();
+            setTimeout(() => document.getElementById('logPopupModal').classList.remove('hidden'), 400);
         }
 
         function handleLogout() {
@@ -830,23 +626,6 @@
             renderProductsTable();
         }
 
-        // ฟังก์ชันสั่งให้นับสต็อก (ส่งไปยังเว็บ pet2 ทันที)
-        function triggerCountTask(productCode) {
-            const p = productsFromSheet.find(item => item.code === productCode);
-            if (!p) return;
-
-            const now = new Date();
-            const timeStr = now.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' }) + ', ' + now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) + ' น.';
-
-            p.needCount = true;
-            p.requestedTimestamp = timeStr;
-            p.countedQty = '';
-            p.countedTimestamp = '-';
-
-            renderProductsTable();
-            alert(`⚡ สั่งให้นับสต็อกสินค้า "${p.name}" เรียบร้อยแล้ว! สถานะอัปเดตเป็น "สั่งให้นับแล้ว" เชื่อมไปยังระบบ pet2 สำเร็จ`);
-        }
-
         function renderProductsTable() {
             const tbody = document.getElementById('productTableBody');
             const searchVal = document.getElementById('searchInput').value.toLowerCase();
@@ -878,58 +657,44 @@
 
             document.getElementById('emptyState').classList.add('hidden');
             tbody.innerHTML = filtered.map(p => {
-                const isNearExpiry = p.expiryDays !== "" && p.expiryDays <= 90;
-                const expiryText = p.expiryDays === "" ? "ยังไม่กำหนด" : `${p.expiryDays} วัน`;
-                
-                // กำหนดป้ายสถานะการนับตามโค้ด pet2
-                let countStatusBadge = `<span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full">✓ สต็อกปกติ</span>`;
-                if (p.countedQty !== '') {
-                    const diff = p.countedQty - p.stock;
-                    const diffText = diff > 0 ? `เกิน +${diff}` : (diff < 0 ? `ขาด ${Math.abs(diff)}` : 'ตรงกัน');
-                    countStatusBadge = `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">นับแล้ว (${p.countedQty} | ${diffText})</span>`;
-                } else if (p.needCount) {
-                    countStatusBadge = `<span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full animate-pulse">⚡ สั่งให้นับแล้ว (รอผล)</span>`;
-                }
-
-                // ปุ่มสั่งนับ
-                let countButton = '';
-                if (p.countedQty !== '') {
-                    countButton = `<button onclick="triggerCountTask('${p.code}')" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition text-xs">สั่งนับซ้ำ</button>`;
-                } else if (p.needCount) {
-                    countButton = `<button disabled class="px-3 py-2 bg-amber-500 text-white font-bold rounded-xl transition text-xs opacity-75 cursor-not-allowed">รอนับอยู่</button>`;
-                } else {
-                    countButton = `<button onclick="triggerCountTask('${p.code}')" class="px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl shadow-2xs transition text-xs flex items-center gap-1 justify-center mx-auto"><i class="fa-solid fa-bell"></i> สั่งนับ</button>`;
-                }
-
+                const isCounted = p.countStatus === "สั่งนับแล้ว";
                 return `
-                    <tr class="hover:bg-slate-50/80 transition ${isNearExpiry ? 'bg-red-50/60' : ''}">
+                    <tr class="hover:bg-slate-50/80 transition">
                         <td class="py-4 px-6">
                             <span class="px-2.5 py-0.5 bg-slate-100 text-slate-700 text-xs font-bold rounded-full">${p.Type}</span>
                             <div class="font-bold text-slate-900 text-base mt-1">[${p.code}] ${p.name}</div>
                             <div class="text-xs text-slate-500 mt-0.5">ยี่ห้อ: ${p.brand} | Supplier: ${p.Supplier}</div>
                         </td>
                         <td class="py-4 px-6 text-center text-sm font-semibold text-slate-700">${p.unit}</td>
-                        <td class="py-4 px-6 text-center font-bold ${p.stock === 0 ? 'text-red-600' : 'text-emerald-700'}">${p.stock} หน่วย</td>
-                        <td class="py-4 px-6 text-center">${countStatusBadge}</td>
+                        <td class="py-4 px-6 text-center font-bold text-emerald-700">${p.stock} หน่วย</td>
+                        <td class="py-4 px-6 text-center text-sm text-slate-700">${p.expiryDays} วัน</td>
+                        <td class="py-4 px-6 text-center text-sm font-bold text-slate-800">${p.avgSale1M}</td>
                         <td class="py-4 px-6 text-center">
-                            <button onclick="openOrderModal('${p.code}')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-2xs transition text-sm">สั่งสินค้า</button>
+                            <button onclick="triggerStockCount('${p.code}')" class="px-4 py-2 rounded-xl font-bold text-xs transition shadow-xs flex items-center gap-1.5 mx-auto ${isCounted ? 'bg-emerald-600 text-white' : 'bg-purple-600 hover:bg-purple-700 text-white'}">
+                                <i class="fa-solid fa-bell"></i> ${isCounted ? 'สั่งนับแล้ว' : 'สั่งนับ'}
+                            </button>
                         </td>
-                        <td class="py-4 px-6 text-center">${countButton}</td>
+                        <td class="py-4 px-6 text-center">
+                            <button onclick="openOrderModal('${p.code}')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition text-sm">สั่งสินค้า</button>
+                        </td>
                     </tr>
                 `;
             }).join('');
         }
 
+        function triggerStockCount(productCode) {
+            const product = productsFromSheet.find(p => p.code === productCode);
+            if (!product) return;
+
+            product.countStatus = "สั่งนับแล้ว";
+            renderProductsTable();
+
+            // เปิดลิงก์ไปยังระบบ pet2 ในแท็บใหม่ทันทีตามต้องการ
+            window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank');
+        }
+
         function filterExpiry90Days() {
             isExpiry90Mode = !isExpiry90Mode;
-            const btn = document.getElementById('expiry90Btn');
-            if (isExpiry90Mode) {
-                btn.classList.add('bg-amber-600', 'text-white');
-                btn.classList.remove('bg-amber-50', 'text-amber-800');
-            } else {
-                btn.classList.remove('bg-amber-600', 'text-white');
-                btn.classList.add('bg-amber-50', 'text-amber-800');
-            }
             renderProductsTable();
         }
 
@@ -948,46 +713,18 @@
         function handleAddNewProduct(e) {
             e.preventDefault();
             const code = document.getElementById('newProdCode').value.trim() || `2026${Date.now().toString().slice(-6)}`;
-            const name = document.getElementById('newProdName').value.trim() || 'สินค้าใหม่ไม่ระบุชื่อ';
-            const priceทุน = parseFloat(document.getElementById('newProdCost').value) || 0;
-            const unit = document.getElementById('newProdUnit').value.trim() || 'ถุง';
-            const Type = document.getElementById('newProdType').value;
-            const brand = document.getElementById('newProdBrand').value.trim() || 'ทั่วไป';
-            const Supplier = document.getElementById('newProdSupplier').value.trim() || 'ทั่วไป';
-
-            const newProduct = {
-                code,
-                name,
-                Type,
-                brand,
-                Supplier,
-                unit,
-                priceทุน,
-                stock: 0,
-                expiryDays: "",
-                avgSale1M: "0 หน่วย",
-                needCount: false,
-                countedQty: '',
-                requestedTimestamp: '-',
-                countedTimestamp: '-'
-            };
-
-            productsFromSheet.unshift(newProduct);
+            const name = document.getElementById('newProdName').value.trim() || 'สินค้าใหม่';
+            productsFromSheet.unshift({ code, name, Type: "อาหารสุนัข", brand: "ทั่วไป", Supplier: "ทั่วไป", unit: "ถุง", priceทุน: 50, stock: 0, expiryDays: 100, avgSale1M: "0 ถุง", countStatus: "ปกติ" });
             closeAddProductModal();
             renderProductsTable();
-            alert(`เพิ่มสินค้า [${code}] ${name} เข้าคลังสำเร็จ! (ตั้งค่าสต็อก 0 และวันหมดอายุว่างเปล่าเรียบร้อย)`);
+            alert(`เพิ่มสินค้า [${code}] ${name} สำเร็จ!`);
         }
 
         function openOrderModal(productCode) {
             selectedProductForOrder = productsFromSheet.find(p => p.code === productCode);
             if (!selectedProductForOrder) return;
-            document.getElementById('modalProductCategory').innerText = selectedProductForOrder.Type;
-            document.getElementById('modalProductCode').innerText = `รหัส: ${selectedProductForOrder.code}`;
             document.getElementById('modalProductName').innerText = selectedProductForOrder.name;
-            document.getElementById('modalProductBrandSupplier').innerText = `ยี่ห้อ: ${selectedProductForOrder.brand} | Supplier: ${selectedProductForOrder.Supplier}`;
-            document.getElementById('modalProductStock').innerText = `สต็อกปัจจุบัน: ${selectedProductForOrder.stock} หน่วย`;
-            document.getElementById('orderUnitDisplay').value = selectedProductForOrder.unit;
-            document.getElementById('orderPrice').value = selectedProductForOrder.priceทุน;
+            document.getElementById('modalProductStock').innerText = `สต็อกปัจจุบัน: ${selectedProductForOrder.stock} ${selectedProductForOrder.unit}`;
             document.getElementById('orderModal').classList.remove('hidden');
         }
 
@@ -997,22 +734,26 @@
 
         function addToCart() {
             const qty = parseInt(document.getElementById('orderQuantity').value) || 1;
-            const unitPrice = parseFloat(document.getElementById('orderPrice').value) || selectedProductForOrder.priceทุน;
-
-            const existingIndex = cart.findIndex(item => item.code === selectedProductForOrder.code);
-            if (existingIndex > -1) {
-                cart[existingIndex].quantity += qty;
-            } else {
-                cart.push({ ...selectedProductForOrder, quantity: qty, unitPrice });
-            }
-
+            cart.push({ ...selectedProductForOrder, quantity: qty, unitPrice: selectedProductForOrder.priceทุน });
             document.getElementById('cartBadge').innerText = cart.length;
             closeOrderModal();
             alert('เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว');
         }
 
         function openCartModal() {
-            renderCartTable();
+            const tbody = document.getElementById('cartTableBody');
+            if (cart.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="py-8 text-center text-slate-400">ยังไม่มีสินค้าในตะกร้า</td></tr>`;
+                document.getElementById('cartTotalPrice').innerText = '0.00';
+            } else {
+                let total = 0;
+                tbody.innerHTML = cart.map(item => {
+                    let sub = item.quantity * item.unitPrice;
+                    total += sub;
+                    return `<tr class="border-b"><td class="p-3">[${item.code}] ${item.name}</td><td class="p-3 text-center">${item.quantity} ${item.unit}</td><td class="p-3 text-right">${sub.toLocaleString()}</td><td class="p-3 text-center"><button onclick="cart=[]" class="text-red-500">ลบ</button></td></tr>`;
+                }).join('');
+                document.getElementById('cartTotalPrice').innerText = total.toLocaleString();
+            }
             document.getElementById('cartModal').classList.remove('hidden');
         }
 
@@ -1020,97 +761,11 @@
             document.getElementById('cartModal').classList.add('hidden');
         }
 
-        function renderCartTable() {
-            const tbody = document.getElementById('cartTableBody');
-            if (cart.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">ยังไม่มีสินค้าในตะกร้าสั่งซื้อ</td></tr>`;
-                document.getElementById('cartTotalPrice').innerText = '0.00';
-                return;
-            }
-
-            let total = 0;
-            tbody.innerHTML = cart.map((item, index) => {
-                const subtotal = item.quantity * item.unitPrice;
-                total += subtotal;
-                return `
-                    <tr class="hover:bg-slate-50">
-                        <td class="p-3">
-                            <span class="font-bold text-slate-950">[${item.code}] ${item.name}</span>
-                        </td>
-                        <td class="p-3 text-xs text-slate-600">${item.Supplier}</td>
-                        <td class="p-3 text-center">
-                            <input type="number" min="1" value="${item.quantity}" onchange="updateCartQty(${index}, this.value)" class="w-16 text-center border rounded-lg py-1 text-sm font-bold"> 
-                            <span class="text-xs text-slate-500">${item.unit}</span>
-                        </td>
-                        <td class="p-3 text-right font-bold text-slate-800">${subtotal.toLocaleString()}</td>
-                        <td class="p-3 text-center">
-                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 p-1"><i class="fa-solid fa-trash-can"></i></button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            document.getElementById('cartTotalPrice').innerText = total.toLocaleString();
-        }
-
-        function updateCartQty(index, newQty) {
-            const q = parseInt(newQty);
-            if (q > 0) {
-                cart[index].quantity = q;
-                renderCartTable();
-            }
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            document.getElementById('cartBadge').innerText = cart.length;
-            renderCartTable();
-        }
-
-        function filterHistoryByDate() {
-            const dateVal = document.getElementById('historyDateFilter').value;
-            document.getElementById('currentHistoryDateText').innerText = dateVal;
-        }
-
-        function resetHistoryDate() {
-            document.getElementById('historyDateFilter').value = '2026-11-11';
-            document.getElementById('currentHistoryDateText').innerText = '11 พ.ย. 2569';
-        }
-
         function submitOrderToSupplier() {
-            if (cart.length === 0) {
-                alert('กรุณาเลือกสินค้าใส่ตะกร้าก่อนส่งคำสั่งซื้อครับเถ้าแก่');
-                return;
-            }
-
-            orderTransactionCount++;
-            const txId = `202611${String(orderTransactionCount).padStart(3, '0')}`;
-
-            document.getElementById('invoiceTxId').innerText = txId;
-            document.getElementById('invoiceDateText').innerText = 'วันที่: 11 พ.ย. 2569';
-
-            const invTbody = document.getElementById('invoiceTableBody');
-            invTbody.innerHTML = cart.map(item => `
-                <tr>
-                    <td class="p-2 font-bold">[${item.code}] ${item.name}</td>
-                    <td class="p-2 text-slate-600">${item.Supplier}</td>
-                    <td class="p-2 text-center">${item.quantity} ${item.unit}</td>
-                    <td class="p-2 text-right font-bold">${(item.quantity * item.unitPrice).toLocaleString()} บาท</td>
-                </tr>
-            `).join('');
-
-            closeCartModal();
-            document.getElementById('invoiceModal').classList.remove('hidden');
-
-            setTimeout(() => {
-                console.log("JSON Payload sent to Supplier Line OA:", JSON.stringify({ txId, items: cart }));
-            }, 500);
-
+            alert('ส่งคำสั่งซื้อผ่าน Line OA สำเร็จเรียบร้อยแล้ว');
             cart = [];
             document.getElementById('cartBadge').innerText = '0';
-        }
-
-        function closeInvoiceModal() {
-            document.getElementById('invoiceModal').classList.add('hidden');
+            closeCartModal();
         }
     </script>
 </body>
