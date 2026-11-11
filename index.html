@@ -916,15 +916,15 @@
         let isExpiry90Mode = false;
         let orderTransactionCount = 0;
 
-        // ข้อมูลธุรกรรมสำหรับระบบตรวจสอบหลักฐาน (Accounting Audit)
+        // ข้อมูลธุรกรรมสำหรับระบบตรวจสอบหลักฐาน (Accounting Audit) - เพิ่มเอกสารครอบคลุมตามที่เถ้าแก่ต้องการครบถ้วน
         let transactionData = [
             {
                 id: "202611001",
                 date: "2026-11-11",
                 supplier: "บริษัท ซัพพลายอาหารสัตว์ไทย จำกัด",
-                docType: "ใบกำกับภาษีซื้อ / ใบรับสินค้า",
+                docType: "ใบเสนอราคา",
                 status: "รอตรวจสอบ",
-                remark: "-",
+                remark: "รอตรวจสอบเงื่อนไขราคาสินค้าล็อตใหม่",
                 totalAmount: 12500.00,
                 itemsOrdered: [
                     { name: "อาหารแมวเกรดพรีเมียม (กระสอบ 20kg)", qty: 10, price: 1000 },
@@ -936,9 +936,9 @@
                 id: "202611002",
                 date: "2026-11-11",
                 supplier: "หจก. อุปกรณ์สัตว์เลี้ยงเพ็ทช็อป",
-                docType: "ใบเสร็จรับเงิน / ใบส่งของ",
+                docType: "ใบคำสั่งซื้อ",
                 status: "ปกติ",
-                remark: "เอกสารถูกต้องครบถ้วน",
+                remark: "ออร์เดอร์ส่งตรงเวลา ครบถ้วน",
                 totalAmount: 3400.00,
                 itemsOrdered: [
                     { name: "กรงสุนัขพับได้ ขนาด L", qty: 2, price: 1200 },
@@ -950,7 +950,7 @@
                 id: "202611003",
                 date: "2026-11-10",
                 supplier: "บริษัท เวชภัณฑ์สัตว์และอุปกรณ์ จำกัด",
-                docType: "ใบเคลมสินค้า",
+                docType: "ใบกำกับภาษีซื้อ",
                 status: "พบปัญหา/รอแก้ไข",
                 remark: "ยอดเงินในใบกำกับภาษีไม่ตรงกับยอดสั่งซื้อจริง ผลต่าง 300 บาท",
                 totalAmount: 1800.00,
@@ -958,6 +958,98 @@
                     { name: "วิตามินบำรุงขนนกแก้ว", qty: 6, price: 300 }
                 ],
                 documentImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "202611004",
+                date: "2026-11-10",
+                supplier: "เพ็ท โพรเทคท์ ฟู้ด",
+                docType: "ใบรับสินค้า",
+                status: "ปกติ",
+                remark: "ตรวจนับจำนวนสินค้าถูกต้องครบถ้วน",
+                totalAmount: 5600.00,
+                itemsOrdered: [
+                    { name: "Kaniva หมา รสไก่ 1 กก.", qty: 70, price: 80 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "202611005",
+                date: "2026-11-09",
+                supplier: "เคอรี่ เอ็กซ์เพรส (ประเทศไทย)",
+                docType: "ใบขนส่ง",
+                status: "ปกติ",
+                remark: "จัดส่งพัสดุด่วนถึงหน้าร้านเรียบร้อย",
+                totalAmount: 450.00,
+                itemsOrdered: [
+                    { name: "ค่าบริการขนส่งสินค้าควบคุมอุณหภูมิ/เวชภัณฑ์", qty: 1, price: 450 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "202611006",
+                date: "2026-11-09",
+                supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป",
+                docType: "ใบเสร็จรับเงิน",
+                status: "ปกติ",
+                remark: "ชำระเงินเรียบร้อย มีใบเสร็จรับเงินยืนยัน",
+                totalAmount: 8900.00,
+                itemsOrdered: [
+                    { name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", qty: 100, price: 45 },
+                    { name: "SmartHeart Gold 1.5kg", qty: 15, price: 293.33 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "202611007",
+                date: "2026-11-08",
+                supplier: "ท็อป ฟีด มิลล์ จำกัด",
+                docType: "ใบส่งสินค้า/ใบส่งของ",
+                status: "ปกติ",
+                remark: "สินค้าส่งถึงหน้าร้านสถานีสัตว์เลี้ยง สุราษฎร์ธานี",
+                totalAmount: 11700.00,
+                itemsOrdered: [
+                    { name: "V55L อาหารหมู่ใหญ่ 30 กก.", qty: 30, price: 390 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "202611008",
+                date: "2026-11-07",
+                supplier: "โรยัล คานิน (ประเทศไทย) จำกัด",
+                docType: "ใบส่งคืนสินค้า",
+                status: "ปกติ",
+                remark: "ส่งคืนสินค้าล็อตใกล้หมดอายุสำเร็จ",
+                totalAmount: 2000.00,
+                itemsOrdered: [
+                    { name: "RC GASTRO 2Kg (ส่งคืน)", qty: 2, price: 1000 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "202611009",
+                date: "2026-11-06",
+                supplier: "โซเอทิส อิงค์",
+                docType: "ใบเคลมสินค้า",
+                status: "รอตรวจสอบ",
+                remark: "รอยืนยันใบลดหนี้ (CN) กรณีกล่องสินค้าชำรุด",
+                totalAmount: 850.00,
+                itemsOrdered: [
+                    { name: "Revolution Plus สุนัข (เคลมกล่องชำรุด)", qty: 1, price: 850 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "202611010",
+                date: "2026-11-05",
+                supplier: "บริการจัดพิมพ์ป้ายโฆษณาหน้าร้านสุราษฎร์",
+                docType: "อื่นๆ (ใบบันทึกข้อตกลงและค่าบริการป้ายโฆษณาหน้าร้าน)",
+                status: "ปกติ",
+                remark: "ค่าจัดทำป้ายไวนิลโปรโมชั่น Kaniva หน้าร้านสถานีสัตว์เลี้ยง",
+                totalAmount: 1500.00,
+                itemsOrdered: [
+                    { name: "ค่าออกแบบและพิมพ์ป้ายไวนิลหน้าร้านขนาด 3x1 เมตร", qty: 1, price: 1500 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80"
             }
         ];
 
