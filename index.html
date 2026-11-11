@@ -1596,21 +1596,31 @@
             });
 
             item.totalAmount = newTotal;
+            
+            // อัปเดตสถานะเป็น "พบปัญหา/รอแก้ไข" ทันทีหลังกดบันทึกการแก้ไข จนกว่าจะกดตรวจสอบถูกต้อง
+            item.status = 'พบปัญหา/รอแก้ไข';
+            item.remark = 'มีการแก้ไขรายการเอกสารใหม่ อยู่ระหว่างรอตรวจสอบความถูกต้อง';
+
             isEditMode = false;
             renderDetailView();
-            alert('บันทึกการแก้ไขรายการและราคาเรียบร้อยแล้ว!');
+            document.getElementById('resolveProblemContainer').classList.remove('hidden');
+            filterByStatus(currentFilterStatus);
+            selectTransaction(currentSelectedId);
+            
+            alert('บันทึกการแก้ไขรายการเรียบร้อย! ระบบได้ปรับสถานะเป็น "พบปัญหา/รอแก้ไข" จนกว่าจะตรวจสอบความถูกต้องครับ');
         }
 
         function resolveProblem() {
             const item = transactionData.find(t => t.id === currentSelectedId);
             if (item) {
                 item.status = 'ปกติ';
-                item.remark = 'แก้ไขปัญหาเรียบร้อยแล้ว ตรวจสอบถูกต้อง';
+                item.remark = 'แก้ไขปัญหาและตรวจสอบความถูกต้องเรียบร้อยแล้ว';
             }
             alert('แก้ไขปัญหาเรียบร้อย! ระบบปรับสถานะเป็น "ปกติ" แล้ว');
             document.getElementById('resolveProblemContainer').classList.add('hidden');
             renderDetailView();
             filterByStatus(currentFilterStatus);
+            selectTransaction(currentSelectedId);
         }
 
         function saveAudit() {
@@ -1628,6 +1638,7 @@
             }
             document.getElementById('successPopup').classList.remove('hidden');
             filterByStatus(currentFilterStatus);
+            selectTransaction(currentSelectedId);
         }
 
         function closeSuccessPopup() {
