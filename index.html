@@ -38,21 +38,31 @@
             font-family: 'Prompt', sans-serif;
         }
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #f8fafc;
         }
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
-            border-radius: 3px;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .transaction-card { 
+            transition: all 0.2s ease-in-out; 
+        }
+        .transaction-card:hover { 
+            transform: translateY(-1px); 
+            box-shadow: 0 6px 12px -2px rgba(220, 38, 38, 0.15); 
         }
     </style>
 </head>
 <body class="h-full bg-slate-100 text-slate-800 antialiased flex flex-col">
 
-    <!-- ================= 1. LOGIN VIEW ================= -->
+    <!-- ================= 1. LOGIN VIEW (ระบบหลัก) ================= -->
     <div id="loginView" class="min-h-full flex items-center justify-center p-4 bg-gradient-to-br from-slate-900 via-red-950 to-red-900 absolute inset-0 z-50">
         <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 p-8 sm:p-10">
             <div class="text-center mb-8">
@@ -324,7 +334,6 @@
                 </div>
 
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
-
                     <div class="w-full bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 px-5 py-3.5 rounded-2xl flex items-center gap-3.5 text-red-800 shadow-2xs">
                         <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center text-lg shrink-0 shadow-sm">
                             <i class="fa-solid fa-bullhorn"></i>
@@ -454,16 +463,111 @@
                 </div>
             </div>
 
-            <!-- MODULE C: VERIFICATION -->
+            <!-- MODULE C: VERIFICATION (ระบบตรวจสอบหลักฐานและบัญชีที่ผสานเข้ามาอย่างสมบูรณ์) -->
             <div id="moduleVerification" class="space-y-6 hidden">
                 <div class="flex items-center justify-between bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
                         <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full font-heading">ระบบตรวจสอบหลักฐาน</span>
-                        <h2 class="text-2xl font-bold text-slate-900 font-heading mt-1">ตรวจสอบใบสั่งซื้อ สลิป และสถานะการจัดส่ง</h2>
+                        <h2 class="text-2xl font-bold text-slate-900 font-heading mt-1">ตรวจสอบใบสั่งซื้อ สลิป และสถานะการจัดส่ง (Accounting Audit System)</h2>
                     </div>
                     <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm font-heading transition">
                         <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก Hub
                     </button>
+                </div>
+
+                <!-- Accounting Audit Inner Section -->
+                <div class="space-y-6">
+                    <!-- Filter & Control Section -->
+                    <section class="bg-white p-6 rounded-2xl shadow-xl border border-red-100">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-2">ตัวกรองด่วน</label>
+                                <button id="btnToday" class="w-full bg-red-50 text-red-700 border border-red-200 font-semibold py-2.5 px-4 rounded-xl text-sm hover:bg-red-100 transition flex items-center justify-center space-x-1 shadow-sm">
+                                    <span>📅 กรองรายการวันนี้ (Today)</span>
+                                </button>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-2">ตั้งแต่วันที่</label>
+                                <input type="date" id="startDate" class="w-full border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-2">ถึงวันที่</label>
+                                <input type="date" id="endDate" class="w-full border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <button id="btnFilter" class="w-full bg-red-600 text-white font-semibold py-2.5 px-4 rounded-xl text-sm hover:bg-red-700 transition shadow-md shadow-red-200">
+                                    🔍 ค้นหาข้อมูลช่วงวันที่
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Content Grid: Transaction List & Detail Verification -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Left: Transaction List (List View with Status Filter Buttons) -->
+                        <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-6 flex flex-col h-[720px]">
+                            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
+                                <h2 class="font-bold text-slate-900 text-base">รายการธุรกรรม (Task List)</h2>
+                                <span id="taskCount" class="text-xs bg-red-50 text-red-700 px-3 py-1 rounded-full font-bold">0 รายการ</span>
+                            </div>
+                            
+                            <div class="mb-4 grid grid-cols-2 gap-1.5">
+                                <button onclick="filterByStatus('all')" id="filterBtn-all" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-red-600 text-white transition shadow-sm">ทั้งหมด</button>
+                                <button onclick="filterByStatus('รอตรวจสอบ')" id="filterBtn-รอตรวจสอบ" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">รอตรวจสอบ</button>
+                                <button onclick="filterByStatus('ปกติ')" id="filterBtn-ปกติ" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">ปกติ</button>
+                                <button onclick="filterByStatus('พบปัญหา/รอแก้ไข')" id="filterBtn-พบปัญหา/รอแก้ไข" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">พบปัญหา</button>
+                                <button onclick="filterByStatus('ถูกยกเลิกแล้ว')" id="filterBtn-ถูกยกเลิกแล้ว" class="col-span-2 text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">ถูกยกเลิกแล้ว</button>
+                            </div>
+
+                            <div id="transactionList" class="space-y-3.5 overflow-y-auto pr-1 flex-1">
+                                <!-- รายการจะถูก Render ที่นี่ -->
+                            </div>
+                        </div>
+
+                        <!-- Right: Document Verification & Action Panel -->
+                        <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-8 lg:col-span-2 flex flex-col justify-between min-h-[720px]">
+                            <div id="detailView">
+                                <div class="text-center py-44 text-slate-400">
+                                    <svg class="w-20 h-20 mx-auto mb-4 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <p class="text-base font-semibold text-slate-600">กรุณาเลือกรหัสธุรกรรมจากด้านซ้าย เพื่อตรวจสอบหลักฐาน</p>
+                                </div>
+                            </div>
+
+                            <!-- Footer Action Buttons -->
+                            <div id="actionPanel" class="border-t border-slate-200 pt-6 mt-6 hidden">
+                                <p class="text-xs font-bold text-slate-700 mb-3">🛠️ เครื่องมือตรวจสอบและจัดการสำหรับนักบัญชี (Audit Actions):</p>
+                                
+                                <div id="resolveProblemContainer" class="mb-3 hidden">
+                                    <button onclick="resolveProblem()" class="w-full bg-emerald-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-emerald-700 transition font-bold flex items-center justify-center space-x-2 shadow-md">
+                                        <span>✅ แก้ไขปัญหาเรียบร้อยแล้ว (ปรับสถานะเป็นปกติ)</span>
+                                    </button>
+                                </div>
+
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                    <button onclick="openLineChat('supplier')" class="bg-emerald-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-emerald-700 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
+                                        <span>💬 แชท Supplier</span>
+                                    </button>
+                                    <button onclick="openLineChat('staff')" class="bg-sky-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-sky-700 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
+                                        <span>👥 แชทพนักงาน</span>
+                                    </button>
+                                    <button onclick="toggleEditMode()" id="btnEditDoc" class="bg-amber-500 text-white text-xs py-3 px-4 rounded-xl hover:bg-amber-600 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
+                                        <span>✏️ แก้ไขเอกสาร</span>
+                                    </button>
+                                    <button onclick="saveAudit()" class="bg-red-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-red-700 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
+                                        <span>💾 บันทึกผลตรวจ</span>
+                                    </button>
+                                </div>
+
+                                <div class="mt-3">
+                                    <button onclick="notifyOwner()" class="w-full bg-slate-900 text-white text-xs py-3.5 px-4 rounded-xl hover:bg-slate-800 transition font-bold flex items-center justify-center space-x-2 shadow-md">
+                                        <span>🚨 ยกเลิกรายการ & ส่งแชทหาเถ้าแก่ผ่าน Line OA (ขอสร้างรหัสธุรกรรมใหม่)</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -500,7 +604,7 @@
         </footer>
     </div>
 
-    <!-- MODALS -->
+    <!-- MODALS (ระบบเดิมทั้งหมด) -->
     <div id="addProductModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between">
@@ -614,7 +718,6 @@
                 </div>
                 <button onclick="closeOrderHistoryModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <!-- ส่วนเพิ่ม Filter วันที่ (Default วันปัจจุบัน) และช่องค้นหา -->
             <div class="p-4 bg-slate-50 border-b border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3 shrink-0">
                 <div>
                     <label class="block text-slate-700 text-xs font-bold mb-1 font-heading">กรองตามวันที่ (Date Filter)</label>
@@ -631,9 +734,7 @@
                 </div>
             </div>
             <div class="p-6 space-y-4 overflow-y-auto flex-1 bg-slate-50">
-                <div id="orderHistoryContainer" class="space-y-4">
-                    <!-- รายการประวัติออเดอร์จะถูกเรนเดอร์ตรงนี้ -->
-                </div>
+                <div id="orderHistoryContainer" class="space-y-4"></div>
             </div>
             <div class="p-4 bg-white border-t border-slate-100 flex justify-end gap-3 shrink-0">
                 <button onclick="closeOrderHistoryModal()" class="px-6 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-sm font-heading transition">ปิดหน้าต่าง</button>
@@ -749,6 +850,21 @@
         </div>
     </div>
 
+    <!-- Popup Modal สำหรับบันทึกผลการตรวจเสร็จสิ้น (Accounting Audit) -->
+    <div id="successPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl text-center transform scale-95 transition-transform duration-300">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">บันทึกการตรวจเสร็จสิ้น</h3>
+            <p class="text-sm text-slate-600 mb-6">ข้อมูลผลการตรวจสอบเอกสารและสถานะธุรกรรมถูกบันทึกลงในระบบเรียบร้อยแล้ว</p>
+            <button onclick="closeSuccessPopup()" class="w-full bg-red-600 text-white font-bold py-3 px-6 rounded-xl hover:bg-red-700 transition shadow-md shadow-red-200">
+                ตกลง
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
         const categories = [
             { id: 'all', name: 'ทั้งหมด', icon: 'fa-border-all' },
@@ -766,31 +882,26 @@
             { code: "8850477033337", name: "SMH gold holistic สุนัขโต 1.5kg.", Type: "อาหารสุนัข", brand: "SmartHeart", Supplier: "Mars, Incorporated", unit: "ถุง", priceทุน: 275, stock: 25, expiryDays: 200, avgSale1M: "35 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8850477037014", name: "Apro โต ตับย่าง 1 กก.", Type: "อาหารสุนัข", brand: "Apro", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 60, stock: 8, expiryDays: 45, avgSale1M: "60 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8851759450385", name: "JH Meat as Meals รสไก่เม็ดนิ่ม 500g.", Type: "อาหารสุนัข", brand: "Jerhigh", Supplier: "อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด", unit: "ถุง", priceทุน: 109, stock: 30, expiryDays: 150, avgSale1M: "70 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
-
             { code: "8859720701016", name: "Smillie แมว รสแซลมอน", Type: "อาหารแมว", brand: "Smillie", Supplier: "เพ็ทพัล โปรดักส์ จำกัด (มหาชน)", unit: "ถุง", priceทุน: 30, stock: 15, expiryDays: 80, avgSale1M: "55 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8850011066999", name: "PurinaOne HairBall 380g.", Type: "อาหารแมว", brand: "PurinaOne", Supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", unit: "ถุง", priceทุน: 90, stock: 20, expiryDays: 180, avgSale1M: "80 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8850477002500", name: "Me-o Gold อินดอร์ 400g", Type: "อาหารแมว", brand: "Me-O", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 50, stock: 5, expiryDays: 30, avgSale1M: "110 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8850477022140", name: "Zoi Cat ทูน่า 1กก.", Type: "อาหารแมว", brand: "Zoi cat", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 45, stock: 40, expiryDays: 240, avgSale1M: "95 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8851111045013", name: "Ginno ไก่และทูน่า 380 กรัม", Type: "อาหารแมว", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 50, stock: 18, expiryDays: 100, avgSale1M: "50 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
-
             { code: "202403200003", name: "Alfafa สับเกรดลัคชู 500g.", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 10, expiryDays: 90, avgSale1M: "25 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "202403200002", name: "Timothy 500g", Type: "สัตว์ฟันแทะ", brand: "ไม่มี", Supplier: "KingRabbit", unit: "ถุง", priceทุน: 35, stock: 22, expiryDays: 200, avgSale1M: "30 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8850477017894", name: "SMH ZELECT Adult 500 กรัม", Type: "สัตว์ฟันแทะ", brand: "SmartHeart", Supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", unit: "ถุง", priceทุน: 100, stock: 7, expiryDays: 40, avgSale1M: "20 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8859767903251", name: "PetHeng แฮมสเตอร์ รสตับ", Type: "สัตว์ฟันแทะ", brand: "PetHeng", Supplier: "บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด", unit: "ซอง", priceทุน: 50, stock: 25, expiryDays: 160, avgSale1M: "45 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8853527041733", name: "Bok dog กระต่ายสูตรเบอร์รี่ 1 กก.", Type: "สัตว์ฟันแทะ", brand: "Bok dog", Supplier: "Bluefalo Petcare", unit: "ถุง", priceทุน: 50, stock: 14, expiryDays: 110, avgSale1M: "35 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
-
             { code: "8859760301078", name: "Buzz/P CG01 ไก่เกรวี่ 70 กรัม", Type: "เปียก", brand: "Buzz", Supplier: "ออสแทม กู๊ดส์ จำกัด", unit: "ซอง", priceทุน: 16, stock: 50, expiryDays: 250, avgSale1M: "200 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8859739230439", name: "Kandy C1 Kichen ทูน่าเนื้อไก่ เกรวี่ 70g", Type: "เปียก", brand: "Kandy", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 80, expiryDays: 300, avgSale1M: "350 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8859739210035", name: "P/kaniva indoor gravy tuna with chicken 70g.", Type: "เปียก", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ซอง", priceทุน: 10, stock: 65, expiryDays: 180, avgSale1M: "280 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8851111011018", name: "Gino ปลาทูน่าหน้าแซลมอน 60 กรัม", Type: "เปียก", brand: "Ginno", Supplier: "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", unit: "ซอง", priceทุน: 16, stock: 35, expiryDays: 70, avgSale1M: "150 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "8857122849893", name: "Maria 7C ซาดีน+ปลาข้าวสาร 70g", Type: "เปียก", brand: "Maria", Supplier: "อินเตอร์ ฟาร์มา จำกัด (มหาชน)", unit: "ซอง", priceทุน: 18, stock: 42, expiryDays: 140, avgSale1M: "120 ซอง", countStatus: "ยังไม่ได้สั่งนับ" },
-
             { code: "20241401005", name: "อาหารหมูนมไก่ 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 25, stock: 30, expiryDays: 180, avgSale1M: "90 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "20240410009", name: "ข้าวเปลือกสั้น 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 10, stock: 100, expiryDays: 360, avgSale1M: "400 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "202312010002", name: "อาหารลูกไก่ 1 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 15, stock: 50, expiryDays: 220, avgSale1M: "180 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "6810010000004", name: "จัมปูน 100g", Type: "วัตถุดิบ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "ถุง", priceทุน: 15, stock: 20, expiryDays: 120, avgSale1M: "60 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "202403200001", name: "V55L อาหารหมู่ใหญ่ 30 กก.", Type: "สัตว์เศรษฐกิจ", brand: "Topfeed", Supplier: "ท็อป ฟีด มิลล์ จำกัด", unit: "กระสอบ", priceทุน: 390, stock: 15, expiryDays: 240, avgSale1M: "45 กระสอบ", countStatus: "ยังไม่ได้สั่งนับ" },
-
             { code: "18859284600", name: "Omega 3 บำรุงผิวและขน 10เม็ด", Type: "ยาและเวชภัณฑ์", brand: "จำไม่ได้", Supplier: "จำไม่ได้", unit: "แผง", priceทุน: 15, stock: 25, expiryDays: 95, avgSale1M: "40 แผง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "3182550914833", name: "RC RENAL 400g.", Type: "ยาและเวชภัณฑ์", brand: "Royalcanin", Supplier: "โรยัล คานิน (ประเทศไทย) จำกัด", unit: "ถุง", priceทุน: 300, stock: 10, expiryDays: 85, avgSale1M: "30 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
             { code: "3661103067374", name: "NexGard Spectra15-30kg/เม็ด", Type: "ยาและเวชภัณฑ์", brand: "NexGard", Supplier: "โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์", unit: "เม็ด", priceทุน: 350, stock: 40, expiryDays: 250, avgSale1M: "80 เม็ด", countStatus: "ยังไม่ได้สั่งนับ" },
@@ -800,11 +911,61 @@
 
         let currentCategory = 'all';
         let cart = [];
-        let orderHistory = []; // เก็บประวัติออเดอร์ที่สั่งแล้ว
+        let orderHistory = [];
         let selectedProductForOrder = null;
         let isExpiry90Mode = false;
         let orderTransactionCount = 0;
 
+        // ข้อมูลธุรกรรมสำหรับระบบตรวจสอบหลักฐาน (Accounting Audit)
+        let transactionData = [
+            {
+                id: "202611001",
+                date: "2026-11-11",
+                supplier: "บริษัท ซัพพลายอาหารสัตว์ไทย จำกัด",
+                docType: "ใบกำกับภาษีซื้อ / ใบรับสินค้า",
+                status: "รอตรวจสอบ",
+                remark: "-",
+                totalAmount: 12500.00,
+                itemsOrdered: [
+                    { name: "อาหารแมวเกรดพรีเมียม (กระสอบ 20kg)", qty: 10, price: 1000 },
+                    { name: "ทรายแมวเต้าหู้ (ถุง 6L)", qty: 50, price: 50 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "202611002",
+                date: "2026-11-11",
+                supplier: "หจก. อุปกรณ์สัตว์เลี้ยงเพ็ทช็อป",
+                docType: "ใบเสร็จรับเงิน / ใบส่งของ",
+                status: "ปกติ",
+                remark: "เอกสารถูกต้องครบถ้วน",
+                totalAmount: 3400.00,
+                itemsOrdered: [
+                    { name: "กรงสุนัขพับได้ ขนาด L", qty: 2, price: 1200 },
+                    { name: "ของเล่นแมวไม้ล่อ", qty: 20, price: 50 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: "202611003",
+                date: "2026-11-10",
+                supplier: "บริษัท เวชภัณฑ์สัตว์และอุปกรณ์ จำกัด",
+                docType: "ใบเคลมสินค้า",
+                status: "พบปัญหา/รอแก้ไข",
+                remark: "ยอดเงินในใบกำกับภาษีไม่ตรงกับยอดสั่งซื้อจริง ผลต่าง 300 บาท",
+                totalAmount: 1800.00,
+                itemsOrdered: [
+                    { name: "วิตามินบำรุงขนนกแก้ว", qty: 6, price: 300 }
+                ],
+                documentImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        let currentSelectedId = null;
+        let isEditMode = false;
+        let currentFilterStatus = 'all';
+
+        // Login ระบบหลัก
         function handleLogin(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.trim();
@@ -816,7 +977,7 @@
                 initDashboard();
                 setTimeout(() => document.getElementById('logPopupModal').classList.remove('hidden'), 400);
             } else {
-                document.getElementById('loginError').classList.add('hidden');
+                document.getElementById('loginError').classList.remove('hidden');
             }
         }
 
@@ -845,14 +1006,20 @@
             document.getElementById('moduleDashboard').classList.add('hidden');
             document.getElementById('moduleAccounting').classList.add('hidden');
 
-            if (moduleName === 'hub') document.getElementById('moduleHub').classList.remove('hidden');
-            else if (moduleName === 'ordering') {
+            if (moduleName === 'hub') {
+                document.getElementById('moduleHub').classList.remove('hidden');
+            } else if (moduleName === 'ordering') {
                 document.getElementById('moduleOrdering').classList.remove('hidden');
                 renderCategoryTabs();
                 renderProductsTable();
-            } else if (moduleName === 'verification') document.getElementById('moduleVerification').classList.remove('hidden');
-            else if (moduleName === 'dashboard') document.getElementById('moduleDashboard').classList.remove('hidden');
-            else if (moduleName === 'accounting') document.getElementById('moduleAccounting').classList.remove('hidden');
+            } else if (moduleName === 'verification') {
+                document.getElementById('moduleVerification').classList.remove('hidden');
+                renderTransactionList(transactionData);
+            } else if (moduleName === 'dashboard') {
+                document.getElementById('moduleDashboard').classList.remove('hidden');
+            } else if (moduleName === 'accounting') {
+                document.getElementById('moduleAccounting').classList.remove('hidden');
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -877,7 +1044,6 @@
             renderProductsTable();
         }
 
-        // ฟังก์ชันกดสั่งนับสต็อก: เปิดลิงก์ภายนอกและเปลี่ยนสถานะในตาราง
         function triggerCountAction(productCode) {
             const prod = productsFromSheet.find(p => p.code === productCode);
             if (prod) {
@@ -930,8 +1096,8 @@
                             <div class="text-xs text-slate-500 mt-0.5">ยี่ห้อ: ${p.brand} | Supplier: ${p.Supplier}</div>
                         </td>
                         <td class="py-4 px-6 text-center text-sm font-semibold text-slate-700">${p.unit}</td>
-                        <td class="py-4 px-6 text-center font-bold ${p.stock===0?'text-red-600':'text-emerald-700'}">${p.stock} หน่วย</td>
-                        <td class="py-4 px-6 text-center text-sm ${isNearExpiry?'text-red-600 font-bold bg-red-100/60 rounded-lg p-1':'text-slate-700'}">${expiryText}</td>
+                        <td class="py-4 px-6 text-center font-bold ${p.stock === 0 ? 'text-red-600' : 'text-emerald-700'}">${p.stock} หน่วย</td>
+                        <td class="py-4 px-6 text-center text-sm ${isNearExpiry ? 'text-red-600 font-bold bg-red-100/60 rounded-lg p-1' : 'text-slate-700'}">${expiryText}</td>
                         <td class="py-4 px-6 text-center text-sm">
                             <div class="font-bold text-slate-800">${p.avgSale1M}</div>
                         </td>
@@ -985,18 +1151,8 @@
             const Supplier = document.getElementById('newProdSupplier').value.trim() || 'ทั่วไป';
 
             const newProduct = {
-                code,
-                name,
-                Type,
-                brand,
-                Supplier,
-                unit,
-                priceทุน,
-                priceขาย,
-                stock: 0,
-                expiryDays: "",
-                avgSale1M: "0 หน่วย",
-                countStatus: "ยังไม่ได้สั่งนับ"
+                code, name, Type, brand, Supplier, unit, priceทุน, priceขาย,
+                stock: 0, expiryDays: "", avgSale1M: "0 หน่วย", countStatus: "ยังไม่ได้สั่งนับ"
             };
 
             productsFromSheet.unshift(newProduct);
@@ -1061,9 +1217,7 @@
                 total += subtotal;
                 return `
                     <tr class="hover:bg-slate-50">
-                        <td class="p-3">
-                            <span class="font-bold text-slate-950">[${item.code}] ${item.name}</span>
-                        </td>
+                        <td class="p-3"><span class="font-bold text-slate-950">[${item.code}] ${item.name}</span></td>
                         <td class="p-3 text-xs text-slate-600">${item.Supplier}</td>
                         <td class="p-3 text-center">
                             <input type="number" min="1" value="${item.quantity}" onchange="updateCartQty(${index}, this.value)" class="w-16 text-center border rounded-lg py-1 text-sm font-bold"> 
@@ -1112,7 +1266,6 @@
             orderTransactionCount++;
             const txId = `202611${String(orderTransactionCount).padStart(3, '0')}`;
             
-            // ดึงวันที่ปัจจุบันตามคอมพิวเตอร์ (รูปแบบ YYYY-MM-DD สำหรับเทียบค่าฟิลเตอร์ และรูปแบบไทยสวยงาม)
             const now = new Date();
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -1124,7 +1277,6 @@
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const dateStrFormatted = `${now.getDate()} ${thaiMonths[now.getMonth()]} ${now.getFullYear() + 543} ${hours}:${minutes}`;
 
-            // บันทึกลงประวัติการสั่ง
             const newOrder = {
                 txId,
                 date: dateStrFormatted,
@@ -1151,16 +1303,11 @@
             closeCartModal();
             document.getElementById('invoiceModal').classList.remove('hidden');
 
-            setTimeout(() => {
-                console.log("JSON Payload sent to Supplier Line OA:", JSON.stringify({ txId, items: cart }));
-            }, 500);
-
             cart = [];
             document.getElementById('cartBadge').innerText = '0';
         }
 
         function openOrderHistoryModal() {
-            // เซ็ตค่า Date Filter ใน Pop-up ประวัติให้เป็นวันที่ปัจจุบันตามคอมพิวเตอร์โดยอัตโนมัติ
             const now = new Date();
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -1183,14 +1330,11 @@
             const filterDate = document.getElementById('historyFilterDate').value;
             const searchKeyword = document.getElementById('historySearchInput').value.toLowerCase().trim();
 
-            // กรองตามวันที่และคำค้นหา (เลขธุรกรรม, รายการสินค้า, Supplier)
             let filteredHistory = orderHistory.filter(order => {
                 const matchDate = !filterDate || order.rawDate === filterDate;
-                
                 const matchSearch = !searchKeyword || 
                     order.txId.toLowerCase().includes(searchKeyword) ||
                     order.items.some(i => i.name.toLowerCase().includes(searchKeyword) || i.code.toLowerCase().includes(searchKeyword) || i.Supplier.toLowerCase().includes(searchKeyword));
-
                 return matchDate && matchSearch;
             });
 
@@ -1199,9 +1343,11 @@
                 return;
             }
 
-            container.innerHTML = filteredHistory.map((order, idx) => {
+            container.innerHTML = filteredHistory.map((order) => {
                 const total = order.items.reduce((sum, i) => sum + (i.quantity * i.unitPrice), 0);
-                const originalIndex = orderHistory.indexOf(order); // อ้างอิง index จริงในอาเรย์หลัก
+                const originalIndex = orderHistory.indexOf(order);
+                const statusBadgeClass = order.status.includes('ยกเลิก') ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700';
+                
                 return `
                     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
                         <div class="flex justify-between items-center border-b border-slate-100 pb-2">
@@ -1209,7 +1355,7 @@
                                 <span class="px-2.5 py-1 bg-blue-100 text-blue-700 font-bold text-xs rounded-full">ออเดอร์ #${order.txId}</span>
                                 <span class="text-xs text-slate-500 ml-2">${order.date}</span>
                             </div>
-                            <span class="text-xs font-bold px-2.5 py-1 rounded-full ${order.status.includes('ยกเลิก') ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}">${order.status}</span>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full ${statusBadgeClass}">${order.status}</span>
                         </div>
                         <div class="space-y-1 text-xs text-slate-700">
                             ${order.items.map(i => `<div>• [${i.code}] ${i.name} (Supplier: ${i.Supplier}) - จำนวน: ${i.quantity} ${i.unit} (${(i.quantity * i.unitPrice).toLocaleString()} บาท)</div>`).join('')}
@@ -1230,7 +1376,6 @@
             }).join('');
         }
 
-        // ยกเลิกการสั่ง: แจ้งเตือนไปหา Line Supplier ว่ายกเลิกออเดอร์
         function cancelOrder(index) {
             const order = orderHistory[index];
             order.status = 'ยกเลิกออเดอร์แล้ว';
@@ -1238,15 +1383,11 @@
             alert(`[Line Supplier Notification]\nแจ้งเตือนไปยัง Supplier: ขอยกเลิกออเดอร์เลขที่ #${order.txId} เรียบร้อยแล้วครับ`);
         }
 
-        // กลับไปแก้ไข & ส่งออเดอร์ใหม่: แจ้งยกเลิกออเดอร์เดิม แล้วส่งออเดอร์ใหม่ไปอีกรอบ
         function editAndResendOrder(index) {
             const order = orderHistory[index];
             order.status = 'ยกเลิกออเดอร์เดิม & ส่งออเดอร์ใหม่แล้ว';
-            
-            // นำรายการเดิมกลับใส่ตะกร้าเพื่อแก้ไข
             cart = [...order.items];
             document.getElementById('cartBadge').innerText = cart.length;
-            
             closeOrderHistoryModal();
             openCartModal();
             alert(`[Line Supplier Notification]\nแจ้งเตือนไปยัง Supplier: ขอยกเลิกออเดอร์เลขที่ #${order.txId} เดิม\n\nระบบได้นำสินค้ากลับมาที่ตะกร้าเพื่อให้ท่านแก้ไขและกด "ส่งคำสั่งซื้อให้ Supplier" ใหม่อีกครั้งเรียบร้อยแล้วครับ`);
@@ -1254,6 +1395,258 @@
 
         function closeInvoiceModal() {
             document.getElementById('invoiceModal').classList.add('hidden');
+        }
+
+        // ================= JAVASCRIPT FOR ACCOUNTING AUDIT MODULE =================
+        document.addEventListener("DOMContentLoaded", () => {
+            const btnToday = document.getElementById('btnToday');
+            if (btnToday) {
+                btnToday.addEventListener('click', () => {
+                    const todayStr = "2026-11-11";
+                    const filtered = transactionData.filter(item => item.date === todayStr);
+                    renderTransactionList(filtered);
+                });
+            }
+
+            const btnFilter = document.getElementById('btnFilter');
+            if (btnFilter) {
+                btnFilter.addEventListener('click', () => {
+                    const start = document.getElementById('startDate').value;
+                    const end = document.getElementById('endDate').value;
+                    if(!start || !end) {
+                        alert('กรุณาเลือกวันที่เริ่มต้นและสิ้นสุดให้ครบถ้วน');
+                        return;
+                    }
+                    const filtered = transactionData.filter(item => item.date >= start && item.date <= end);
+                    renderTransactionList(filtered);
+                });
+            }
+            
+            // เริ่มต้นเรนเดอร์รายการตรวจสอบหลักฐาน
+            renderTransactionList(transactionData);
+        });
+
+        function filterByStatus(status) {
+            currentFilterStatus = status;
+            const statuses = ['all', 'รอตรวจสอบ', 'ปกติ', 'พบปัญหา/รอแก้ไข', 'ถูกยกเลิกแล้ว'];
+            statuses.forEach(s => {
+                const btn = document.getElementById(`filterBtn-${s}`);
+                if (btn) {
+                    if (s === status) {
+                        btn.className = "text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-red-600 text-white transition shadow-sm";
+                    } else {
+                        btn.className = "text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+                    }
+                }
+            });
+
+            if (status === 'all') {
+                renderTransactionList(transactionData);
+            } else {
+                const filtered = transactionData.filter(item => item.status === status);
+                renderTransactionList(filtered);
+            }
+        }
+
+        function renderTransactionList(items) {
+            const listContainer = document.getElementById('transactionList');
+            if (!listContainer) return;
+            document.getElementById('taskCount').innerText = `${items.length} รายการ`;
+            listContainer.innerHTML = '';
+
+            if (items.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-10">ไม่พบรายการธุรกรรมในสถานะนี้</p>`;
+                return;
+            }
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                let badgeClass = 'bg-slate-100 text-slate-700';
+                if (item.status === 'ปกติ') badgeClass = 'bg-emerald-100 text-emerald-700';
+                else if (item.status === 'พบปัญหา/รอแก้ไข') badgeClass = 'bg-red-100 text-red-700';
+                else if (item.status === 'ถูกยกเลิกแล้ว') badgeClass = 'bg-slate-300 text-slate-800 line-through';
+
+                card.className = `transaction-card p-4 rounded-xl border cursor-pointer bg-white ${currentSelectedId === item.id ? 'border-red-500 ring-2 ring-red-100 bg-red-50/20' : 'border-slate-200 hover:border-red-300'}`;
+                card.onclick = () => selectTransaction(item.id);
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-1.5">
+                        <span class="text-xs font-bold text-red-600">${item.id}</span>
+                        <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${badgeClass}">${item.status}</span>
+                    </div>
+                    <p class="text-xs font-semibold text-slate-900 truncate">${item.supplier}</p>
+                    <div class="flex justify-between items-center mt-2.5 text-[11px] text-slate-500">
+                        <span>ประเภท: ${item.docType}</span>
+                        <span class="font-bold text-slate-800">฿${item.totalAmount.toLocaleString()}</span>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function selectTransaction(id) {
+            currentSelectedId = id;
+            isEditMode = false;
+            renderDetailView();
+            document.getElementById('actionPanel').classList.remove('hidden');
+            
+            const item = transactionData.find(t => t.id === id);
+            const resolveContainer = document.getElementById('resolveProblemContainer');
+            if (item && item.status === 'พบปัญหา/รอแก้ไข') {
+                resolveContainer.classList.remove('hidden');
+            } else {
+                resolveContainer.classList.add('hidden');
+            }
+
+            filterByStatus(currentFilterStatus);
+        }
+
+        function renderDetailView() {
+            const item = transactionData.find(t => t.id === currentSelectedId);
+            if (!item) return;
+
+            const detailView = document.getElementById('detailView');
+            let itemsHtml = '';
+            if (isEditMode) {
+                itemsHtml = `
+                    <div class="space-y-2 max-h-52 overflow-y-auto pr-1">
+                        ${item.itemsOrdered.map((i, idx) => `
+                            <div class="flex items-center space-x-2 border-b border-slate-200 pb-2">
+                                <input type="text" id="edit-name-${idx}" value="${i.name}" class="w-1/2 border border-slate-300 rounded-lg p-1 text-xs">
+                                <input type="number" id="edit-qty-${idx}" value="${i.qty}" class="w-16 border border-slate-300 rounded-lg p-1 text-xs text-center">
+                                <input type="number" id="edit-price-${idx}" value="${i.price}" class="w-20 border border-slate-300 rounded-lg p-1 text-xs text-right">
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button onclick="saveEditedDocument()" class="mt-3 w-full bg-emerald-600 text-white font-semibold py-2 px-4 rounded-xl text-xs hover:bg-emerald-700 transition">
+                        💾 บันทึกการแก้ไขรายการ
+                    </button>
+                `;
+            } else {
+                itemsHtml = `
+                    <ul class="space-y-2.5 text-xs text-slate-600 max-h-48 overflow-y-auto">
+                        ${item.itemsOrdered.map(i => `
+                            <li class="flex justify-between border-b border-slate-200/60 pb-2">
+                                <span>${i.name} (x${i.qty})</span>
+                                <span class="font-semibold text-slate-800">฿${(i.qty * i.price).toLocaleString()}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            }
+
+            detailView.innerHTML = `
+                <div>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-100 pb-4 mb-4 gap-2">
+                        <div>
+                            <span class="text-xs bg-red-100 text-red-800 font-bold px-3 py-1 rounded-lg">รหัสธุรกรรม: ${item.id}</span>
+                            <h2 class="text-base font-bold text-slate-900 mt-1.5">${item.supplier}</h2>
+                        </div>
+                        <div class="text-left md:text-right">
+                            <p class="text-xs text-slate-500">วันที่ทำรายการ: ${item.date}</p>
+                            <p class="text-sm font-bold text-red-600">ยอดรวมสุทธิ: ฿${item.totalAmount.toLocaleString()}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <h3 class="text-xs font-bold text-slate-700 mb-2 flex items-center justify-between">
+                                <span>📋 รายการสั่งซื้อตั้งต้นในระบบ</span>
+                                ${isEditMode ? '<span class="text-amber-600 text-[10px] animate-pulse">กำลังแก้ไขข้อมูล...</span>' : ''}
+                            </h3>
+                            ${itemsHtml}
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex flex-col items-center justify-center">
+                            <h3 class="text-xs font-bold text-slate-700 mb-2 self-start">📷 หลักฐานภาพถ่าย/PDF ที่อัปโหลด</h3>
+                            <a href="${item.documentImage}" target="_blank" class="relative group block w-full h-36 overflow-hidden rounded-xl border border-slate-300 bg-white">
+                                <img src="${item.documentImage}" alt="Document Evidence" class="w-full h-full object-cover group-hover:scale-105 transition">
+                                <div class="absolute inset-0 bg-slate-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition text-white text-xs font-medium">คลิกเพื่อดูรูปขยายเต็มจอ</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-50/60 p-3.5 rounded-2xl border border-red-200">
+                        <label class="block text-xs font-bold text-red-800 mb-1">⚠️ หมายเหตุรายละเอียดปัญหา (สำหรับสถานะพบปัญหา):</label>
+                        <input type="text" id="remarkInput" value="${item.remark}" class="w-full border border-red-300 rounded-xl p-2 text-xs bg-white text-slate-800 focus:ring-2 focus:ring-red-500 focus:outline-none" placeholder="ระบุรายละเอียดปัญหาที่พบ...">
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            renderDetailView();
+        }
+
+        function saveEditedDocument() {
+            const item = transactionData.find(t => t.id === currentSelectedId);
+            if (!item) return;
+
+            let newTotal = 0;
+            item.itemsOrdered.forEach((i, idx) => {
+                const nameInput = document.getElementById(`edit-name-${idx}`).value;
+                const qtyInput = parseFloat(document.getElementById(`edit-qty-${idx}`).value) || 0;
+                const priceInput = parseFloat(document.getElementById(`edit-price-${idx}`).value) || 0;
+
+                i.name = nameInput;
+                i.qty = qtyInput;
+                i.price = priceInput;
+                newTotal += (qtyInput * priceInput);
+            });
+
+            item.totalAmount = newTotal;
+            isEditMode = false;
+            renderDetailView();
+            alert('บันทึกการแก้ไขรายการและราคาเรียบร้อยแล้ว!');
+        }
+
+        function resolveProblem() {
+            const item = transactionData.find(t => t.id === currentSelectedId);
+            if (item) {
+                item.status = 'ปกติ';
+                item.remark = 'แก้ไขปัญหาเรียบร้อยแล้ว ตรวจสอบถูกต้อง';
+            }
+            alert('แก้ไขปัญหาเรียบร้อย! ระบบปรับสถานะเป็น "ปกติ" แล้ว');
+            document.getElementById('resolveProblemContainer').classList.add('hidden');
+            renderDetailView();
+            filterByStatus(currentFilterStatus);
+        }
+
+        function saveAudit() {
+            const item = transactionData.find(t => t.id === currentSelectedId);
+            if (item) {
+                const remarkVal = document.getElementById('remarkInput').value;
+                item.remark = remarkVal;
+                if (remarkVal && remarkVal !== '-' && remarkVal.trim() !== '') {
+                    item.status = 'พบปัญหา/รอแก้ไข';
+                    document.getElementById('resolveProblemContainer').classList.remove('hidden');
+                } else {
+                    item.status = 'ปกติ';
+                    document.getElementById('resolveProblemContainer').classList.add('hidden');
+                }
+            }
+            document.getElementById('successPopup').classList.remove('hidden');
+            filterByStatus(currentFilterStatus);
+        }
+
+        function closeSuccessPopup() {
+            document.getElementById('successPopup').classList.add('hidden');
+        }
+
+        function notifyOwner() {
+            const confirmSend = confirm('ต้องการยกเลิกรายการนี้ และส่งข้อความแจ้งเตือนหาเถ้าแก่ผ่าน Line OA เพื่อขอสร้างรหัสธุรกรรมใหม่ใช่หรือไม่?');
+            if (confirmSend) {
+                const item = transactionData.find(t => t.id === currentSelectedId);
+                if (item) {
+                    item.status = 'ถูกยกเลิกแล้ว';
+                    item.remark = 'ยกเลิกรายการและขอรหัสธุรกรรมใหม่จากเถ้าแก่แล้ว';
+                }
+                alert('ส่งข้อความแจ้งเตือนหาเถ้าแก่ (Owner) ผ่าน Line OA สำเร็จ และอัปเดตสถานะเป็น "ถูกยกเลิกแล้ว" เรียบร้อย');
+                document.getElementById('resolveProblemContainer').classList.add('hidden');
+                filterByStatus(currentFilterStatus);
+                selectTransaction(currentSelectedId);
+            }
         }
     </script>
 </body>
