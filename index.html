@@ -513,27 +513,34 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <!-- ปรับปรุงช่องราคาทุนและเพิ่มช่องราคาขายแยกเป็นสัดส่วนชัดเจน สวยงาม -->
+                <div class="grid grid-cols-2 gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                     <div>
-                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ราคาทุน (priceทุน)</label>
-                        <input type="number" id="newProdCost" placeholder="0.00" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
+                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading"><i class="fa-solid fa-tags text-red-600"></i> ราคาทุน (Price ทุน)</label>
+                        <input type="number" step="any" id="newProdCost" placeholder="0.00" class="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 outline-none font-bold text-slate-800">
                     </div>
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading"><i class="fa-solid fa-tag text-emerald-600"></i> ราคาขาย (Price ขาย)</label>
+                        <input type="number" step="any" id="newProdSellPrice" placeholder="0.00" class="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-emerald-700">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">หน่วย (unit)</label>
                         <input type="text" id="newProdUnit" placeholder="ถุง, ซอง, ฯลฯ" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none" value="ถุง">
                     </div>
-                </div>
-
-                <div>
-                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ประเภทสินค้า (Type)</label>
-                    <select id="newProdType" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
-                        <option value="อาหารสุนัข">อาหารสุนัข</option>
-                        <option value="อาหารแมว">อาหารแมว</option>
-                        <option value="สัตว์ฟันแทะ">สัตว์ฟันแทะ</option>
-                        <option value="เปียก">เปียก</option>
-                        <option value="สัตว์เศรษฐกิจ">สัตว์เศรษฐกิจ</option>
-                        <option value="ยาและเวชภัณฑ์">ยาและเวชภัณฑ์</option>
-                    </select>
+                    <div>
+                        <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ประเภทสินค้า (Type)</label>
+                        <select id="newProdType" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
+                            <option value="อาหารสุนัข">อาหารสุนัข</option>
+                            <option value="อาหารแมว">อาหารแมว</option>
+                            <option value="สัตว์ฟันแทะ">สัตว์ฟันแทะ</option>
+                            <option value="เปียก">เปียก</option>
+                            <option value="สัตว์เศรษฐกิจ">สัตว์เศรษฐกิจ</option>
+                            <option value="ยาและเวชภัณฑ์">ยาและเวชภัณฑ์</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div>
@@ -928,6 +935,7 @@
             const code = document.getElementById('newProdCode').value.trim() || `2026${Date.now().toString().slice(-6)}`;
             const name = document.getElementById('newProdName').value.trim() || 'สินค้าใหม่ไม่ระบุชื่อ';
             const priceทุน = parseFloat(document.getElementById('newProdCost').value) || 0;
+            const priceขาย = parseFloat(document.getElementById('newProdSellPrice').value) || 0;
             const unit = document.getElementById('newProdUnit').value.trim() || 'ถุง';
             const Type = document.getElementById('newProdType').value;
             const brand = document.getElementById('newProdBrand').value.trim() || 'ทั่วไป';
@@ -941,6 +949,7 @@
                 Supplier,
                 unit,
                 priceทุน,
+                priceขาย,
                 stock: 0,
                 expiryDays: "",
                 avgSale1M: "0 หน่วย",
@@ -950,7 +959,7 @@
             productsFromSheet.unshift(newProduct);
             closeAddProductModal();
             renderProductsTable();
-            alert(`เพิ่มสินค้า [${code}] ${name} เข้าคลังสำเร็จ! (ตั้งค่าสต็อก 0 และวันหมดอายุว่างเปล่าเรียบร้อย)`);
+            alert(`เพิ่มสินค้า [${code}] ${name} เข้าคลังสำเร็จ! (ทุน: ${priceทุน} | ขาย: ${priceขาย})`);
         }
 
         function openOrderModal(productCode) {
