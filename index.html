@@ -244,10 +244,10 @@
         </header>
 
         <!-- Main Body Content Container -->
-        <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main class="flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-8" id="mainBodyContainer">
 
             <!-- MODULE A: GRID HUB MENU -->
-            <div id="moduleHub" class="space-y-8">
+            <div id="moduleHub" class="space-y-8 max-w-7xl mx-auto">
                 <div class="bg-gradient-to-r from-red-600 to-rose-800 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
                     <div class="relative z-10 max-w-2xl">
                         <span class="px-3 py-1 bg-white/20 text-white text-xs font-bold rounded-full font-heading">ระบบหลักเถ้าแก่ Memi</span>
@@ -316,7 +316,7 @@
             </div>
 
             <!-- MODULE B: ORDERING SYSTEM -->
-            <div id="moduleOrdering" class="space-y-6 hidden">
+            <div id="moduleOrdering" class="space-y-6 max-w-7xl mx-auto hidden">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
                         <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full font-heading">ระบบสั่งของ</span>
@@ -463,22 +463,22 @@
                 </div>
             </div>
 
-            <!-- MODULE C: VERIFICATION (ระบบตรวจสอบหลักฐาน พร้อม Side Menu เอกสารทั้ง 8 ประเภท) -->
-            <div id="moduleVerification" class="space-y-6 hidden">
+            <!-- MODULE C: VERIFICATION (ระบบตรวจสอบหลักฐาน ขยายเต็มจอ) -->
+            <div id="moduleVerification" class="space-y-6 w-full hidden">
                 <div class="flex items-center justify-between bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
                         <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full font-heading">ระบบตรวจสอบหลักฐาน</span>
-                        <h2 class="text-2xl font-bold text-slate-900 font-heading mt-1">ตรวจสอบใบสั่งซื้อ สลิป และสถานะการจัดส่ง (Accounting Audit System)</h2>
+                        <h2 class="text-2xl font-bold text-slate-900 font-heading mt-1">ตรวจสอบใบสั่งซื้อ สลิป และสถานะการจัดส่ง (Accounting Audit System - Full Screen)</h2>
                     </div>
                     <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm font-heading transition">
                         <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก Hub
                     </button>
                 </div>
 
-                <!-- Main Layout with Side Menu for Documents -->
-                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                    <!-- Side Menu สำหรับเลือกดูเอกสารตามประเภท (ไม่มีเลขนำหน้า และเปลี่ยนใบเสร็จรับเงินเป็นใบเสร็จจ่ายเงิน) -->
-                    <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-5 space-y-2 h-fit">
+                <!-- Main Layout with Side Menu for Documents (Full Screen) -->
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 w-full">
+                    <!-- Side Menu สำหรับเลือกดูเอกสารตามประเภท -->
+                    <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-5 space-y-2 h-fit lg:col-span-1">
                         <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3 font-heading px-2">
                             <i class="fa-solid fa-folder-tree text-red-600"></i> หมวดหมู่เอกสารผ่านแล้ว:
                         </h3>
@@ -526,10 +526,10 @@
                         </div>
                     </div>
 
-                    <!-- Main Audit Content Area -->
-                    <div class="lg:col-span-3 space-y-6">
+                    <!-- Main Audit Content Area (ขยายเต็มพื้นที่กว้าง) -->
+                    <div class="lg:col-span-4 space-y-6 w-full">
                         <!-- Filter & Control Section -->
-                        <section class="bg-white p-6 rounded-2xl shadow-xl border border-red-100">
+                        <section class="bg-white p-6 rounded-2xl shadow-xl border border-red-100 w-full">
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-700 mb-2">ตัวกรองด่วน</label>
@@ -554,9 +554,9 @@
                         </section>
 
                         <!-- Content Grid: Transaction List & Detail Verification -->
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            <!-- Left: Transaction List (List View with Status Filter Buttons) -->
-                            <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-6 flex flex-col h-[750px]">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full">
+                            <!-- Left: Transaction List -->
+                            <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-6 flex flex-col h-[750px] lg:col-span-4">
                                 <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
                                     <h2 class="font-bold text-slate-900 text-base">รายการธุรกรรม (Task List)</h2>
                                     <span id="taskCount" class="text-xs bg-red-50 text-red-700 px-3 py-1 rounded-full font-bold">0 รายการ</span>
@@ -576,7 +576,7 @@
                             </div>
 
                             <!-- Right: Document Verification & Action Panel -->
-                            <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-8 lg:col-span-2 flex flex-col justify-between min-h-[750px]">
+                            <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-8 lg:col-span-8 flex flex-col justify-between min-h-[750px]">
                                 <div id="detailView" class="overflow-y-auto max-h-[580px] pr-2">
                                     <div class="text-center py-44 text-slate-400">
                                         <svg class="w-20 h-20 mx-auto mb-4 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -624,7 +624,7 @@
             </div>
 
             <!-- MODULE D: DASHBOARD -->
-            <div id="moduleDashboard" class="space-y-6 hidden">
+            <div id="moduleDashboard" class="space-y-6 max-w-7xl mx-auto hidden">
                 <div class="flex items-center justify-between bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
                         <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full font-heading">ระบบ Dashboard สต็อก</span>
@@ -637,7 +637,7 @@
             </div>
 
             <!-- MODULE E: ACCOUNTING -->
-            <div id="moduleAccounting" class="space-y-6 hidden">
+            <div id="moduleAccounting" class="space-y-6 max-w-7xl mx-auto hidden">
                 <div class="flex items-center justify-between bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
                         <span class="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-full font-heading">ระบบบัญชีร้านค้า</span>
@@ -977,70 +977,58 @@
         let isExpiry90Mode = false;
         let orderTransactionCount = 0;
 
-        // ข้อมูลธุรกรรม
+        // จำลองข้อมูลเอกสาร (Mock-up) ประเภทละ 3 ใบ (สถานะ "ปกติ" เพื่อให้เข้า Side menu และบางส่วน "รอตรวจสอบ" อยู่หน้าหลัก)
         let transactionData = [
-            {
-                id: "202611001",
-                date: "2026-11-11",
-                supplier: "บริษัท ซัพพลายอาหารสัตว์ไทย จำกัด",
-                docType: "ใบกำกับภาษีซื้อ",
-                status: "ปกติ", // เอกสารผ่านแล้ว จะแสดงใน Side menu ตาม docType
-                remark: "ตรวจสอบถูกต้องสมบูรณ์",
-                totalAmount: 12500.00,
-                itemsOrdered: [
-                    { name: "อาหารแมวเกรดพรีเมียม (กระสอบ 20kg)", qty: 10, price: 1000 },
-                    { name: "ทรายแมวเต้าหู้ (ถุง 6L)", qty: 50, price: 50 }
-                ],
-                documentImages: [
-                    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"
-                ],
-                documentFiles: [
-                    { name: "Tax_Invoice_202611001.pdf", url: "#" }
-                ]
-            },
-            {
-                id: "202611002",
-                date: "2026-11-11",
-                supplier: "หจก. อุปกรณ์สัตว์เลี้ยงเพ็ทช็อป",
-                docType: "ใบคำสั่งซื้อ",
-                status: "รอตรวจสอบ", // ยังไม่ผ่าน จะอยู่เฉพาะหน้าตรวจสอบหลักฐานหลัก
-                remark: "-",
-                totalAmount: 3400.00,
-                itemsOrdered: [
-                    { name: "กรงสุนัขพับได้ ขนาด L", qty: 2, price: 1200 },
-                    { name: "ของเล่นแมวไม้ล่อ", qty: 20, price: 50 }
-                ],
-                documentImages: [
-                    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
-                ],
-                documentFiles: [
-                    { name: "Purchase_Order_202611002.pdf", url: "#" }
-                ]
-            },
-            {
-                id: "202611003",
-                date: "2026-11-10",
-                supplier: "บริษัท เวชภัณฑ์สัตว์และอุปกรณ์ จำกัด",
-                docType: "ใบเคลมสินค้า",
-                status: "พบปัญหา/รอแก้ไข", // มีปัญหา จะเด้งกลับมาหน้าตรวจสอบหลักฐาน
-                remark: "ยอดเงินในใบกำกับภาษีไม่ตรงกับยอดสั่งซื้อจริง ผลต่าง 300 บาท",
-                totalAmount: 1800.00,
-                itemsOrdered: [
-                    { name: "วิตามินบำรุงขนนกแก้ว", qty: 6, price: 300 }
-                ],
-                documentImages: [
-                    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
-                ],
-                documentFiles: [
-                    { name: "Claim_Form_202611003.pdf", url: "#" }
-                ]
-            }
+            // --- ใบเสนอราคา (3 ใบ) ---
+            { id: "QT-2026-001", date: "2026-11-11", supplier: "บริษัท เพ็ท โพรเทคท์ ฟู้ด จำกัด", docType: "ใบเสนอราคา", status: "ปกติ", remark: "ตรวจสอบราคาถูกต้อง", totalAmount: 15000, itemsOrdered: [{name: "Kaniva หมา รสไก่ 1 กก.", qty: 100, price: 150}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "QT_001.pdf", url:"#"}]},
+            { id: "QT-2026-002", date: "2026-11-10", supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", docType: "ใบเสนอราคา", status: "ปกติ", remark: "ราคาโปรโมชันล็อต พ.ย.", totalAmount: 8500, itemsOrdered: [{name: "Luvcare สุนัขพันธุ์กลาง", qty: 50, price: 170}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "QT_002.pdf", url:"#"}]},
+            { id: "QT-2026-003", date: "2026-11-09", supplier: "ท็อป ฟีด มิลล์ จำกัด", docType: "ใบเสนอราคา", status: "รอตรวจสอบ", remark: "-", totalAmount: 22000, itemsOrdered: [{name: "V55L อาหารหมู่ใหญ่", qty: 40, price: 550}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "QT_003.pdf", url:"#"}]},
+
+            // --- ใบคำสั่งซื้อ (3 ใบ) ---
+            { id: "PO-2026-001", date: "2026-11-11", supplier: "บริษัท เพ็ท โพรเทคท์ ฟู้ด จำกัด", docType: "ใบคำสั่งซื้อ", status: "ปกติ", remark: "อนุมัติสั่งซื้อแล้ว", totalAmount: 12500, itemsOrdered: [{name: "Kandy C1 Kichen", qty: 500, price: 25}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "PO_001.pdf", url:"#"}]},
+            { id: "PO-2026-002", date: "2026-11-10", supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", docType: "ใบคำสั่งซื้อ", status: "ปกติ", remark: "ตรงตามสต็อก", totalAmount: 9000, itemsOrdered: [{name: "PurinaOne HairBall", qty: 100, price: 90}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "PO_002.pdf", url:"#"}]},
+            { id: "PO-2026-003", date: "2026-11-08", supplier: "โรยัล คานิน (ประเทศไทย)", docType: "ใบคำสั่งซื้อ", status: "รอตรวจสอบ", remark: "-", totalAmount: 18000, itemsOrdered: [{name: "RC RENAL 400g.", qty: 60, price: 300}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "PO_003.pdf", url:"#"}]},
+
+            // --- ใบกำกับภาษีซื้อ (3 ใบ) ---
+            { id: "TAX-2026-01", date: "2026-11-11", supplier: "บริษัท ซัพพลายอาหารสัตว์ไทย จำกัด", docType: "ใบกำกับภาษีซื้อ", status: "ปกติ", remark: "ถูกต้องครบถ้วน", totalAmount: 12500, itemsOrdered: [{name: "อาหารแมวเกรดพรีเมียม", qty: 10, price: 1000}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Tax_01.pdf", url:"#"}]},
+            { id: "TAX-2026-02", date: "2026-11-10", supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", docType: "ใบกำกับภาษีซื้อ", status: "ปกติ", remark: "VAT 7% ถูกต้อง", totalAmount: 6400, itemsOrdered: [{name: "Apro โต ตับย่าง", qty: 80, price: 80}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Tax_02.pdf", url:"#"}]},
+            { id: "TAX-2026-03", date: "2026-11-07", supplier: "โบห์ริงเกอร์ อินเกลไฮม์", docType: "ใบกำกับภาษีซื้อ", status: "พบปัญหา/รอแก้ไข", remark: "เลขประจำตัวผู้เสียภาษีผิด", totalAmount: 21000, itemsOrdered: [{name: "NexGard Spectra", qty: 60, price: 350}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Tax_03.pdf", url:"#"}]},
+
+            // --- ใบรับสินค้า (3 ใบ) ---
+            { id: "RCV-2026-01", date: "2026-11-11", supplier: "เพ็ท โพรเทคท์ ฟู้ด", docType: "ใบรับสินค้า", status: "ปกติ", remark: "ตรวจนับจำนวนครบถ้วน", totalAmount: 11000, itemsOrdered: [{name: "Kaniva หมา รสไก่", qty: 110, price: 100}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "RCV_01.pdf", url:"#"}]},
+            { id: "RCV-2026-02", date: "2026-11-10", supplier: "ท็อป ฟีด มิลล์ จำกัด", docType: "ใบรับสินค้า", status: "ปกติ", remark: "สินค้าสภาพดี", totalAmount: 7500, itemsOrdered: [{name: "อาหารลูกไก่ 1 กก.", qty: 500, price: 15}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "RCV_02.pdf", url:"#"}]},
+            { id: "RCV-2026-03", date: "2026-11-06", supplier: "โซเอทิส อิงค์", docType: "ใบรับสินค้า", status: "รอตรวจสอบ", remark: "-", totalAmount: 17000, itemsOrdered: [{name: "Revolution Plus", qty: 20, price: 850}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "RCV_03.pdf", url:"#"}]},
+
+            // --- ใบขนส่ง (3 ใบ) ---
+            { id: "LOG-2026-01", date: "2026-11-11", supplier: "J&T Express สุราษฎร์ธานี", docType: "ใบขนส่ง", status: "ปกติ", remark: "จัดส่งถึงหน้าร้านเรียบร้อย", totalAmount: 350, itemsOrdered: [{name: "ค่าบริการขนส่งด่วน", qty: 1, price: 350}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "LOG_01.pdf", url:"#"}]},
+            { id: "LOG-2026-02", date: "2026-11-10", supplier: "Flash Express", docType: "ใบขนส่ง", status: "ปกติ", remark: "พัสดุตู้เย็นควบคุมอุณหภูมิ", totalAmount: 500, itemsOrdered: [{name: "ค่าขนส่งวัคซีน", qty: 1, price: 500}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "LOG_02.pdf", url:"#"}]},
+            { id: "LOG-2026-03", date: "2026-11-05", supplier: "Kerry Logistics", docType: "ใบขนส่ง", status: "รอตรวจสอบ", remark: "-", totalAmount: 420, itemsOrdered: [{name: "ค่าขนส่งอุปกรณ์", qty: 1, price: 420}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "LOG_03.pdf", url:"#"}]},
+
+            // --- ใบเสร็จจ่ายเงิน (3 ใบ) ---
+            { id: "REC-2026-01", date: "2026-11-11", supplier: "บริษัท เพ็ท โพรเทคท์ ฟู้ด จำกัด", docType: "ใบเสร็จจ่ายเงิน", status: "ปกติ", remark: "ชำระเงินผ่าน Mobile Banking แล้ว", totalAmount: 12500, itemsOrdered: [{name: "ชำระค่าสินค้า Kaniva ล็อต พ.ย.", qty: 1, price: 12500}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Receipt_01.pdf", url:"#"}]},
+            { id: "REC-2026-02", date: "2026-11-10", supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", docType: "ใบเสร็จจ่ายเงิน", status: "ปกติ", remark: "ตัดบัญชีร้านค้าสำเร็จ", totalAmount: 8500, itemsOrdered: [{name: "ชำระค่ายาและอาหารสุนัข", qty: 1, price: 8500}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Receipt_02.pdf", url:"#"}]},
+            { id: "REC-2026-03", date: "2026-11-04", supplier: "ท็อป ฟีด มิลล์ จำกัด", docType: "ใบเสร็จจ่ายเงิน", status: "รอตรวจสอบ", remark: "-", totalAmount: 4500, itemsOrdered: [{name: "ชำระค่าอาหารหมู", qty: 1, price: 4500}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Receipt_03.pdf", url:"#"}]},
+
+            // --- ใบส่งสินค้า/ใบส่งของ (3 ใบ) ---
+            { id: "DLV-2026-01", date: "2026-11-11", supplier: "บริษัท เพ็ท โพรเทคท์ ฟู้ด จำกัด", docType: "ใบส่งสินค้า/ใบส่งของ", status: "ปกติ", remark: "ส่งมอบของที่หน้าร้านครบ", totalAmount: 11000, itemsOrdered: [{name: "Kaniva หมา รสไก่", qty: 110, price: 100}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Delivery_01.pdf", url:"#"}]},
+            { id: "DLV-2026-02", date: "2026-11-09", supplier: "อินเตอร์เนชั่นแนล เพ็ทฟู้ด", docType: "ใบส่งสินค้า/ใบส่งของ", status: "ปกติ", remark: "พนักงานขับรถส่งมอบเรียบร้อย", totalAmount: 5450, itemsOrdered: [{name: "JH Meat as Meals", qty: 50, price: 109}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Delivery_02.pdf", url:"#"}]},
+            { id: "DLV-2026-03", date: "2026-11-03", supplier: "ออสแทม กู๊ดส์ จำกัด", docType: "ใบส่งสินค้า/ใบส่งของ", status: "รอตรวจสอบ", remark: "-", totalAmount: 3200, itemsOrdered: [{name: "Buzz/P CG01 เปียก", qty: 200, price: 16}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Delivery_03.pdf", url:"#"}]},
+
+            // --- ใบส่งคืนสินค้า (3 ใบ) ---
+            { id: "RTN-2026-01", date: "2026-11-11", supplier: "โรยัล คานิน (ประเทศไทย)", docType: "ใบส่งคืนสินค้า", status: "ปกติ", remark: "คืนสินค้าชำรุดจากการขนส่ง", totalAmount: 1000, itemsOrdered: [{name: "RC GASTRO 2Kg (ถุงรั่ว)", qty: 1, price: 1000}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Return_01.pdf", url:"#"}]},
+            { id: "RTN-2026-02", date: "2026-11-08", supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", docType: "ใบส่งคืนสินค้า", status: "ปกติ", remark: "คืนสินค้าใกล้วันหมดอายุ", totalAmount: 450, itemsOrdered: [{name: "Apro โต ตับย่าง (หมดอายุไว)", qty: 10, price: 45}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Return_02.pdf", url:"#"}]},
+            { id: "RTN-2026-03", date: "2026-11-02", supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", docType: "ใบส่งคืนสินค้า", status: "รอตรวจสอบ", remark: "-", totalAmount: 900, itemsOrdered: [{name: "PurinaOne (เปลี่ยนสูตร)", qty: 10, price: 90}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Return_03.pdf", url:"#"}]},
+
+            // --- ใบเคลมสินค้า (3 ใบ) ---
+            { id: "CLM-2026-01", date: "2026-11-11", supplier: "บริษัท เวชภัณฑ์สัตว์และอุปกรณ์ จำกัด", docType: "ใบเคลมสินค้า", status: "พบปัญหา/รอแก้ไข", remark: "ยอดเงินในใบกำกับภาษีไม่ตรง ผลต่าง 300 บาท", totalAmount: 1800, itemsOrdered: [{name: "วิตามินบำรุงขนนกแก้ว", qty: 6, price: 300}], documentImages: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Claim_Form_202611003.pdf", url: "#"}]},
+            { id: "CLM-2026-02", date: "2026-11-07", supplier: "โซเอทิส อิงค์", docType: "ใบเคลมสินค้า", status: "ปกติ", remark: "เคลมสินค้ากล่องบุบ ได้รับใบเครดิตโน้ตเรียบร้อย", totalAmount: 1700, itemsOrdered: [{name: "Revolution Plus (กล่องเสียหาย)", qty: 2, price: 850}], documentImages: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Claim_02.pdf", url: "#"}]},
+            { id: "CLM-2026-03", date: "2026-11-01", supplier: "โบห์ริงเกอร์ อินเกลไฮม์", docType: "ใบเคลมสินค้า", status: "รอตรวจสอบ", remark: "-", totalAmount: 3500, itemsOrdered: [{name: "NexGard Spectra", qty: 10, price: 350}], documentImages: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Claim_03.pdf", url: "#"}]}
         ];
 
         let currentSelectedId = null;
         let isEditMode = false;
         let currentFilterStatus = 'all';
-        let currentDocTypeFilter = 'all'; // สำหรับ Side menu
+        let currentDocTypeFilter = 'all';
 
         // Login ระบบหลัก
         function handleLogin(e) {
@@ -1082,6 +1070,13 @@
             document.getElementById('moduleVerification').classList.add('hidden');
             document.getElementById('moduleDashboard').classList.add('hidden');
             document.getElementById('moduleAccounting').classList.add('hidden');
+
+            const mainContainer = document.getElementById('mainBodyContainer');
+            if (moduleName === 'verification') {
+                mainContainer.className = "flex-1 w-full mx-auto px-2 sm:px-4 lg:px-6 py-6"; // ขยายเต็มจอ
+            } else {
+                mainContainer.className = "flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8";
+            }
 
             if (moduleName === 'hub') {
                 document.getElementById('moduleHub').classList.remove('hidden');
@@ -1506,11 +1501,9 @@
             renderTransactionList(transactionData);
         });
 
-        // ฟังก์ชันอัปเดตจำนวนตัวเลขใน Side menu และกรองตามเอกสารที่ผ่าน (สถานะ = ปกติ)
         function updateDocSideMenuCounts() {
             const docTypes = ['ใบเสนอราคา', 'ใบคำสั่งซื้อ', 'ใบกำกับภาษีซื้อ', 'ใบรับสินค้า', 'ใบขนส่ง', 'ใบเสร็จจ่ายเงิน', 'ใบส่งสินค้า/ใบส่งของ', 'ใบส่งคืนสินค้า', 'ใบเคลมสินค้า'];
             
-            // เฉพาะเอกสารที่มีสถานะ "ปกติ" ถึงจะนับและมาแสดงใน Side menu
             const passedItems = transactionData.filter(t => t.status === 'ปกติ');
             
             document.getElementById('countDoc-all').innerText = passedItems.length;
@@ -1537,7 +1530,6 @@
                 }
             });
 
-            // กรองเฉพาะเอกสารที่ผ่าน (สถานะ = ปกติ) ตาม docType ที่เลือก
             let targetList = transactionData.filter(t => t.status === 'ปกติ');
             if (docType !== 'all') {
                 targetList = targetList.filter(t => t.docType === docType);
@@ -1755,7 +1747,6 @@
             alert('บันทึกการแก้ไขรายการและราคาเรียบร้อยแล้ว!');
         }
 
-        // เมื่อแก้ไขปัญหาเรียบร้อย ปรับเป็น "ปกติ" และเอกสารจะไหลเข้าสู่ Side menu
         function resolveProblem() {
             const item = transactionData.find(t => t.id === currentSelectedId);
             if (item) {
