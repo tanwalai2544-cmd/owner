@@ -495,6 +495,10 @@
                                 <span>ใบคำสั่งซื้อ</span>
                                 <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบคำสั่งซื้อ">0</span>
                             </button>
+                            <button onclick="filterByDocType('ใบเสร็จรับเงิน')" id="docMenu-ใบเสร็จรับเงิน" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบเสร็จรับเงิน <span class="text-[9px] text-emerald-600 bg-emerald-50 px-1 rounded">B2B Synced</span></span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบเสร็จรับเงิน">0</span>
+                            </button>
                             <button onclick="filterByDocType('ใบกำกับภาษีซื้อ')" id="docMenu-ใบกำกับภาษีซื้อ" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
                                 <span>ใบกำกับภาษีซื้อ</span>
                                 <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบกำกับภาษีซื้อ">0</span>
@@ -667,6 +671,7 @@
     </div>
 
     <!-- MODALS -->
+    <!-- Modal: เพิ่มสินค้าใหม่ พร้อมรองรับเลือกหลายแบรนด์และปุ่มเพิ่มแบรนด์/Supplier ใหม่ -->
     <div id="addProductModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between">
@@ -715,13 +720,26 @@
                 </div>
 
                 <div>
-                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">ยี่ห้อสินค้า (brand)</label>
-                    <input type="text" id="newProdBrand" placeholder="ยี่ห้อสินค้า..." class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="block text-slate-700 font-semibold text-sm font-heading">ยี่ห้อสินค้า (Brand - เลือกได้มากกว่า 1)</label>
+                        <button type="button" onclick="openAddNewBrandModal()" class="text-xs text-red-600 font-bold hover:underline"><i class="fa-solid fa-plus-circle"></i> เพิ่มแบรนด์ใหม่</button>
+                    </div>
+                    <div id="brandCheckboxContainer" class="p-3 bg-slate-50 border border-slate-200 rounded-xl max-h-36 overflow-y-auto space-y-2 text-sm">
+                        <!-- โหลด checkbox แบรนด์แบบไดนามิก -->
+                    </div>
                 </div>
 
                 <div>
-                    <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">บริษัท Supplier</label>
-                    <input type="text" id="newProdSupplier" placeholder="ชื่อบริษัท Supplier..." class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="block text-slate-700 font-semibold text-sm font-heading">บริษัท Supplier</label>
+                        <button type="button" onclick="openAddNewSupplierModal()" class="text-xs text-red-600 font-bold hover:underline"><i class="fa-solid fa-plus-circle"></i> เพิ่ม Supplier ใหม่</button>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="newProdSupplier" list="supplierSuggestions" placeholder="เลือกหรือพิมพ์ชื่อ Supplier..." class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
+                        <datalist id="supplierSuggestions">
+                            <!-- แนะนำ Supplier เดิมในระบบ -->
+                        </datalist>
+                    </div>
                 </div>
 
                 <div class="pt-4 flex gap-3">
@@ -729,6 +747,21 @@
                     <button type="submit" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md transition font-heading">บันทึกสินค้าใหม่ (สต็อกเป็น 0)</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal ย่อยสำหรับกรอกเพิ่มแบรนด์ใหม่ หรือ Supplier ใหม่ (ใช้ปุ่มเดียวกันตามเงื่อนไข) -->
+    <div id="dynamicAddModal" class="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden border border-slate-100 p-6 space-y-4">
+            <h3 id="dynamicModalTitle" class="font-bold text-lg font-heading text-slate-900">เพิ่มข้อมูลใหม่</h3>
+            <div>
+                <label id="dynamicModalLabel" class="block text-slate-700 text-xs font-bold mb-1">ชื่อรายการใหม่</label>
+                <input type="text" id="dynamicInputVal" class="w-full bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-xl text-sm outline-none focus:ring-2 focus:ring-red-500" placeholder="กรอกชื่อ...">
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button type="button" onclick="closeDynamicModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs">ยกเลิก</button>
+                <button type="button" onclick="confirmAddDynamicValue()" class="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-sm">บันทึก</button>
+            </div>
         </div>
     </div>
 
@@ -875,7 +908,7 @@
             <div class="bg-gradient-to-r from-red-600 to-rose-700 px-6 py-4 text-white flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-file-invoice text-xl"></i>
-                    <h3 class="font-bold text-lg font-heading">เอกสารใบสั่งซื้อสินค้า (Purchase Order)</h3>
+                    <h3 class="font-bold text-lg font-heading">เอกสารใบสั่งซื้อสินค้า (Purchase Order) & ใบเสร็จรับเงิน (B2B Sync)</h3>
                 </div>
                 <button onclick="closeInvoiceModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -910,8 +943,8 @@
                 <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-emerald-800 text-xs flex items-center gap-3">
                     <i class="fa-solid fa-circle-check text-lg"></i>
                     <div>
-                        <strong class="font-bold block font-heading">ระบบได้ทำการส่งข้อมูล JSON และเอกสารผ่าน Line OA ไปยัง Supplier เรียบร้อยแล้ว</strong>
-                        <span>Supplier จะตอบกลับยืนยันรอบจัดส่งผ่านแชทอัตโนมัติ</span>
+                        <strong class="font-bold block font-heading">ระบบได้ทำการส่งข้อมูล JSON, สร้าง "ใบเสร็จรับเงิน" อัตโนมัติ และส่งเอกสารผ่าน Line OA ไปยัง Supplier เรียบร้อยแล้ว</strong>
+                        <span>Supplier จะตอบกลับยืนยันรอบจัดส่งผ่านแชทอัตโนมัติ และซิงค์เข้าระบบบัญชีทันที</span>
                     </div>
                 </div>
             </div>
@@ -946,6 +979,10 @@
             { id: 'สัตว์เศรษฐกิจ', name: 'สัตว์เศรษฐกิจ', icon: 'fa-piggy-bank' },
             { id: 'ยาและเวชภัณฑ์', name: 'ยาและเวชภัณฑ์', icon: 'fa-pills' }
         ];
+
+        // รายการแบรนด์และ Supplier พื้นฐานในระบบ
+        let availableBrands = ["Kaniva", "Luvcare", "SmartHeart", "Apro", "Jerhigh", "Smillie", "PurinaOne", "Me-O", "Zoi cat", "Ginno", "KingRabbit", "PetHeng", "Bok dog", "Buzz", "Kandy", "Maria", "Topfeed", "Royalcanin", "NexGard", "Revolution"];
+        let availableSuppliers = ["เพ็ท โพรเทคท์ ฟู้ด", "เพอร์เฟค คอมพาเนียน กรุ๊ป", "Mars, Incorporated", "อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด", "เพ็ทพัล โปรดักส์ จำกัด (มหาชน)", "เนสท์เล่ พูริน่า เพ็ทแคร์", "ยูนิ.ชาร์ม (ประเทศไทย) จำกัด", "KingRabbit", "บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด", "Bluefalo Petcare", "ออสแทม กู๊ดส์ จำกัด", "อินเตอร์ ฟาร์มา จำกัด (มหาชน)", "ท็อป ฟีด มิลล์ จำกัด", "โรยัล คานิน (ประเทศไทย) จำกัด", "โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์", "โซเอทิส อิงค์"];
 
         let productsFromSheet = [
             { code: "202407260002", name: "Kaniva หมา รสไก่ 1 กก.", Type: "อาหารสุนัข", brand: "Kaniva", Supplier: "เพ็ท โพรเทคท์ ฟู้ด", unit: "ถุง", priceทุน: 80, stock: 45, expiryDays: 120, avgSale1M: "90 ถุง", countStatus: "ยังไม่ได้สั่งนับ" },
@@ -986,44 +1023,27 @@
         let selectedProductForOrder = null;
         let isExpiry90Mode = false;
         let orderTransactionCount = 0;
+        let dynamicAddType = ''; // 'brand' หรือ 'supplier'
 
-        // ข้อมูลเอกสาร (Mock-up) โดยระบบจะทำการสกัดแบรนด์จาก itemsOrdered หรือคำนวณเชื่อมโยงกับ productsFromSheet อัตโนมัติทันที
+        // ข้อมูลเอกสาร (Mock-up รวมประเภท "ใบเสร็จรับเงิน" ที่ซิงค์มาจากคำสั่งซื้อ B2B)
         let transactionData = [
             { id: "2611001", docNo: "QT-2026-0001", date: "2026-11-11", time: "10:30:15", supplier: "บริษัท เพ็ท โพรเทคท์ ฟู้ด จำกัด", docType: "ใบเสนอราคา", status: "ปกติ", remark: "ตรวจสอบราคาถูกต้อง", totalAmount: 15000, itemsOrdered: [{name: "Kaniva หมา รสไก่ 1 กก.", brand: "Kaniva", qty: 100, price: 150}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "QT_0001.pdf", url:"#"}]},
             { id: "2611002", docNo: "QT-2026-0002", date: "2026-11-10", time: "14:20:10", supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", docType: "ใบเสนอราคา", status: "ปกติ", remark: "ราคาโปรโมชันล็อต พ.ย.", totalAmount: 8500, itemsOrdered: [{name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", brand: "Luvcare", qty: 50, price: 170}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "QT_0002.pdf", url:"#"}]},
-            { id: "2611003", docNo: "QT-2026-0003", date: "2026-11-09", time: "09:15:00", supplier: "ท็อป ฟีด มิลล์ จำกัด", docType: "ใบเสนอราคา", status: "รอตรวจสอบ", remark: "-", totalAmount: 22000, itemsOrdered: [{name: "V55L อาหารหมู่ใหญ่ 30 กก.", brand: "Topfeed", qty: 40, price: 550}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "QT_0003.pdf", url:"#"}]},
+            
+            // ใบเสร็จรับเงิน (ซิงค์อัตโนมัติจากใบคำสั่งซื้อ B2B)
+            { id: "2611991", docNo: "REC-B2B-001", date: "2026-11-11", time: "11:05:00", supplier: "เพ็ท โพรเทคท์ ฟู้ด", docType: "ใบเสร็จรับเงิน", status: "ปกติ", remark: "ซิงค์อัตโนมัติจากคำสั่งซื้อ B2B สำเร็จ", totalAmount: 12500, itemsOrdered: [{name: "Kandy C1 Kichen ทูน่าเนื้อไก่ เกรวี่ 70g", brand: "Kandy", qty: 500, price: 25}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Receipt_B2B_001.pdf", url:"#"}]},
+            { id: "2611992", docNo: "REC-B2B-002", date: "2026-11-10", time: "15:50:00", supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", docType: "ใบเสร็จรับเงิน", status: "ปกติ", remark: "ซิงค์อัตโนมัติจากคำสั่งซื้อ B2B สำเร็จ", totalAmount: 9000, itemsOrdered: [{name: "PurinaOne HairBall 380g.", brand: "PurinaOne", qty: 100, price: 90}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Receipt_B2B_002.pdf", url:"#"}]},
 
             { id: "2611004", docNo: "PO-2026-0001", date: "2026-11-11", time: "11:00:22", supplier: "บริษัท เพ็ท โพรเทคท์ ฟู้ด จำกัด", docType: "ใบคำสั่งซื้อ", status: "ปกติ", remark: "อนุมัติสั่งซื้อแล้ว", totalAmount: 12500, itemsOrdered: [{name: "Kandy C1 Kichen ทูน่าเนื้อไก่ เกรวี่ 70g", brand: "Kandy", qty: 500, price: 25}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "PO_0001.pdf", url:"#"}]},
             { id: "2611005", docNo: "PO-2026-0002", date: "2026-11-10", time: "15:45:00", supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", docType: "ใบคำสั่งซื้อ", status: "ปกติ", remark: "ตรงตามสต็อก", totalAmount: 9000, itemsOrdered: [{name: "PurinaOne HairBall 380g.", brand: "PurinaOne", qty: 100, price: 90}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "PO_0002.pdf", url:"#"}]},
-            { id: "2611006", docNo: "PO-2026-0003", date: "2026-11-08", time: "13:10:40", supplier: "โรยัล คานิน (ประเทศไทย)", docType: "ใบคำสั่งซื้อ", status: "รอตรวจสอบ", remark: "-", totalAmount: 18000, itemsOrdered: [{name: "RC RENAL 400g.", brand: "Royalcanin", qty: 60, price: 300}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "PO_0003.pdf", url:"#"}]},
-
+            
             { id: "2611007", docNo: "TAX-2026-0001", date: "2026-11-11", time: "16:00:00", supplier: "บริษัท ซัพพลายอาหารสัตว์ไทย จำกัด", docType: "ใบกำกับภาษีซื้อ", status: "ปกติ", remark: "ถูกต้องครบถ้วน", totalAmount: 12500, itemsOrdered: [{name: "Me-o Gold อินดอร์ 400g", brand: "Me-O", qty: 150, price: 50}, {name: "Zoi Cat ทูน่า 1กก.", brand: "Zoi cat", qty: 100, price: 45}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Tax_0001.pdf", url:"#"}]},
-            { id: "2611008", docNo: "TAX-2026-0002", date: "2026-11-10", time: "11:30:10", supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", docType: "ใบกำกับภาษีซื้อ", status: "ปกติ", remark: "VAT 7% ถูกต้อง", totalAmount: 6400, itemsOrdered: [{name: "Apro โต ตับย่าง 1 กก.", brand: "Apro", qty: 80, price: 80}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Tax_0002.pdf", url:"#"}]},
-            { id: "2611009", docNo: "TAX-2026-0003", date: "2026-11-07", time: "10:05:00", supplier: "โบห์ริงเกอร์ อินเกลไฮม์", docType: "ใบกำกับภาษีซื้อ", status: "พบปัญหา/รอแก้ไข", remark: "เลขประจำตัวผู้เสียภาษีผิด", totalAmount: 21000, itemsOrdered: [{name: "NexGard Spectra15-30kg/เม็ด", brand: "NexGard", qty: 60, price: 350}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Tax_0003.pdf", url:"#"}]},
-
             { id: "2611010", docNo: "RCV-2026-0001", date: "2026-11-11", time: "09:00:12", supplier: "เพ็ท โพรเทคท์ ฟู้ด", docType: "ใบรับสินค้า", status: "ปกติ", remark: "ตรวจนับจำนวนครบถ้วน", totalAmount: 11000, itemsOrdered: [{name: "Kaniva หมา รสไก่ 1 กก.", brand: "Kaniva", qty: 110, price: 100}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "RCV_0001.pdf", url:"#"}]},
-            { id: "2611011", docNo: "RCV-2026-0002", date: "2026-11-10", time: "13:20:00", supplier: "ท็อป ฟีด มิลล์ จำกัด", docType: "ใบรับสินค้า", status: "ปกติ", remark: "สินค้าสภาพดี", totalAmount: 7500, itemsOrdered: [{name: "อาหารลูกไก่ 1 กก.", brand: "Topfeed", qty: 500, price: 15}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "RCV_0002.pdf", url:"#"}]},
-            { id: "2611012", docNo: "RCV-2026-0003", date: "2026-11-06", time: "15:15:30", supplier: "โซเอทิส อิงค์", docType: "ใบรับสินค้า", status: "รอตรวจสอบ", remark: "-", totalAmount: 17000, itemsOrdered: [{name: "Revolution Plus สุนัข 2.6-5.0 ม่วง กล่อง", brand: "Revolution", qty: 20, price: 850}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "RCV_0003.pdf", url:"#"}]},
-
             { id: "2611013", docNo: "LOG-2026-0001", date: "2026-11-11", time: "12:10:00", supplier: "J&T Express สุราษฎร์ธานี", docType: "ใบขนส่ง", status: "ปกติ", remark: "จัดส่งถึงหน้าร้านเรียบร้อย", totalAmount: 350, itemsOrdered: [{name: "ค่าบริการขนส่งด่วน", brand: "ค่าขนส่งทั่วไป", qty: 1, price: 350}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "LOG_0001.pdf", url:"#"}]},
-            { id: "2611014", docNo: "LOG-2026-0002", date: "2026-11-10", time: "10:40:20", supplier: "Flash Express", docType: "ใบขนส่ง", status: "ปกติ", remark: "พัสดุตู้เย็นควบคุมอุณหภูมิ", totalAmount: 500, itemsOrdered: [{name: "ค่าขนส่งวัคซีน", brand: "ค่าขนส่งควบคุมอุณหภูมิ", qty: 1, price: 500}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "LOG_0002.pdf", url:"#"}]},
-            { id: "2611015", docNo: "LOG-2026-0003", date: "2026-11-05", time: "16:25:00", supplier: "Kerry Logistics", docType: "ใบขนส่ง", status: "รอตรวจสอบ", remark: "-", totalAmount: 420, itemsOrdered: [{name: "ค่าขนส่งอุปกรณ์", brand: "ค่าขนส่งอุปกรณ์", qty: 1, price: 420}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "LOG_0003.pdf", url:"#"}]},
-
             { id: "2611016", docNo: "REC-2026-0001", date: "2026-11-11", time: "17:00:11", supplier: "บริษัท เพ็ท โพรเทคท์ ฟู้ด จำกัด", docType: "ใบเสร็จจ่ายเงิน", status: "ปกติ", remark: "ชำระเงินผ่าน Mobile Banking แล้ว", totalAmount: 12500, itemsOrdered: [{name: "Kaniva หมา รสไก่ 1 กก.", brand: "Kaniva", qty: 50, price: 100}, {name: "Kandy C1 Kichen ทูน่าเนื้อไก่ เกรวี่ 70g", brand: "Kandy", qty: 300, price: 25}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Receipt_0001.pdf", url:"#"}]},
-            { id: "2611017", docNo: "REC-2026-0002", date: "2026-11-10", time: "14:15:00", supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", docType: "ใบเสร็จจ่ายเงิน", status: "ปกติ", remark: "ตัดบัญชีร้านค้าสำเร็จ", totalAmount: 8500, itemsOrdered: [{name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", brand: "Luvcare", qty: 50, price: 170}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Receipt_0002.pdf", url:"#"}]},
-            { id: "2611018", docNo: "REC-2026-0003", date: "2026-11-04", time: "11:50:30", supplier: "ท็อป ฟีด มิลล์ จำกัด", docType: "ใบเสร็จจ่ายเงิน", status: "รอตรวจสอบ", remark: "-", totalAmount: 4500, itemsOrdered: [{name: "อาหารหมูนมไก่ 1 กก.", brand: "Topfeed", qty: 180, price: 25}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Receipt_0003.pdf", url:"#"}]},
-
             { id: "2611019", docNo: "DLV-2026-0001", date: "2026-11-11", time: "13:00:00", supplier: "บริษัท เพ็ท โพรเทคท์ ฟู้ด จำกัด", docType: "ใบส่งสินค้า/ใบส่งของ", status: "ปกติ", remark: "ส่งมอบของที่หน้าร้านครบ", totalAmount: 11000, itemsOrdered: [{name: "Kaniva หมา รสไก่ 1 กก.", brand: "Kaniva", qty: 110, price: 100}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Delivery_0001.pdf", url:"#"}]},
-            { id: "2611020", docNo: "DLV-2026-0002", date: "2026-11-09", time: "15:30:10", supplier: "อินเตอร์เนชั่นแนล เพ็ทฟู้ด", docType: "ใบส่งสินค้า/ใบส่งของ", status: "ปกติ", remark: "พนักงานขับรถส่งมอบเรียบร้อย", totalAmount: 5450, itemsOrdered: [{name: "JH Meat as Meals รสไก่เม็ดนิ่ม 500g.", brand: "Jerhigh", qty: 50, price: 109}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Delivery_0002.pdf", url:"#"}]},
-            { id: "2611021", docNo: "DLV-2026-0003", date: "2026-11-03", time: "10:15:45", supplier: "ออสแทม กู๊ดส์ จำกัด", docType: "ใบส่งสินค้า/ใบส่งของ", status: "รอตรวจสอบ", remark: "-", totalAmount: 3200, itemsOrdered: [{name: "Buzz/P CG01 ไก่เกรวี่ 70 กรัม", brand: "Buzz", qty: 200, price: 16}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Delivery_0003.pdf", url:"#"}]},
-
             { id: "2611022", docNo: "RTN-2026-0001", date: "2026-11-11", time: "15:10:00", supplier: "โรยัล คานิน (ประเทศไทย)", docType: "ใบส่งคืนสินค้า", status: "ปกติ", remark: "คืนสินค้าชำรุดจากการขนส่ง", totalAmount: 1000, itemsOrdered: [{name: "RC GASTRO 2Kg", brand: "Royalcanin", qty: 1, price: 1000}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Return_0001.pdf", url:"#"}]},
-            { id: "2611023", docNo: "RTN-2026-0002", date: "2026-11-08", time: "11:20:00", supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป", docType: "ใบส่งคืนสินค้า", status: "ปกติ", remark: "คืนสินค้าใกล้วันหมดอายุ", totalAmount: 450, itemsOrdered: [{name: "Apro โต ตับย่าง 1 กก.", brand: "Apro", qty: 10, price: 45}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Return_0002.pdf", url:"#"}]},
-            { id: "2611024", docNo: "RTN-2026-0003", date: "2026-11-02", time: "14:00:30", supplier: "เนสท์เล่ พูริน่า เพ็ทแคร์", docType: "ใบส่งคืนสินค้า", status: "รอตรวจสอบ", remark: "-", totalAmount: 900, itemsOrdered: [{name: "PurinaOne HairBall 380g.", brand: "PurinaOne", qty: 10, price: 90}], documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Return_0003.pdf", url:"#"}]},
-
-            { id: "2611025", docNo: "CLM-2026-0001", date: "2026-11-11", time: "16:45:00", supplier: "บริษัท เวชภัณฑ์สัตว์และอุปกรณ์ จำกัด", docType: "ใบเคลมสินค้า", status: "พบปัญหา/รอแก้ไข", remark: "ยอดเงินในใบกำกับภาษีไม่ตรง ผลต่าง 300 บาท", totalAmount: 1800, itemsOrdered: [{name: "PetHeng แฮมสเตอร์ รสตับ", brand: "PetHeng", qty: 6, price: 300}], documentImages: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Claim_0001.pdf", url: "#"}]},
-            { id: "2611026", docNo: "CLM-2026-0002", date: "2026-11-07", time: "09:30:12", supplier: "โซเอทิส อิงค์", docType: "ใบเคลมสินค้า", status: "ปกติ", remark: "เคลมสินค้ากล่องบุบ ได้รับใบเครดิตโน้ตเรียบร้อย", totalAmount: 1700, itemsOrdered: [{name: "Revolution Plus สุนัข 2.6-5.0 ม่วง กล่อง", brand: "Revolution", qty: 2, price: 850}], documentImages: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Claim_0002.pdf", url: "#"}]},
-            { id: "2611027", docNo: "CLM-2026-0003", date: "2026-11-01", time: "13:45:20", supplier: "โบห์ริงเกอร์ อินเกลไฮม์", docType: "ใบเคลมสินค้า", status: "รอตรวจสอบ", remark: "-", totalAmount: 3500, itemsOrdered: [{name: "NexGard Spectra15-30kg/เม็ด", brand: "NexGard", qty: 10, price: 350}], documentImages: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Claim_0003.pdf", url: "#"}]}
+            { id: "2611025", docNo: "CLM-2026-0001", date: "2026-11-11", time: "16:45:00", supplier: "บริษัท เวชภัณฑ์สัตว์และอุปกรณ์ จำกัด", docType: "ใบเคลมสินค้า", status: "พบปัญหา/รอแก้ไข", remark: "ยอดเงินในใบกำกับภาษีไม่ตรง ผลต่าง 300 บาท", totalAmount: 1800, itemsOrdered: [{name: "PetHeng แฮมสเตอร์ รสตับ", brand: "PetHeng", qty: 6, price: 300}], documentImages: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"], documentFiles: [{name: "Claim_0001.pdf", url: "#"}]}
         ];
 
         let currentSelectedId = null;
@@ -1031,7 +1051,6 @@
         let currentFilterStatus = 'all';
         let currentDocTypeFilter = 'all';
 
-        // ฟังก์ชันช่วยดึงและสกัดรายชื่อแบรนด์จาก itemsOrdered ในเอกสารแต่ละใบให้อัตโนมัติ (เชื่อมโยงจริงกับรายการสินค้า)
         function getTransactionBrands(item) {
             if (!item.itemsOrdered || item.itemsOrdered.length === 0) return ['ทั่วไป'];
             let brandSet = new Set();
@@ -1039,7 +1058,6 @@
                 if (i.brand) {
                     brandSet.add(i.brand);
                 } else {
-                    // หากไม่ได้ระบุแบรนด์ใน item ให้ค้นหาจากฐานข้อมูลสินค้า
                     const found = productsFromSheet.find(p => p.name === i.name);
                     if (found && found.brand) {
                         brandSet.add(found.brand);
@@ -1051,7 +1069,6 @@
             return Array.from(brandSet);
         }
 
-        // Login ระบบหลัก
         function handleLogin(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value.trim();
@@ -1228,12 +1245,74 @@
             renderProductsTable();
         }
 
+        // --- ส่วนจัดการ Popup เพิ่มสินค้า และรองรับแบรนด์หลายรายการ พร้อมปุ่มเพิ่มใหม่ ---
         function openAddProductModal() {
+            renderBrandCheckboxes();
+            renderSupplierSuggestions();
             document.getElementById('addProductModal').classList.remove('hidden');
         }
 
         function closeAddProductModal() {
             document.getElementById('addProductModal').classList.add('hidden');
+        }
+
+        function renderBrandCheckboxes() {
+            const container = document.getElementById('brandCheckboxContainer');
+            container.innerHTML = availableBrands.map(b => `
+                <label class="flex items-center space-x-2 cursor-pointer hover:bg-slate-100 p-1 rounded-lg">
+                    <input type="checkbox" name="productBrands" value="${b}" class="rounded text-red-600 focus:ring-red-500 w-4 h-4">
+                    <span class="text-slate-700 font-medium">${b}</span>
+                </label>
+            `).join('');
+        }
+
+        function renderSupplierSuggestions() {
+            const datalist = document.getElementById('supplierSuggestions');
+            datalist.innerHTML = availableSuppliers.map(s => `<option value="${s}">`).join('');
+        }
+
+        function openAddNewBrandModal() {
+            dynamicAddType = 'brand';
+            document.getElementById('dynamicModalTitle').innerText = 'เพิ่มแบรนด์สินค้าใหม่';
+            document.getElementById('dynamicModalLabel').innerText = 'ชื่อแบรนด์ใหม่';
+            document.getElementById('dynamicInputVal').value = '';
+            document.getElementById('dynamicAddModal').classList.remove('hidden');
+        }
+
+        function openAddNewSupplierModal() {
+            dynamicAddType = 'supplier';
+            document.getElementById('dynamicModalTitle').innerText = 'เพิ่ม Supplier ใหม่';
+            document.getElementById('dynamicModalLabel').innerText = 'ชื่อบริษัท Supplier ใหม่';
+            document.getElementById('dynamicInputVal').value = '';
+            document.getElementById('dynamicAddModal').classList.remove('hidden');
+        }
+
+        function closeDynamicModal() {
+            document.getElementById('dynamicAddModal').classList.add('hidden');
+        }
+
+        function confirmAddDynamicValue() {
+            const val = document.getElementById('dynamicInputVal').value.trim();
+            if (!val) {
+                alert('กรุณากรอกข้อมูล');
+                return;
+            }
+
+            if (dynamicAddType === 'brand') {
+                if (!availableBrands.includes(val)) {
+                    availableBrands.push(val);
+                }
+                renderBrandCheckboxes();
+                alert(`เพิ่มแบรนด์ใหม่ "${val}" สำเร็จ!`);
+            } else if (dynamicAddType === 'supplier') {
+                if (!availableSuppliers.includes(val)) {
+                    availableSuppliers.push(val);
+                }
+                renderSupplierSuggestions();
+                document.getElementById('newProdSupplier').value = val;
+                alert(`เพิ่ม Supplier ใหม่ "${val}" สำเร็จ!`);
+            }
+            closeDynamicModal();
         }
 
         function handleAddNewProduct(e) {
@@ -1244,8 +1323,11 @@
             const priceขาย = parseFloat(document.getElementById('newProdSellPrice').value) || 0;
             const unit = document.getElementById('newProdUnit').value.trim() || 'ถุง';
             const Type = document.getElementById('newProdType').value;
-            const brand = document.getElementById('newProdBrand').value.trim() || 'ทั่วไป';
             const Supplier = document.getElementById('newProdSupplier').value.trim() || 'ทั่วไป';
+
+            // ดึงแบรนด์ที่เลือก (รองรับเลือกมากกว่า 1 แบรนด์)
+            const checkedBrands = Array.from(document.querySelectorAll('input[name="productBrands"]:checked')).map(cb => cb.value);
+            const brand = checkedBrands.length > 0 ? checkedBrands.join(', ') : 'ทั่วไป';
 
             const newProduct = {
                 code, name, Type, brand, Supplier, unit, priceทุน, priceขาย,
@@ -1255,7 +1337,7 @@
             productsFromSheet.unshift(newProduct);
             closeAddProductModal();
             renderProductsTable();
-            alert(`เพิ่มสินค้า [${code}] ${name} เข้าคลังสำเร็จ! (ทุน: ${priceทุน} | ขาย: ${priceขาย})`);
+            alert(`เพิ่มสินค้า [${code}] ${name} เข้าคลังสำเร็จ! (แบรนด์: ${brand})`);
         }
 
         function openOrderModal(productCode) {
@@ -1383,6 +1465,9 @@
                 price: item.unitPrice
             }));
 
+            const totalAmount = cart.reduce((sum, i) => sum + (i.quantity * i.unitPrice), 0);
+
+            // 1. บันทึกใบคำสั่งซื้อ (PO)
             const newOrder = {
                 txId,
                 docNo: `PO-2026-${String(orderTransactionCount + 100).padStart(4, '0')}`,
@@ -1393,20 +1478,38 @@
                 docType: 'ใบคำสั่งซื้อ',
                 status: 'ปกติ',
                 remark: 'สร้างคำสั่งซื้อใหม่จากตะกร้า',
-                totalAmount: cart.reduce((sum, i) => sum + (i.quantity * i.unitPrice), 0),
+                totalAmount,
                 itemsOrdered: formattedItems,
                 documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"],
                 documentFiles: [{name: "PO_New.pdf", url: "#"}]
             };
 
+            // 2. ซิงค์อัตโนมัติสร้าง "ใบเสร็จรับเงิน" (Receipt) จากรายการคำสั่งซื้อ B2B ทันที
+            const syncedReceipt = {
+                id: `26119${String(orderTransactionCount).padStart(2, '0')}`,
+                docNo: `REC-B2B-${String(orderTransactionCount).padStart(3, '0')}`,
+                date: dateStrFormatted,
+                rawDate: dateStrISO,
+                time: timeStr,
+                supplier: cart[0].Supplier || 'ทั่วไป',
+                docType: 'ใบเสร็จรับเงิน',
+                status: 'ปกติ',
+                remark: 'ซิงค์อัตโนมัติจากคำสั่งซื้อ B2B สำเร็จ',
+                totalAmount,
+                itemsOrdered: formattedItems,
+                documentImages: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"],
+                documentFiles: [{name: "Receipt_B2B_Synced.pdf", url: "#"}]
+            };
+
             transactionData.unshift(newOrder);
+            transactionData.unshift(syncedReceipt);
 
             const orderHistoryItem = {
                 txId,
                 date: dateStrFormatted,
                 rawDate: dateStrISO,
                 items: [...cart],
-                status: 'ส่งออเดอร์แล้ว (รอ Supplier ยืนยัน)'
+                status: 'ส่งออเดอร์ & ซิงค์ใบเสร็จ B2B แล้ว'
             };
             orderHistory.unshift(orderHistoryItem);
             document.getElementById('orderHistoryBadge').innerText = orderHistory.length;
@@ -1526,7 +1629,6 @@
             const btnToday = document.getElementById('btnToday');
             if (btnToday) {
                 btnToday.addEventListener('click', () => {
-                    const todayStr = "2026-11-11";
                     const filtered = transactionData.filter(item => item.date.includes("11 พ.ย. 2569") || item.date.includes("2026-11-11"));
                     renderTransactionList(filtered);
                 });
@@ -1551,7 +1653,7 @@
         });
 
         function updateDocSideMenuCounts() {
-            const docTypes = ['ใบเสนอราคา', 'ใบคำสั่งซื้อ', 'ใบกำกับภาษีซื้อ', 'ใบรับสินค้า', 'ใบขนส่ง', 'ใบเสร็จจ่ายเงิน', 'ใบส่งสินค้า/ใบส่งของ', 'ใบส่งคืนสินค้า', 'ใบเคลมสินค้า'];
+            const docTypes = ['ใบเสนอราคา', 'ใบคำสั่งซื้อ', 'ใบเสร็จรับเงิน', 'ใบกำกับภาษีซื้อ', 'ใบรับสินค้า', 'ใบขนส่ง', 'ใบเสร็จจ่ายเงิน', 'ใบส่งสินค้า/ใบส่งของ', 'ใบส่งคืนสินค้า', 'ใบเคลมสินค้า'];
             
             const passedItems = transactionData.filter(t => t.status === 'ปกติ');
             
@@ -1566,7 +1668,7 @@
 
         function filterByDocType(docType) {
             currentDocTypeFilter = docType;
-            const docTypes = ['all', 'ใบเสนอราคา', 'ใบคำสั่งซื้อ', 'ใบกำกับภาษีซื้อ', 'ใบรับสินค้า', 'ใบขนส่ง', 'ใบเสร็จจ่ายเงิน', 'ใบส่งสินค้า/ใบส่งของ', 'ใบส่งคืนสินค้า', 'ใบเคลมสินค้า'];
+            const docTypes = ['all', 'ใบเสนอราคา', 'ใบคำสั่งซื้อ', 'ใบเสร็จรับเงิน', 'ใบกำกับภาษีซื้อ', 'ใบรับสินค้า', 'ใบขนส่ง', 'ใบเสร็จจ่ายเงิน', 'ใบส่งสินค้า/ใบส่งของ', 'ใบส่งคืนสินค้า', 'ใบเคลมสินค้า'];
             
             docTypes.forEach(dt => {
                 const btn = document.getElementById(`docMenu-${dt}`);
@@ -1625,8 +1727,6 @@
                     const matchId = item.id.toLowerCase().includes(searchKeyword);
                     const matchDocNo = item.docNo.toLowerCase().includes(searchKeyword);
                     const matchSupplier = item.supplier.toLowerCase().includes(searchKeyword);
-                    
-                    // ค้นหาเชื่อมโยงกับแบรนด์ที่ดึงมาจาก itemsOrdered
                     const brands = getTransactionBrands(item);
                     const matchBrands = brands.some(b => b.toLowerCase().includes(searchKeyword));
                     
@@ -1658,7 +1758,6 @@
                 card.className = `transaction-card p-4 rounded-xl border cursor-pointer bg-white ${currentSelectedId === item.id ? 'border-red-500 ring-2 ring-red-100 bg-red-50/20' : 'border-slate-200 hover:border-red-300'}`;
                 card.onclick = () => selectTransaction(item.id);
                 
-                // ดึงแบรนด์จากรายการสินค้าภายในใบรายการจริงๆ (รองรับมากกว่า 1 แบรนด์)
                 const itemBrands = getTransactionBrands(item);
                 const brandsStr = itemBrands.join(', ');
 
@@ -1755,7 +1854,6 @@
                 </div>
             `).join('');
 
-            // ดึงแบรนด์ที่สัมพันธ์กันจริงมาแสดงบนส่วนหัว Detail
             const itemBrands = getTransactionBrands(item);
 
             detailView.innerHTML = `
