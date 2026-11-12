@@ -373,26 +373,6 @@
                             <label class="block text-slate-600 text-xs font-bold mb-1.5 font-heading uppercase tracking-wider">กรองตามยี่ห้อสินค้า (Brand)</label>
                             <select id="brandFilter" onchange="filterProducts()" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
                                 <option value="all">ทุกยี่ห้อ (All Brands)</option>
-                                <option value="Kaniva">Kaniva</option>
-                                <option value="Luvcare">Luvcare</option>
-                                <option value="SmartHeart">SmartHeart</option>
-                                <option value="Apro">Apro</option>
-                                <option value="Jerhigh">Jerhigh</option>
-                                <option value="Smillie">Smillie</option>
-                                <option value="PurinaOne">PurinaOne</option>
-                                <option value="Me-O">Me-O</option>
-                                <option value="Zoi cat">Zoi cat</option>
-                                <option value="Ginno">Ginno</option>
-                                <option value="KingRabbit">KingRabbit</option>
-                                <option value="PetHeng">PetHeng</option>
-                                <option value="Bok dog">Bok dog</option>
-                                <option value="Buzz">Buzz</option>
-                                <option value="Kandy">Kandy</option>
-                                <option value="Maria">Maria</option>
-                                <option value="Topfeed">Topfeed</option>
-                                <option value="Royalcanin">Royalcanin</option>
-                                <option value="NexGard">NexGard</option>
-                                <option value="Revolution">Revolution</option>
                             </select>
                         </div>
 
@@ -400,22 +380,6 @@
                             <label class="block text-slate-600 text-xs font-bold mb-1.5 font-heading uppercase tracking-wider">กรองตามบริษัท Supplier</label>
                             <select id="supplierFilter" onchange="filterProducts()" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">
                                 <option value="all">ทุกบริษัท Supplier</option>
-                                <option value="เพ็ท โพรเทคท์ ฟู้ด">เพ็ท โพรเทคท์ ฟู้ด</option>
-                                <option value="เพอร์เฟค คอมพาเนียน กรุ๊ป">เพอร์เฟค คอมพาเนียน กรุ๊ป</option>
-                                <option value="Mars, Incorporated">Mars, Incorporated</option>
-                                <option value="อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด">อินเตอร์เนชั่นแนล เพ็ทฟู้ด จำกัด</option>
-                                <option value="เพ็ทพัล โปรดักส์ จำกัด (มหาชน)">เพ็ทพัล โปรดักส์ จำกัด (มหาชน)</option>
-                                <option value="เนสท์เล่ พูริน่า เพ็ทแคร์">เนสท์เล่ พูริน่า เพ็ทแคร์</option>
-                                <option value="ยูนิ.ชาร์ม (ประเทศไทย) จำกัด">ยูนิ.ชาร์ม (ประเทศไทย) จำกัด</option>
-                                <option value="KingRabbit">KingRabbit</option>
-                                <option value="บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด">บริษัท ไทเกอร์ เพ็ทซัพพลาย จำกัด</option>
-                                <option value="Bluefalo Petcare">Bluefalo Petcare</option>
-                                <option value="ออสแทม กู๊ดส์ จำกัด">ออสแทม กู๊ดส์ จำกัด</option>
-                                <option value="อินเตอร์ ฟาร์มา จำกัด (มหาชน)">อินเตอร์ ฟาร์มา จำกัด (มหาชน)</option>
-                                <option value="ท็อป ฟีด มิลล์ จำกัด">ท็อป ฟีด มิลล์ จำกัด</option>
-                                <option value="โรยัล คานิน (ประเทศไทย) จำกัด">โรยัล คานิน (ประเทศไทย) จำกัด</option>
-                                <option value="โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์">โบห์ริงเกอร์ อินเกลไฮม์ แอนิมอล เฮลท์</option>
-                                <option value="โซเอทิส อิงค์">โซเอทิส อิงค์</option>
                             </select>
                         </div>
 
@@ -750,7 +714,7 @@
         </div>
     </div>
 
-    <!-- Modal ย่อยสำหรับกรอกเพิ่มแบรนด์ใหม่ หรือ Supplier ใหม่ (ใช้ปุ่มเดียวกันตามเงื่อนไข) -->
+    <!-- Modal ย่อยสำหรับกรอกเพิ่มแบรนด์ใหม่ หรือ Supplier ใหม่ (แสดงซ้อนทับด้านหน้า Popup เดิม) -->
     <div id="dynamicAddModal" class="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden border border-slate-100 p-6 space-y-4">
             <h3 id="dynamicModalTitle" class="font-bold text-lg font-heading text-slate-900">เพิ่มข้อมูลใหม่</h3>
@@ -1121,6 +1085,7 @@
             } else if (moduleName === 'ordering') {
                 document.getElementById('moduleOrdering').classList.remove('hidden');
                 renderCategoryTabs();
+                renderFilterDropdowns();
                 renderProductsTable();
             } else if (moduleName === 'verification') {
                 document.getElementById('moduleVerification').classList.remove('hidden');
@@ -1139,6 +1104,7 @@
 
         function initDashboard() {
             renderCategoryTabs();
+            renderFilterDropdowns();
             renderProductsTable();
         }
 
@@ -1165,6 +1131,18 @@
                 renderProductsTable();
             }
             window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank');
+        }
+
+        function renderFilterDropdowns() {
+            const brandSelect = document.getElementById('brandFilter');
+            const currentBrandVal = brandSelect.value;
+            brandSelect.innerHTML = `<option value="all">ทุกยี่ห้อ (All Brands)</option>` + 
+                availableBrands.map(b => `<option value="${b}" ${b === currentBrandVal ? 'selected' : ''}>${b}</option>`).join('');
+
+            const supplierSelect = document.getElementById('supplierFilter');
+            const currentSupplierVal = supplierSelect.value;
+            supplierSelect.innerHTML = `<option value="all">ทุกบริษัท Supplier</option>` + 
+                availableSuppliers.map(s => `<option value="${s}" ${s === currentSupplierVal ? 'selected' : ''}>${s}</option>`).join('');
         }
 
         function renderProductsTable() {
@@ -1245,7 +1223,7 @@
             renderProductsTable();
         }
 
-        // --- ส่วนจัดการ Popup เพิ่มสินค้า และรองรับแบรนด์หลายรายการ พร้อมปุ่มเพิ่มใหม่ ---
+        // --- ส่วนจัดการ Popup เพิ่มสินค้า และรองรับแบรนด์หลายรายการ พร้อมปุ่มเพิ่มใหม่และการซิงค์ 3 จุด ---
         function openAddProductModal() {
             renderBrandCheckboxes();
             renderSupplierSuggestions();
@@ -1303,16 +1281,19 @@
                     availableBrands.push(val);
                 }
                 renderBrandCheckboxes();
-                alert(`เพิ่มแบรนด์ใหม่ "${val}" สำเร็จ!`);
+                renderFilterDropdowns(); // ซิงค์กับ Filter ทันที
+                alert(`เพิ่มแบรนด์ใหม่ "${val}" สำเร็จและซิงค์เข้าฟิลเตอร์แล้ว!`);
             } else if (dynamicAddType === 'supplier') {
                 if (!availableSuppliers.includes(val)) {
                     availableSuppliers.push(val);
                 }
                 renderSupplierSuggestions();
+                renderFilterDropdowns(); // ซิงค์กับ Filter ทันที
                 document.getElementById('newProdSupplier').value = val;
-                alert(`เพิ่ม Supplier ใหม่ "${val}" สำเร็จ!`);
+                alert(`เพิ่ม Supplier ใหม่ "${val}" สำเร็จและซิงค์เข้าฟิลเตอร์แล้ว!`);
             }
             closeDynamicModal();
+            // คง Popup เพิ่มสินค้าหลักไว้ตามเดิมตามความต้องการ
         }
 
         function handleAddNewProduct(e) {
@@ -1329,6 +1310,14 @@
             const checkedBrands = Array.from(document.querySelectorAll('input[name="productBrands"]:checked')).map(cb => cb.value);
             const brand = checkedBrands.length > 0 ? checkedBrands.join(', ') : 'ทั่วไป';
 
+            // ตรวจสอบว่ามีแบรนด์หรือ Supplier ใหม่ที่ผู้ใช้พิมพ์เพิ่มเข้ามาเองแต่ยังไม่ได้กดบันทึกย่อย ให้บันทึกซิงค์อัตโนมัติด้วย
+            if (!availableSuppliers.includes(Supplier) && Supplier !== 'ทั่วไป') {
+                availableSuppliers.push(Supplier);
+            }
+            checkedBrands.forEach(b => {
+                if (!availableBrands.includes(b)) availableBrands.push(b);
+            });
+
             const newProduct = {
                 code, name, Type, brand, Supplier, unit, priceทุน, priceขาย,
                 stock: 0, expiryDays: "", avgSale1M: "0 หน่วย", countStatus: "ยังไม่ได้สั่งนับ"
@@ -1336,8 +1325,9 @@
 
             productsFromSheet.unshift(newProduct);
             closeAddProductModal();
+            renderFilterDropdowns(); // ซิงค์ฟิลเตอร์ทั้ง 3 จุด
             renderProductsTable();
-            alert(`เพิ่มสินค้า [${code}] ${name} เข้าคลังสำเร็จ! (แบรนด์: ${brand})`);
+            alert(`เพิ่มสินค้า [${code}] ${name} เข้าคลังสำเร็จ!`);
         }
 
         function openOrderModal(productCode) {
