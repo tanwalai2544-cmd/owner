@@ -62,7 +62,7 @@
 </head>
 <body class="h-full bg-slate-100 text-slate-800 antialiased flex flex-col">
 
-    <!-- ================= 1. LOGIN VIEW (ระบบหลัก) ================= -->
+    <!-- ================= 1. LOGIN VIEW ================= -->
     <div id="loginView" class="min-h-full flex items-center justify-center p-4 bg-gradient-to-br from-slate-900 via-red-950 to-red-900 absolute inset-0 z-50">
         <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 p-8 sm:p-10">
             <div class="text-center mb-8">
@@ -214,7 +214,7 @@
                         <i class="fa-solid fa-house"></i> <span class="hidden sm:inline">หน้าแรก (Hub)</span>
                     </button>
 
-                    <!-- ปุ่มระบบสั่งนับ (ลิงก์ตรงไปยังเว็บ pet2 ทันที) -->
+                    <!-- ปุ่มระบบสั่งนับ -->
                     <button onclick="window.open('https://tanwalai2544-cmd.github.io/pet2/', '_blank')" class="px-4 py-2.5 bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold rounded-xl border border-purple-200 flex items-center gap-2 transition font-heading">
                         <i class="fa-solid fa-clipboard-list text-lg"></i>
                         <span class="hidden sm:inline">ระบบสั่งนับ</span>
@@ -463,7 +463,7 @@
                 </div>
             </div>
 
-            <!-- MODULE C: VERIFICATION (ระบบตรวจสอบหลักฐานและบัญชีที่ผสานเข้ามาอย่างสมบูรณ์ พร้อม Document Flow Pipeline) -->
+            <!-- MODULE C: VERIFICATION (ระบบตรวจสอบหลักฐาน พร้อม Side Menu เอกสารทั้ง 8 ประเภท) -->
             <div id="moduleVerification" class="space-y-6 hidden">
                 <div class="flex items-center justify-between bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
@@ -475,140 +475,147 @@
                     </button>
                 </div>
 
-                <!-- Document Flow Pipeline (ผังการไหลของเอกสาร 8 ขั้นตอน) -->
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="text-xs font-bold text-slate-700 mb-3 uppercase tracking-wider font-heading">
-                        <i class="fa-solid fa-network-wired text-red-600"></i> ผังการไหลของเอกสาร (Document Flow Pipeline) - คลิกเพื่อกรองข้อมูล:
-                    </h3>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-9 gap-2">
-                        <button onclick="filterByPipeline('ใบเสนอราคา')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
-                            <div class="text-red-600 text-base mb-1"><i class="fa-solid fa-file-lines"></i></div>
-                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">1. ใบเสนอราคา</div>
-                        </button>
-                        <button onclick="filterByPipeline('ใบคำสั่งซื้อ')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
-                            <div class="text-blue-600 text-base mb-1"><i class="fa-solid fa-cart-shopping"></i></div>
-                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">2. ใบคำสั่งซื้อ</div>
-                        </button>
-                        <button onclick="filterByPipeline('ใบกำกับภาษีซื้อ')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
-                            <div class="text-emerald-600 text-base mb-1"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">3. ใบกำกับภาษีซื้อ</div>
-                        </button>
-                        <button onclick="filterByPipeline('ใบรับสินค้า')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
-                            <div class="text-purple-600 text-base mb-1"><i class="fa-solid fa-boxes-stacked"></i></div>
-                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">4. ใบรับสินค้า</div>
-                        </button>
-                        <button onclick="filterByPipeline('ใบขนส่ง')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
-                            <div class="text-amber-600 text-base mb-1"><i class="fa-solid fa-truck-fast"></i></div>
-                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">5. ใบขนส่ง</div>
-                        </button>
-                        <button onclick="filterByPipeline('ใบเสร็จรับเงิน')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
-                            <div class="text-rose-600 text-base mb-1"><i class="fa-solid fa-receipt"></i></div>
-                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">6. ใบเสร็จรับเงิน</div>
-                        </button>
-                        <button onclick="filterByPipeline('ใบส่งสินค้า')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
-                            <div class="text-indigo-600 text-base mb-1"><i class="fa-solid fa-truck-ramp-box"></i></div>
-                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">7. ใบส่งของ</div>
-                        </button>
-                        <button onclick="filterByPipeline('ใบส่งคืนสินค้า')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
-                            <div class="text-orange-600 text-base mb-1"><i class="fa-solid fa-rotate-left"></i></div>
-                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">8. ใบคืนสินค้า</div>
-                        </button>
-                        <button onclick="filterByPipeline('ใบเคลมสินค้า')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
-                            <div class="text-teal-600 text-base mb-1"><i class="fa-solid fa-shield-heart"></i></div>
-                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">9. ใบเคลมสินค้า</div>
-                        </button>
+                <!-- Main Layout with Side Menu for Documents -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <!-- Side Menu สำหรับเลือกดูเอกสารตามประเภท (ไม่มีเลขนำหน้า และเปลี่ยนใบเสร็จรับเงินเป็นใบเสร็จจ่ายเงิน) -->
+                    <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-5 space-y-2 h-fit">
+                        <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-3 font-heading px-2">
+                            <i class="fa-solid fa-folder-tree text-red-600"></i> หมวดหมู่เอกสารผ่านแล้ว:
+                        </h3>
+                        <div class="space-y-1.5" id="docSideMenuContainer">
+                            <button onclick="filterByDocType('all')" id="docMenu-all" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-red-600 text-white font-bold text-xs transition flex items-center justify-between">
+                                <span><i class="fa-solid fa-list-check mr-2"></i> เอกสารทั้งหมดที่ผ่าน</span>
+                                <span class="bg-white/20 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-all">0</span>
+                            </button>
+                            <button onclick="filterByDocType('ใบเสนอราคา')" id="docMenu-ใบเสนอราคา" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบเสนอราคา</span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบเสนอราคา">0</span>
+                            </button>
+                            <button onclick="filterByDocType('ใบคำสั่งซื้อ')" id="docMenu-ใบคำสั่งซื้อ" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบคำสั่งซื้อ</span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบคำสั่งซื้อ">0</span>
+                            </button>
+                            <button onclick="filterByDocType('ใบกำกับภาษีซื้อ')" id="docMenu-ใบกำกับภาษีซื้อ" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบกำกับภาษีซื้อ</span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบกำกับภาษีซื้อ">0</span>
+                            </button>
+                            <button onclick="filterByDocType('ใบรับสินค้า')" id="docMenu-ใบรับสินค้า" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบรับสินค้า</span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบรับสินค้า">0</span>
+                            </button>
+                            <button onclick="filterByDocType('ใบขนส่ง')" id="docMenu-ใบขนส่ง" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบขนส่ง</span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบขนส่ง">0</span>
+                            </button>
+                            <button onclick="filterByDocType('ใบเสร็จจ่ายเงิน')" id="docMenu-ใบเสร็จจ่ายเงิน" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบเสร็จจ่ายเงิน</span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบเสร็จจ่ายเงิน">0</span>
+                            </button>
+                            <button onclick="filterByDocType('ใบส่งสินค้า/ใบส่งของ')" id="docMenu-ใบส่งสินค้า/ใบส่งของ" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบส่งสินค้า/ใบส่งของ</span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบส่งสินค้า/ใบส่งของ">0</span>
+                            </button>
+                            <button onclick="filterByDocType('ใบส่งคืนสินค้า')" id="docMenu-ใบส่งคืนสินค้า" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบส่งคืนสินค้า</span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบส่งคืนสินค้า">0</span>
+                            </button>
+                            <button onclick="filterByDocType('ใบเคลมสินค้า')" id="docMenu-ใบเคลมสินค้า" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between">
+                                <span>ใบเคลมสินค้า</span>
+                                <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px]" id="countDoc-ใบเคลมสินค้า">0</span>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Accounting Audit Inner Section -->
-                <div class="space-y-6">
-                    <!-- Filter & Control Section -->
-                    <section class="bg-white p-6 rounded-2xl shadow-xl border border-red-100">
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-2">ตัวกรองด่วน</label>
-                                <button id="btnToday" class="w-full bg-red-50 text-red-700 border border-red-200 font-semibold py-2.5 px-4 rounded-xl text-sm hover:bg-red-100 transition flex items-center justify-center space-x-1 shadow-sm">
-                                    <span>📅 กรองรายการวันนี้ (Today)</span>
-                                </button>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-2">ตั้งแต่วันที่</label>
-                                <input type="date" id="startDate" class="w-full border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-2">ถึงวันที่</label>
-                                <input type="date" id="endDate" class="w-full border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none">
-                            </div>
-                            <div>
-                                <button id="btnFilter" class="w-full bg-red-600 text-white font-semibold py-2.5 px-4 rounded-xl text-sm hover:bg-red-700 transition shadow-md shadow-red-200">
-                                    🔍 ค้นหาข้อมูลช่วงวันที่
-                                </button>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Content Grid: Transaction List & Detail Verification -->
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <!-- Left: Transaction List (List View with Status Filter Buttons) -->
-                        <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-6 flex flex-col h-[750px]">
-                            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
-                                <h2 class="font-bold text-slate-900 text-base">รายการธุรกรรม (Task List)</h2>
-                                <span id="taskCount" class="text-xs bg-red-50 text-red-700 px-3 py-1 rounded-full font-bold">0 รายการ</span>
-                            </div>
-                            
-                            <div class="mb-4 grid grid-cols-2 gap-1.5">
-                                <button onclick="filterByStatus('all')" id="filterBtn-all" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-red-600 text-white transition shadow-sm">ทั้งหมด</button>
-                                <button onclick="filterByStatus('รอตรวจสอบ')" id="filterBtn-รอตรวจสอบ" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">รอตรวจสอบ</button>
-                                <button onclick="filterByStatus('ปกติ')" id="filterBtn-ปกติ" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">ปกติ</button>
-                                <button onclick="filterByStatus('พบปัญหา/รอแก้ไข')" id="filterBtn-พบปัญหา/รอแก้ไข" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">พบปัญหา</button>
-                                <button onclick="filterByStatus('ถูกยกเลิกแล้ว')" id="filterBtn-ถูกยกเลิกแล้ว" class="col-span-2 text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">ถูกยกเลิกแล้ว</button>
-                            </div>
-
-                            <div id="transactionList" class="space-y-3.5 overflow-y-auto pr-1 flex-1">
-                                <!-- รายการจะถูก Render ที่นี่ -->
-                            </div>
-                        </div>
-
-                        <!-- Right: Document Verification & Action Panel (รองรับรูปสูงสุด 5 ภาพ และไฟล์สูงสุด 5 ไฟล์ พร้อมเปิดดู/ดาวน์โหลด) -->
-                        <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-8 lg:col-span-2 flex flex-col justify-between min-h-[750px]">
-                            <div id="detailView" class="overflow-y-auto max-h-[580px] pr-2">
-                                <div class="text-center py-44 text-slate-400">
-                                    <svg class="w-20 h-20 mx-auto mb-4 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    <p class="text-base font-semibold text-slate-600">กรุณาเลือกรหัสธุรกรรมจากด้านซ้าย เพื่อตรวจสอบหลักฐาน</p>
+                    <!-- Main Audit Content Area -->
+                    <div class="lg:col-span-3 space-y-6">
+                        <!-- Filter & Control Section -->
+                        <section class="bg-white p-6 rounded-2xl shadow-xl border border-red-100">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-2">ตัวกรองด่วน</label>
+                                    <button id="btnToday" class="w-full bg-red-50 text-red-700 border border-red-200 font-semibold py-2.5 px-4 rounded-xl text-sm hover:bg-red-100 transition flex items-center justify-center space-x-1 shadow-sm">
+                                        <span>📅 กรองรายการวันนี้ (Today)</span>
+                                    </button>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-2">ตั้งแต่วันที่</label>
+                                    <input type="date" id="startDate" class="w-full border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-2">ถึงวันที่</label>
+                                    <input type="date" id="endDate" class="w-full border border-slate-300 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none">
+                                </div>
+                                <div>
+                                    <button id="btnFilter" class="w-full bg-red-600 text-white font-semibold py-2.5 px-4 rounded-xl text-sm hover:bg-red-700 transition shadow-md shadow-red-200">
+                                        🔍 ค้นหาข้อมูลช่วงวันที่
+                                    </button>
                                 </div>
                             </div>
+                        </section>
 
-                            <!-- Footer Action Buttons -->
-                            <div id="actionPanel" class="border-t border-slate-200 pt-5 mt-4 hidden shrink-0">
-                                <p class="text-xs font-bold text-slate-700 mb-3">🛠️ เครื่องมือตรวจสอบและจัดการสำหรับนักบัญชี (Audit Actions):</p>
+                        <!-- Content Grid: Transaction List & Detail Verification -->
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <!-- Left: Transaction List (List View with Status Filter Buttons) -->
+                            <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-6 flex flex-col h-[750px]">
+                                <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
+                                    <h2 class="font-bold text-slate-900 text-base">รายการธุรกรรม (Task List)</h2>
+                                    <span id="taskCount" class="text-xs bg-red-50 text-red-700 px-3 py-1 rounded-full font-bold">0 รายการ</span>
+                                </div>
                                 
-                                <div id="resolveProblemContainer" class="mb-3 hidden">
-                                    <button onclick="resolveProblem()" class="w-full bg-emerald-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-emerald-700 transition font-bold flex items-center justify-center space-x-2 shadow-md">
-                                        <span>✅ แก้ไขปัญหาเรียบร้อยแล้ว (ปรับสถานะเป็นปกติ)</span>
-                                    </button>
+                                <div class="mb-4 grid grid-cols-2 gap-1.5">
+                                    <button onclick="filterByStatus('all')" id="filterBtn-all" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-red-600 text-white transition shadow-sm">ทั้งหมด</button>
+                                    <button onclick="filterByStatus('รอตรวจสอบ')" id="filterBtn-รอตรวจสอบ" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">รอตรวจสอบ</button>
+                                    <button onclick="filterByStatus('ปกติ')" id="filterBtn-ปกติ" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">ปกติ (ผ่าน)</button>
+                                    <button onclick="filterByStatus('พบปัญหา/รอแก้ไข')" id="filterBtn-พบปัญหา/รอแก้ไข" class="text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">พบปัญหา</button>
+                                    <button onclick="filterByStatus('ถูกยกเลิกแล้ว')" id="filterBtn-ถูกยกเลิกแล้ว" class="col-span-2 text-[11px] font-semibold py-1.5 px-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">ถูกยกเลิกแล้ว</button>
                                 </div>
 
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                    <button onclick="openLineChat('supplier')" class="bg-emerald-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-emerald-700 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
-                                        <span>💬 แชท Supplier</span>
-                                    </button>
-                                    <button onclick="openLineChat('staff')" class="bg-sky-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-sky-700 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
-                                        <span>👥 แชทพนักงาน</span>
-                                    </button>
-                                    <button onclick="toggleEditMode()" id="btnEditDoc" class="bg-amber-500 text-white text-xs py-3 px-4 rounded-xl hover:bg-amber-600 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
-                                        <span>✏️ แก้ไขเอกสาร</span>
-                                    </button>
-                                    <button onclick="saveAudit()" class="bg-red-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-red-700 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
-                                        <span>💾 บันทึกผลตรวจ</span>
-                                    </button>
+                                <div id="transactionList" class="space-y-3.5 overflow-y-auto pr-1 flex-1">
+                                    <!-- รายการจะถูก Render ที่นี่ -->
+                                </div>
+                            </div>
+
+                            <!-- Right: Document Verification & Action Panel -->
+                            <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-8 lg:col-span-2 flex flex-col justify-between min-h-[750px]">
+                                <div id="detailView" class="overflow-y-auto max-h-[580px] pr-2">
+                                    <div class="text-center py-44 text-slate-400">
+                                        <svg class="w-20 h-20 mx-auto mb-4 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        <p class="text-base font-semibold text-slate-600">กรุณาเลือกรหัสธุรกรรมจากด้านซ้าย เพื่อตรวจสอบหลักฐาน</p>
+                                    </div>
                                 </div>
 
-                                <div class="mt-3">
-                                    <button onclick="notifyOwner()" class="w-full bg-slate-900 text-white text-xs py-3.5 px-4 rounded-xl hover:bg-slate-800 transition font-bold flex items-center justify-center space-x-2 shadow-md">
-                                        <span>🚨 ยกเลิกรายการ & ส่งแชทหาเถ้าแก่ผ่าน Line OA (ขอสร้างรหัสธุรกรรมใหม่)</span>
-                                    </button>
+                                <!-- Footer Action Buttons -->
+                                <div id="actionPanel" class="border-t border-slate-200 pt-5 mt-4 hidden shrink-0">
+                                    <p class="text-xs font-bold text-slate-700 mb-3">🛠️ เครื่องมือตรวจสอบและจัดการสำหรับนักบัญชี (Audit Actions):</p>
+                                    
+                                    <div id="resolveProblemContainer" class="mb-3 hidden">
+                                        <button onclick="resolveProblem()" class="w-full bg-emerald-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-emerald-700 transition font-bold flex items-center justify-center space-x-2 shadow-md">
+                                            <span>✅ แก้ไขปัญหาเรียบร้อยแล้ว (ปรับสถานะเป็นปกติ และส่งเข้า Side Menu)</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                        <button onclick="openLineChat('supplier')" class="bg-emerald-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-emerald-700 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
+                                            <span>💬 แชท Supplier</span>
+                                        </button>
+                                        <button onclick="openLineChat('staff')" class="bg-sky-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-sky-700 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
+                                            <span>👥 แชทพนักงาน</span>
+                                        </button>
+                                        <button onclick="toggleEditMode()" id="btnEditDoc" class="bg-amber-500 text-white text-xs py-3 px-4 rounded-xl hover:bg-amber-600 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
+                                            <span>✏️ แก้ไขเอกสาร</span>
+                                        </button>
+                                        <button onclick="saveAudit()" class="bg-red-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-red-700 transition font-semibold flex items-center justify-center space-x-1 shadow-sm">
+                                            <span>💾 บันทึกผลตรวจ</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <button onclick="notifyOwner()" class="w-full bg-slate-900 text-white text-xs py-3.5 px-4 rounded-xl hover:bg-slate-800 transition font-bold flex items-center justify-center space-x-2 shadow-md">
+                                            <span>🚨 ยกเลิกรายการ & ส่งแชทหาเถ้าแก่ผ่าน Line OA (ขอสร้างรหัสธุรกรรมใหม่)</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -649,7 +656,7 @@
         </footer>
     </div>
 
-    <!-- MODALS (ระบบเดิมทั้งหมด) -->
+    <!-- MODALS -->
     <div id="addProductModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between">
@@ -715,7 +722,7 @@
         </div>
     </div>
 
-    <!-- MODAL ดูรูปภาพขนาดใหญ่ (Lightbox) -->
+    <!-- MODAL LIGHTBOX -->
     <div id="imageLightboxModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
         <div class="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center">
             <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white text-3xl font-bold hover:text-red-400 transition"><i class="fa-solid fa-xmark"></i></button>
@@ -762,7 +769,7 @@
         </div>
     </div>
 
-    <!-- MODAL: ประวัติการสั่งซื้อ (Order History & Management) -->
+    <!-- MODAL: ประวัติการสั่งซื้อ -->
     <div id="orderHistoryModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-100 max-h-[90vh] flex flex-col">
             <div class="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-4 text-white flex items-center justify-between shrink-0">
@@ -904,7 +911,7 @@
         </div>
     </div>
 
-    <!-- Popup Modal สำหรับบันทึกผลการตรวจเสร็จสิ้น (Accounting Audit) -->
+    <!-- Success Popup -->
     <div id="successPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl text-center transform scale-95 transition-transform duration-300">
             <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
@@ -970,27 +977,25 @@
         let isExpiry90Mode = false;
         let orderTransactionCount = 0;
 
-        // ข้อมูลธุรกรรมสำหรับระบบตรวจสอบหลักฐาน (Accounting Audit) พร้อมรองรับภาพสูงสุด 5 และไฟล์สูงสุด 5
+        // ข้อมูลธุรกรรม
         let transactionData = [
             {
                 id: "202611001",
                 date: "2026-11-11",
                 supplier: "บริษัท ซัพพลายอาหารสัตว์ไทย จำกัด",
                 docType: "ใบกำกับภาษีซื้อ",
-                status: "รอตรวจสอบ",
-                remark: "-",
+                status: "ปกติ", // เอกสารผ่านแล้ว จะแสดงใน Side menu ตาม docType
+                remark: "ตรวจสอบถูกต้องสมบูรณ์",
                 totalAmount: 12500.00,
                 itemsOrdered: [
                     { name: "อาหารแมวเกรดพรีเมียม (กระสอบ 20kg)", qty: 10, price: 1000 },
                     { name: "ทรายแมวเต้าหู้ (ถุง 6L)", qty: 50, price: 50 }
                 ],
                 documentImages: [
-                    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80",
-                    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
+                    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"
                 ],
                 documentFiles: [
-                    { name: "Tax_Invoice_202611001.pdf", url: "#" },
-                    { name: "Delivery_Slip_01.pdf", url: "#" }
+                    { name: "Tax_Invoice_202611001.pdf", url: "#" }
                 ]
             },
             {
@@ -998,8 +1003,8 @@
                 date: "2026-11-11",
                 supplier: "หจก. อุปกรณ์สัตว์เลี้ยงเพ็ทช็อป",
                 docType: "ใบคำสั่งซื้อ",
-                status: "ปกติ",
-                remark: "เอกสารถูกต้องครบถ้วน",
+                status: "รอตรวจสอบ", // ยังไม่ผ่าน จะอยู่เฉพาะหน้าตรวจสอบหลักฐานหลัก
+                remark: "-",
                 totalAmount: 3400.00,
                 itemsOrdered: [
                     { name: "กรงสุนัขพับได้ ขนาด L", qty: 2, price: 1200 },
@@ -1017,7 +1022,7 @@
                 date: "2026-11-10",
                 supplier: "บริษัท เวชภัณฑ์สัตว์และอุปกรณ์ จำกัด",
                 docType: "ใบเคลมสินค้า",
-                status: "พบปัญหา/รอแก้ไข",
+                status: "พบปัญหา/รอแก้ไข", // มีปัญหา จะเด้งกลับมาหน้าตรวจสอบหลักฐาน
                 remark: "ยอดเงินในใบกำกับภาษีไม่ตรงกับยอดสั่งซื้อจริง ผลต่าง 300 บาท",
                 totalAmount: 1800.00,
                 itemsOrdered: [
@@ -1027,8 +1032,7 @@
                     "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
                 ],
                 documentFiles: [
-                    { name: "Claim_Form_202611003.pdf", url: "#" },
-                    { name: "Damage_Report.pdf", url: "#" }
+                    { name: "Claim_Form_202611003.pdf", url: "#" }
                 ]
             }
         ];
@@ -1036,6 +1040,7 @@
         let currentSelectedId = null;
         let isEditMode = false;
         let currentFilterStatus = 'all';
+        let currentDocTypeFilter = 'all'; // สำหรับ Side menu
 
         // Login ระบบหลัก
         function handleLogin(e) {
@@ -1086,6 +1091,9 @@
                 renderProductsTable();
             } else if (moduleName === 'verification') {
                 document.getElementById('moduleVerification').classList.remove('hidden');
+                currentDocTypeFilter = 'all';
+                currentFilterStatus = 'all';
+                updateDocSideMenuCounts();
                 renderTransactionList(transactionData);
             } else if (moduleName === 'dashboard') {
                 document.getElementById('moduleDashboard').classList.remove('hidden');
@@ -1469,7 +1477,7 @@
             document.getElementById('invoiceModal').classList.add('hidden');
         }
 
-        // ================= JAVASCRIPT FOR ACCOUNTING AUDIT MODULE =================
+        // ================= JAVASCRIPT FOR ACCOUNTING AUDIT & SIDE MENU =================
         document.addEventListener("DOMContentLoaded", () => {
             const btnToday = document.getElementById('btnToday');
             if (btnToday) {
@@ -1494,8 +1502,48 @@
                 });
             }
             
+            updateDocSideMenuCounts();
             renderTransactionList(transactionData);
         });
+
+        // ฟังก์ชันอัปเดตจำนวนตัวเลขใน Side menu และกรองตามเอกสารที่ผ่าน (สถานะ = ปกติ)
+        function updateDocSideMenuCounts() {
+            const docTypes = ['ใบเสนอราคา', 'ใบคำสั่งซื้อ', 'ใบกำกับภาษีซื้อ', 'ใบรับสินค้า', 'ใบขนส่ง', 'ใบเสร็จจ่ายเงิน', 'ใบส่งสินค้า/ใบส่งของ', 'ใบส่งคืนสินค้า', 'ใบเคลมสินค้า'];
+            
+            // เฉพาะเอกสารที่มีสถานะ "ปกติ" ถึงจะนับและมาแสดงใน Side menu
+            const passedItems = transactionData.filter(t => t.status === 'ปกติ');
+            
+            document.getElementById('countDoc-all').innerText = passedItems.length;
+
+            docTypes.forEach(dtype => {
+                const count = passedItems.filter(t => t.docType === dtype).length;
+                const badgeEl = document.getElementById(`countDoc-${dtype}`);
+                if(badgeEl) badgeEl.innerText = count;
+            });
+        }
+
+        function filterByDocType(docType) {
+            currentDocTypeFilter = docType;
+            const docTypes = ['all', 'ใบเสนอราคา', 'ใบคำสั่งซื้อ', 'ใบกำกับภาษีซื้อ', 'ใบรับสินค้า', 'ใบขนส่ง', 'ใบเสร็จจ่ายเงิน', 'ใบส่งสินค้า/ใบส่งของ', 'ใบส่งคืนสินค้า', 'ใบเคลมสินค้า'];
+            
+            docTypes.forEach(dt => {
+                const btn = document.getElementById(`docMenu-${dt}`);
+                if (btn) {
+                    if (dt === docType) {
+                        btn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-red-600 text-white font-bold text-xs transition flex items-center justify-between shadow-sm";
+                    } else {
+                        btn.className = "w-full text-left px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 font-semibold text-xs transition flex items-center justify-between";
+                    }
+                }
+            });
+
+            // กรองเฉพาะเอกสารที่ผ่าน (สถานะ = ปกติ) ตาม docType ที่เลือก
+            let targetList = transactionData.filter(t => t.status === 'ปกติ');
+            if (docType !== 'all') {
+                targetList = targetList.filter(t => t.docType === docType);
+            }
+            renderTransactionList(targetList);
+        }
 
         function filterByStatus(status) {
             currentFilterStatus = status;
@@ -1519,12 +1567,6 @@
             }
         }
 
-        // ฟังก์ชันกรองตาม Pipeline เอกสาร 9 ขั้นตอน
-        function filterByPipeline(docTypeName) {
-            const filtered = transactionData.filter(item => item.docType.includes(docTypeName) || docTypeName.includes(item.docType));
-            renderTransactionList(filtered);
-        }
-
         function renderTransactionList(items) {
             const listContainer = document.getElementById('transactionList');
             if (!listContainer) return;
@@ -1532,7 +1574,7 @@
             listContainer.innerHTML = '';
 
             if (items.length === 0) {
-                listContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-10">ไม่พบรายการธุรกรรมในสถานะนี้</p>`;
+                listContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-10">ไม่พบรายการธุรกรรมในเงื่อนไขนี้</p>`;
                 return;
             }
 
@@ -1610,7 +1652,6 @@
                 `;
             }
 
-            // เรนเดอร์รูปภาพหลักฐาน (รองรับสูงสุด 5 ภาพ)
             const imagesHtml = item.documentImages.map((imgUrl, imgIdx) => `
                 <div class="relative group block w-20 h-20 overflow-hidden rounded-xl border border-slate-300 bg-white cursor-pointer shadow-xs" onclick="openLightbox('${imgUrl}', 'ภาพหลักฐานที่ ${imgIdx + 1}')">
                     <img src="${imgUrl}" alt="Evidence ${imgIdx + 1}" class="w-full h-full object-cover group-hover:scale-105 transition">
@@ -1618,7 +1659,6 @@
                 </div>
             `).join('');
 
-            // เรนเดอร์ไฟล์เอกสาร (รองรับสูงสุด 5 ไฟล์ พร้อมปุ่มเปิดดู/ดาวน์โหลด)
             const filesHtml = item.documentFiles.map((fileObj, fileIdx) => `
                 <div class="flex items-center justify-between p-2.5 bg-white border border-slate-200 rounded-xl text-xs">
                     <div class="flex items-center gap-2 truncate">
@@ -1715,16 +1755,18 @@
             alert('บันทึกการแก้ไขรายการและราคาเรียบร้อยแล้ว!');
         }
 
+        // เมื่อแก้ไขปัญหาเรียบร้อย ปรับเป็น "ปกติ" และเอกสารจะไหลเข้าสู่ Side menu
         function resolveProblem() {
             const item = transactionData.find(t => t.id === currentSelectedId);
             if (item) {
                 item.status = 'ปกติ';
                 item.remark = 'แก้ไขปัญหาเรียบร้อยแล้ว ตรวจสอบถูกต้อง';
             }
-            alert('แก้ไขปัญหาเรียบร้อย! ระบบปรับสถานะเป็น "ปกติ" แล้ว');
+            alert('แก้ไขปัญหาเรียบร้อย! ระบบปรับสถานะเป็น "ปกติ" และส่งเอกสารเข้าสู่ Side Menu เรียบร้อยแล้ว');
             document.getElementById('resolveProblemContainer').classList.add('hidden');
             renderDetailView();
-            filterByStatus(currentFilterStatus);
+            updateDocSideMenuCounts();
+            renderTransactionList(transactionData);
         }
 
         function saveAudit() {
@@ -1732,7 +1774,7 @@
             if (item) {
                 const remarkVal = document.getElementById('remarkInput').value;
                 item.remark = remarkVal;
-                if (remarkVal && remarkVal !== '-' && remarkVal.trim() !== '') {
+                if (remarkVal && remarkVal !== '-' && remarkVal.trim() !== '' && !remarkVal.includes('ถูกต้อง')) {
                     item.status = 'พบปัญหา/รอแก้ไข';
                     document.getElementById('resolveProblemContainer').classList.remove('hidden');
                 } else {
@@ -1741,7 +1783,8 @@
                 }
             }
             document.getElementById('successPopup').classList.remove('hidden');
-            filterByStatus(currentFilterStatus);
+            updateDocSideMenuCounts();
+            renderTransactionList(transactionData);
         }
 
         function closeSuccessPopup() {
@@ -1758,6 +1801,7 @@
                 }
                 alert('ส่งข้อความแจ้งเตือนหาเถ้าแก่ (Owner) ผ่าน Line OA สำเร็จ และอัปเดตสถานะเป็น "ถูกยกเลิกแล้ว" เรียบร้อย');
                 document.getElementById('resolveProblemContainer').classList.add('hidden');
+                updateDocSideMenuCounts();
                 filterByStatus(currentFilterStatus);
                 selectTransaction(currentSelectedId);
             }
