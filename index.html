@@ -592,7 +592,7 @@
                                     
                                     <div id="resolveProblemContainer" class="mb-3 hidden">
                                         <button onclick="resolveProblem()" class="w-full bg-emerald-600 text-white text-xs py-3 px-4 rounded-xl hover:bg-emerald-700 transition font-bold flex items-center justify-center space-x-2 shadow-md">
-                                            <span>✅ แก้ไขปัญหาเรียบร้อยแล้ว (ปรับสถานะเป็นปกติ และส่งเข้า Side Menu)</span>
+                                            <span>✅ ตรวจสอบหลักฐานเรียบร้อย (ปรับสถานะเป็นปกติ และส่งเข้า Side Menu)</span>
                                         </button>
                                     </div>
 
@@ -1722,6 +1722,17 @@
 
         function toggleEditMode() {
             isEditMode = !isEditMode;
+            
+            // เมื่อกดแก้ไขเอกสาร ให้เปลี่ยนสถานะเป็นพบปัญหาทันทีตามคำสั่ง
+            const item = transactionData.find(t => t.id === currentSelectedId);
+            if (item) {
+                item.status = 'พบปัญหา/รอแก้ไข';
+                item.remark = 'กำลังแก้ไขข้อมูลเอกสารในระบบ';
+                document.getElementById('resolveProblemContainer').classList.remove('hidden');
+                renderTransactionList(transactionData);
+                updateDocSideMenuCounts();
+            }
+
             renderDetailView();
         }
 
@@ -1744,16 +1755,16 @@
             item.totalAmount = newTotal;
             isEditMode = false;
             renderDetailView();
-            alert('บันทึกการแก้ไขรายการและราคาเรียบร้อยแล้ว!');
+            alert('บันทึกการแก้ไขรายการและราคาเรียบร้อยแล้ว! (สถานะยังคงพบปัญหา จนกว่าจะกดตรวจสอบหลักฐานเรียบร้อย)');
         }
 
         function resolveProblem() {
             const item = transactionData.find(t => t.id === currentSelectedId);
             if (item) {
                 item.status = 'ปกติ';
-                item.remark = 'แก้ไขปัญหาเรียบร้อยแล้ว ตรวจสอบถูกต้อง';
+                item.remark = 'ตรวจสอบหลักฐานเรียบร้อยแล้ว ข้อมูลถูกต้อง';
             }
-            alert('แก้ไขปัญหาเรียบร้อย! ระบบปรับสถานะเป็น "ปกติ" และส่งเอกสารเข้าสู่ Side Menu เรียบร้อยแล้ว');
+            alert('ตรวจสอบหลักฐานเรียบร้อย! ระบบเปลี่ยนสถานะเป็น "ปกติ" และส่งเอกสารเข้าสู่ Side Menu เรียบร้อยแล้ว');
             document.getElementById('resolveProblemContainer').classList.add('hidden');
             renderDetailView();
             updateDocSideMenuCounts();
@@ -1765,7 +1776,7 @@
             if (item) {
                 const remarkVal = document.getElementById('remarkInput').value;
                 item.remark = remarkVal;
-                if (remarkVal && remarkVal !== '-' && remarkVal.trim() !== '' && !remarkVal.includes('ถูกต้อง')) {
+                if (remarkVal && remarkVal !== '-' && remarkVal.trim() !== '' && !remarkVal.includes('ถูกต้อง') && !remarkVal.includes('เรียบร้อย')) {
                     item.status = 'พบปัญหา/รอแก้ไข';
                     document.getElementById('resolveProblemContainer').classList.remove('hidden');
                 } else {
