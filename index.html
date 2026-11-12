@@ -635,14 +635,14 @@
     </div>
 
     <!-- MODALS -->
-    <!-- Modal: เพิ่มสินค้าใหม่ พร้อมรองรับเลือกหลายแบรนด์และปุ่มเพิ่มแบรนด์/Supplier ใหม่ -->
+    <!-- Modal: เพิ่มสินค้าใหม่ พร้อมรองรับเลือกแบรนด์ 1 แบรนด์ และช่องกรอกเพิ่มแบรนด์/Supplier ใหม่แบบอินไลน์ในหน้าต่างเดิม -->
     <div id="addProductModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100">
             <div class="bg-red-600 px-6 py-4 text-white flex items-center justify-between">
                 <h3 class="font-bold text-lg font-heading"><i class="fa-solid fa-plus-circle"></i> เพิ่มรายการสินค้าใหม่เข้าคลัง</h3>
                 <button onclick="closeAddProductModal()" class="text-white/80 hover:text-white p-2 text-xl font-bold"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form onsubmit="handleAddNewProduct(event)" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+            <form onsubmit="handleAddNewProduct(event)" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-slate-700 font-semibold mb-1 text-sm font-heading">รหัสสินค้า (code)</label>
@@ -683,20 +683,38 @@
                     </div>
                 </div>
 
+                <!-- ส่วนเลือกแบรนด์สินค้า (เลือกได้เพียง 1 แบรนด์) -->
                 <div>
                     <div class="flex justify-between items-center mb-1">
-                        <label class="block text-slate-700 font-semibold text-sm font-heading">ยี่ห้อสินค้า (Brand - เลือกได้มากกว่า 1)</label>
-                        <button type="button" onclick="openAddNewBrandModal()" class="text-xs text-red-600 font-bold hover:underline"><i class="fa-solid fa-plus-circle"></i> เพิ่มแบรนด์ใหม่</button>
+                        <label class="block text-slate-700 font-semibold text-sm font-heading">ยี่ห้อสินค้า (Brand - เลือก 1 แบรนด์)</label>
+                        <button type="button" onclick="toggleInlineAddBox('brand')" class="text-xs text-red-600 font-bold hover:underline"><i class="fa-solid fa-plus-circle"></i> เพิ่มแบรนด์ใหม่</button>
                     </div>
-                    <div id="brandCheckboxContainer" class="p-3 bg-slate-50 border border-slate-200 rounded-xl max-h-36 overflow-y-auto space-y-2 text-sm">
-                        <!-- โหลด checkbox แบรนด์แบบไดนามิก -->
+                    <!-- กล่องกรอกเพิ่มแบรนด์ใหม่แบบอินไลน์ -->
+                    <div id="inlineBrandBox" class="hidden mb-2 p-3 bg-red-50 border border-red-200 rounded-xl space-y-2">
+                        <input type="text" id="inlineNewBrandInput" placeholder="กรอกชื่อแบรนด์ใหม่..." class="w-full bg-white border border-slate-300 px-3 py-2 rounded-lg text-xs outline-none focus:ring-2 focus:ring-red-500">
+                        <div class="flex justify-end gap-2">
+                            <button type="button" onclick="toggleInlineAddBox('brand')" class="px-3 py-1 bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold">ยกเลิก</button>
+                            <button type="button" onclick="confirmInlineAdd('brand')" class="px-3 py-1 bg-red-600 text-white rounded-lg text-xs font-bold shadow-xs">บันทึกแบรนด์</button>
+                        </div>
                     </div>
+                    <select id="newProdBrandSelect" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none font-medium text-slate-800">
+                        <!-- โหลดแบรนด์แบบไดนามิก (เลือกได้ 1) -->
+                    </select>
                 </div>
 
+                <!-- ส่วนเลือก Supplier -->
                 <div>
                     <div class="flex justify-between items-center mb-1">
                         <label class="block text-slate-700 font-semibold text-sm font-heading">บริษัท Supplier</label>
-                        <button type="button" onclick="openAddNewSupplierModal()" class="text-xs text-red-600 font-bold hover:underline"><i class="fa-solid fa-plus-circle"></i> เพิ่ม Supplier ใหม่</button>
+                        <button type="button" onclick="toggleInlineAddBox('supplier')" class="text-xs text-red-600 font-bold hover:underline"><i class="fa-solid fa-plus-circle"></i> เพิ่ม Supplier ใหม่</button>
+                    </div>
+                    <!-- กล่องกรอกเพิ่ม Supplier ใหม่แบบอินไลน์ -->
+                    <div id="inlineSupplierBox" class="hidden mb-2 p-3 bg-red-50 border border-red-200 rounded-xl space-y-2">
+                        <input type="text" id="inlineNewSupplierInput" placeholder="กรอกชื่อ Supplier ใหม่..." class="w-full bg-white border border-slate-300 px-3 py-2 rounded-lg text-xs outline-none focus:ring-2 focus:ring-red-500">
+                        <div class="flex justify-end gap-2">
+                            <button type="button" onclick="toggleInlineAddBox('supplier')" class="px-3 py-1 bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold">ยกเลิก</button>
+                            <button type="button" onclick="confirmInlineAdd('supplier')" class="px-3 py-1 bg-red-600 text-white rounded-lg text-xs font-bold shadow-xs">บันทึก Supplier</button>
+                        </div>
                     </div>
                     <div class="relative">
                         <input type="text" id="newProdSupplier" list="supplierSuggestions" placeholder="เลือกหรือพิมพ์ชื่อ Supplier..." class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl text-base focus:ring-2 focus:ring-red-500 focus:bg-white outline-none">
@@ -711,21 +729,6 @@
                     <button type="submit" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md transition font-heading">บันทึกสินค้าใหม่ (สต็อกเป็น 0)</button>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <!-- Modal ย่อยสำหรับกรอกเพิ่มแบรนด์ใหม่ หรือ Supplier ใหม่ (แสดงซ้อนทับด้านหน้า Popup เดิม) -->
-    <div id="dynamicAddModal" class="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden border border-slate-100 p-6 space-y-4">
-            <h3 id="dynamicModalTitle" class="font-bold text-lg font-heading text-slate-900">เพิ่มข้อมูลใหม่</h3>
-            <div>
-                <label id="dynamicModalLabel" class="block text-slate-700 text-xs font-bold mb-1">ชื่อรายการใหม่</label>
-                <input type="text" id="dynamicInputVal" class="w-full bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-xl text-sm outline-none focus:ring-2 focus:ring-red-500" placeholder="กรอกชื่อ...">
-            </div>
-            <div class="flex gap-2 pt-2">
-                <button type="button" onclick="closeDynamicModal()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs">ยกเลิก</button>
-                <button type="button" onclick="confirmAddDynamicValue()" class="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs shadow-sm">บันทึก</button>
-            </div>
         </div>
     </div>
 
@@ -987,7 +990,6 @@
         let selectedProductForOrder = null;
         let isExpiry90Mode = false;
         let orderTransactionCount = 0;
-        let dynamicAddType = ''; // 'brand' หรือ 'supplier'
 
         // ข้อมูลเอกสาร (Mock-up รวมประเภท "ใบเสร็จรับเงิน" ที่ซิงค์มาจากคำสั่งซื้อ B2B)
         let transactionData = [
@@ -1223,10 +1225,12 @@
             renderProductsTable();
         }
 
-        // --- ส่วนจัดการ Popup เพิ่มสินค้า และรองรับแบรนด์หลายรายการ พร้อมปุ่มเพิ่มใหม่และการซิงค์ 3 จุด ---
+        // --- ส่วนจัดการ Modal เพิ่มสินค้า และช่องเพิ่มแบรนด์/Supplier แบบอินไลน์ ---
         function openAddProductModal() {
-            renderBrandCheckboxes();
+            renderBrandSelect();
             renderSupplierSuggestions();
+            document.getElementById('inlineBrandBox').classList.add('hidden');
+            document.getElementById('inlineSupplierBox').classList.add('hidden');
             document.getElementById('addProductModal').classList.remove('hidden');
         }
 
@@ -1234,14 +1238,9 @@
             document.getElementById('addProductModal').classList.add('hidden');
         }
 
-        function renderBrandCheckboxes() {
-            const container = document.getElementById('brandCheckboxContainer');
-            container.innerHTML = availableBrands.map(b => `
-                <label class="flex items-center space-x-2 cursor-pointer hover:bg-slate-100 p-1 rounded-lg">
-                    <input type="checkbox" name="productBrands" value="${b}" class="rounded text-red-600 focus:ring-red-500 w-4 h-4">
-                    <span class="text-slate-700 font-medium">${b}</span>
-                </label>
-            `).join('');
+        function renderBrandSelect() {
+            const selectEl = document.getElementById('newProdBrandSelect');
+            selectEl.innerHTML = availableBrands.map(b => `<option value="${b}">${b}</option>`).join('');
         }
 
         function renderSupplierSuggestions() {
@@ -1249,51 +1248,54 @@
             datalist.innerHTML = availableSuppliers.map(s => `<option value="${s}">`).join('');
         }
 
-        function openAddNewBrandModal() {
-            dynamicAddType = 'brand';
-            document.getElementById('dynamicModalTitle').innerText = 'เพิ่มแบรนด์สินค้าใหม่';
-            document.getElementById('dynamicModalLabel').innerText = 'ชื่อแบรนด์ใหม่';
-            document.getElementById('dynamicInputVal').value = '';
-            document.getElementById('dynamicAddModal').classList.remove('hidden');
-        }
-
-        function openAddNewSupplierModal() {
-            dynamicAddType = 'supplier';
-            document.getElementById('dynamicModalTitle').innerText = 'เพิ่ม Supplier ใหม่';
-            document.getElementById('dynamicModalLabel').innerText = 'ชื่อบริษัท Supplier ใหม่';
-            document.getElementById('dynamicInputVal').value = '';
-            document.getElementById('dynamicAddModal').classList.remove('hidden');
-        }
-
-        function closeDynamicModal() {
-            document.getElementById('dynamicAddModal').classList.add('hidden');
-        }
-
-        function confirmAddDynamicValue() {
-            const val = document.getElementById('dynamicInputVal').value.trim();
-            if (!val) {
-                alert('กรุณากรอกข้อมูล');
-                return;
+        function toggleInlineAddBox(type) {
+            if (type === 'brand') {
+                const box = document.getElementById('inlineBrandBox');
+                box.classList.toggle('hidden');
+                if (!box.classList.contains('hidden')) {
+                    document.getElementById('inlineNewBrandInput').value = '';
+                    document.getElementById('inlineNewBrandInput').focus();
+                }
+            } else if (type === 'supplier') {
+                const box = document.getElementById('inlineSupplierBox');
+                box.classList.toggle('hidden');
+                if (!box.classList.contains('hidden')) {
+                    document.getElementById('inlineNewSupplierInput').value = '';
+                    document.getElementById('inlineNewSupplierInput').focus();
+                }
             }
+        }
 
-            if (dynamicAddType === 'brand') {
+        function confirmInlineAdd(type) {
+            if (type === 'brand') {
+                const val = document.getElementById('inlineNewBrandInput').value.trim();
+                if (!val) {
+                    alert('กรุณากรอกชื่อแบรนด์ใหม่');
+                    return;
+                }
                 if (!availableBrands.includes(val)) {
                     availableBrands.push(val);
                 }
-                renderBrandCheckboxes();
-                renderFilterDropdowns(); // ซิงค์กับ Filter ทันที
-                alert(`เพิ่มแบรนด์ใหม่ "${val}" สำเร็จและซิงค์เข้าฟิลเตอร์แล้ว!`);
-            } else if (dynamicAddType === 'supplier') {
+                renderBrandSelect();
+                document.getElementById('newProdBrandSelect').value = val;
+                renderFilterDropdowns();
+                document.getElementById('inlineBrandBox').classList.add('hidden');
+                alert(`เพิ่มแบรนด์ "${val}" สำเร็จและซิงค์เข้าระบบแล้ว!`);
+            } else if (type === 'supplier') {
+                const val = document.getElementById('inlineNewSupplierInput').value.trim();
+                if (!val) {
+                    alert('กรุณากรอกชื่อ Supplier ใหม่');
+                    return;
+                }
                 if (!availableSuppliers.includes(val)) {
                     availableSuppliers.push(val);
                 }
                 renderSupplierSuggestions();
-                renderFilterDropdowns(); // ซิงค์กับ Filter ทันที
                 document.getElementById('newProdSupplier').value = val;
-                alert(`เพิ่ม Supplier ใหม่ "${val}" สำเร็จและซิงค์เข้าฟิลเตอร์แล้ว!`);
+                renderFilterDropdowns();
+                document.getElementById('inlineSupplierBox').classList.add('hidden');
+                alert(`เพิ่ม Supplier "${val}" สำเร็จและซิงค์เข้าระบบแล้ว!`);
             }
-            closeDynamicModal();
-            // คง Popup เพิ่มสินค้าหลักไว้ตามเดิมตามความต้องการ
         }
 
         function handleAddNewProduct(e) {
@@ -1305,18 +1307,11 @@
             const unit = document.getElementById('newProdUnit').value.trim() || 'ถุง';
             const Type = document.getElementById('newProdType').value;
             const Supplier = document.getElementById('newProdSupplier').value.trim() || 'ทั่วไป';
+            const brand = document.getElementById('newProdBrandSelect').value || 'ทั่วไป';
 
-            // ดึงแบรนด์ที่เลือก (รองรับเลือกมากกว่า 1 แบรนด์)
-            const checkedBrands = Array.from(document.querySelectorAll('input[name="productBrands"]:checked')).map(cb => cb.value);
-            const brand = checkedBrands.length > 0 ? checkedBrands.join(', ') : 'ทั่วไป';
-
-            // ตรวจสอบว่ามีแบรนด์หรือ Supplier ใหม่ที่ผู้ใช้พิมพ์เพิ่มเข้ามาเองแต่ยังไม่ได้กดบันทึกย่อย ให้บันทึกซิงค์อัตโนมัติด้วย
             if (!availableSuppliers.includes(Supplier) && Supplier !== 'ทั่วไป') {
                 availableSuppliers.push(Supplier);
             }
-            checkedBrands.forEach(b => {
-                if (!availableBrands.includes(b)) availableBrands.push(b);
-            });
 
             const newProduct = {
                 code, name, Type, brand, Supplier, unit, priceทุน, priceขาย,
@@ -1325,7 +1320,7 @@
 
             productsFromSheet.unshift(newProduct);
             closeAddProductModal();
-            renderFilterDropdowns(); // ซิงค์ฟิลเตอร์ทั้ง 3 จุด
+            renderFilterDropdowns();
             renderProductsTable();
             alert(`เพิ่มสินค้า [${code}] ${name} เข้าคลังสำเร็จ!`);
         }
@@ -1457,7 +1452,6 @@
 
             const totalAmount = cart.reduce((sum, i) => sum + (i.quantity * i.unitPrice), 0);
 
-            // 1. บันทึกใบคำสั่งซื้อ (PO)
             const newOrder = {
                 txId,
                 docNo: `PO-2026-${String(orderTransactionCount + 100).padStart(4, '0')}`,
@@ -1474,7 +1468,6 @@
                 documentFiles: [{name: "PO_New.pdf", url: "#"}]
             };
 
-            // 2. ซิงค์อัตโนมัติสร้าง "ใบเสร็จรับเงิน" (Receipt) จากรายการคำสั่งซื้อ B2B ทันที
             const syncedReceipt = {
                 id: `26119${String(orderTransactionCount).padStart(2, '0')}`,
                 docNo: `REC-B2B-${String(orderTransactionCount).padStart(3, '0')}`,
@@ -1998,4 +1991,4 @@
         }
     </script>
 </body>
-</html>
+</html>ผ
