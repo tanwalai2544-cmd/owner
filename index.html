@@ -463,7 +463,7 @@
                 </div>
             </div>
 
-            <!-- MODULE C: VERIFICATION (ระบบตรวจสอบหลักฐานและบัญชีที่ผสานเข้ามาอย่างสมบูรณ์) -->
+            <!-- MODULE C: VERIFICATION (ระบบตรวจสอบหลักฐานและบัญชีที่ผสานเข้ามาอย่างสมบูรณ์ พร้อม Document Flow Pipeline) -->
             <div id="moduleVerification" class="space-y-6 hidden">
                 <div class="flex items-center justify-between bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
@@ -473,6 +473,51 @@
                     <button onclick="switchModule('hub')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm font-heading transition">
                         <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก Hub
                     </button>
+                </div>
+
+                <!-- Document Flow Pipeline (ผังการไหลของเอกสาร 8 ขั้นตอน) -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-xs font-bold text-slate-700 mb-3 uppercase tracking-wider font-heading">
+                        <i class="fa-solid fa-network-wired text-red-600"></i> ผังการไหลของเอกสาร (Document Flow Pipeline) - คลิกเพื่อกรองข้อมูล:
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-9 gap-2">
+                        <button onclick="filterByPipeline('ใบเสนอราคา')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
+                            <div class="text-red-600 text-base mb-1"><i class="fa-solid fa-file-lines"></i></div>
+                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">1. ใบเสนอราคา</div>
+                        </button>
+                        <button onclick="filterByPipeline('ใบคำสั่งซื้อ')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
+                            <div class="text-blue-600 text-base mb-1"><i class="fa-solid fa-cart-shopping"></i></div>
+                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">2. ใบคำสั่งซื้อ</div>
+                        </button>
+                        <button onclick="filterByPipeline('ใบกำกับภาษีซื้อ')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
+                            <div class="text-emerald-600 text-base mb-1"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">3. ใบกำกับภาษีซื้อ</div>
+                        </button>
+                        <button onclick="filterByPipeline('ใบรับสินค้า')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
+                            <div class="text-purple-600 text-base mb-1"><i class="fa-solid fa-boxes-stacked"></i></div>
+                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">4. ใบรับสินค้า</div>
+                        </button>
+                        <button onclick="filterByPipeline('ใบขนส่ง')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
+                            <div class="text-amber-600 text-base mb-1"><i class="fa-solid fa-truck-fast"></i></div>
+                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">5. ใบขนส่ง</div>
+                        </button>
+                        <button onclick="filterByPipeline('ใบเสร็จรับเงิน')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
+                            <div class="text-rose-600 text-base mb-1"><i class="fa-solid fa-receipt"></i></div>
+                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">6. ใบเสร็จรับเงิน</div>
+                        </button>
+                        <button onclick="filterByPipeline('ใบส่งสินค้า')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
+                            <div class="text-indigo-600 text-base mb-1"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">7. ใบส่งของ</div>
+                        </button>
+                        <button onclick="filterByPipeline('ใบส่งคืนสินค้า')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
+                            <div class="text-orange-600 text-base mb-1"><i class="fa-solid fa-rotate-left"></i></div>
+                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">8. ใบคืนสินค้า</div>
+                        </button>
+                        <button onclick="filterByPipeline('ใบเคลมสินค้า')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-red-50 hover:border-red-300 text-center transition group">
+                            <div class="text-teal-600 text-base mb-1"><i class="fa-solid fa-shield-heart"></i></div>
+                            <div class="text-[11px] font-bold text-slate-700 group-hover:text-red-700">9. ใบเคลมสินค้า</div>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Accounting Audit Inner Section -->
@@ -505,7 +550,7 @@
                     <!-- Content Grid: Transaction List & Detail Verification -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <!-- Left: Transaction List (List View with Status Filter Buttons) -->
-                        <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-6 flex flex-col h-[720px]">
+                        <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-6 flex flex-col h-[750px]">
                             <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100">
                                 <h2 class="font-bold text-slate-900 text-base">รายการธุรกรรม (Task List)</h2>
                                 <span id="taskCount" class="text-xs bg-red-50 text-red-700 px-3 py-1 rounded-full font-bold">0 รายการ</span>
@@ -524,9 +569,9 @@
                             </div>
                         </div>
 
-                        <!-- Right: Document Verification & Action Panel -->
-                        <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-8 lg:col-span-2 flex flex-col justify-between min-h-[720px]">
-                            <div id="detailView">
+                        <!-- Right: Document Verification & Action Panel (รองรับรูปสูงสุด 5 ภาพ และไฟล์สูงสุด 5 ไฟล์ พร้อมเปิดดู/ดาวน์โหลด) -->
+                        <div class="bg-white rounded-2xl shadow-xl border border-red-100 p-8 lg:col-span-2 flex flex-col justify-between min-h-[750px]">
+                            <div id="detailView" class="overflow-y-auto max-h-[580px] pr-2">
                                 <div class="text-center py-44 text-slate-400">
                                     <svg class="w-20 h-20 mx-auto mb-4 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -536,7 +581,7 @@
                             </div>
 
                             <!-- Footer Action Buttons -->
-                            <div id="actionPanel" class="border-t border-slate-200 pt-6 mt-6 hidden">
+                            <div id="actionPanel" class="border-t border-slate-200 pt-5 mt-4 hidden shrink-0">
                                 <p class="text-xs font-bold text-slate-700 mb-3">🛠️ เครื่องมือตรวจสอบและจัดการสำหรับนักบัญชี (Audit Actions):</p>
                                 
                                 <div id="resolveProblemContainer" class="mb-3 hidden">
@@ -667,6 +712,15 @@
                     <button type="submit" class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md transition font-heading">บันทึกสินค้าใหม่ (สต็อกเป็น 0)</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL ดูรูปภาพขนาดใหญ่ (Lightbox) -->
+    <div id="imageLightboxModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center">
+            <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white text-3xl font-bold hover:text-red-400 transition"><i class="fa-solid fa-xmark"></i></button>
+            <img id="lightboxImg" src="" alt="Full view" class="max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl border border-slate-700">
+            <p id="lightboxCaption" class="text-white text-sm mt-3 font-semibold"></p>
         </div>
     </div>
 
@@ -916,21 +970,28 @@
         let isExpiry90Mode = false;
         let orderTransactionCount = 0;
 
-        // ข้อมูลธุรกรรมสำหรับระบบตรวจสอบหลักฐาน (Accounting Audit) - เพิ่มเอกสารครอบคลุมตามที่เถ้าแก่ต้องการครบถ้วน
+        // ข้อมูลธุรกรรมสำหรับระบบตรวจสอบหลักฐาน (Accounting Audit) พร้อมรองรับภาพสูงสุด 5 และไฟล์สูงสุด 5
         let transactionData = [
             {
                 id: "202611001",
                 date: "2026-11-11",
                 supplier: "บริษัท ซัพพลายอาหารสัตว์ไทย จำกัด",
-                docType: "ใบเสนอราคา",
+                docType: "ใบกำกับภาษีซื้อ",
                 status: "รอตรวจสอบ",
-                remark: "รอตรวจสอบเงื่อนไขราคาสินค้าล็อตใหม่",
+                remark: "-",
                 totalAmount: 12500.00,
                 itemsOrdered: [
                     { name: "อาหารแมวเกรดพรีเมียม (กระสอบ 20kg)", qty: 10, price: 1000 },
                     { name: "ทรายแมวเต้าหู้ (ถุง 6L)", qty: 50, price: 50 }
                 ],
-                documentImage: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80"
+                documentImages: [
+                    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
+                ],
+                documentFiles: [
+                    { name: "Tax_Invoice_202611001.pdf", url: "#" },
+                    { name: "Delivery_Slip_01.pdf", url: "#" }
+                ]
             },
             {
                 id: "202611002",
@@ -938,118 +999,37 @@
                 supplier: "หจก. อุปกรณ์สัตว์เลี้ยงเพ็ทช็อป",
                 docType: "ใบคำสั่งซื้อ",
                 status: "ปกติ",
-                remark: "ออร์เดอร์ส่งตรงเวลา ครบถ้วน",
+                remark: "เอกสารถูกต้องครบถ้วน",
                 totalAmount: 3400.00,
                 itemsOrdered: [
                     { name: "กรงสุนัขพับได้ ขนาด L", qty: 2, price: 1200 },
                     { name: "ของเล่นแมวไม้ล่อ", qty: 20, price: 50 }
                 ],
-                documentImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
+                documentImages: [
+                    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
+                ],
+                documentFiles: [
+                    { name: "Purchase_Order_202611002.pdf", url: "#" }
+                ]
             },
             {
                 id: "202611003",
                 date: "2026-11-10",
                 supplier: "บริษัท เวชภัณฑ์สัตว์และอุปกรณ์ จำกัด",
-                docType: "ใบกำกับภาษีซื้อ",
+                docType: "ใบเคลมสินค้า",
                 status: "พบปัญหา/รอแก้ไข",
                 remark: "ยอดเงินในใบกำกับภาษีไม่ตรงกับยอดสั่งซื้อจริง ผลต่าง 300 บาท",
                 totalAmount: 1800.00,
                 itemsOrdered: [
                     { name: "วิตามินบำรุงขนนกแก้ว", qty: 6, price: 300 }
                 ],
-                documentImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: "202611004",
-                date: "2026-11-10",
-                supplier: "เพ็ท โพรเทคท์ ฟู้ด",
-                docType: "ใบรับสินค้า",
-                status: "ปกติ",
-                remark: "ตรวจนับจำนวนสินค้าถูกต้องครบถ้วน",
-                totalAmount: 5600.00,
-                itemsOrdered: [
-                    { name: "Kaniva หมา รสไก่ 1 กก.", qty: 70, price: 80 }
+                documentImages: [
+                    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
                 ],
-                documentImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: "202611005",
-                date: "2026-11-09",
-                supplier: "เคอรี่ เอ็กซ์เพรส (ประเทศไทย)",
-                docType: "ใบขนส่ง",
-                status: "ปกติ",
-                remark: "จัดส่งพัสดุด่วนถึงหน้าร้านเรียบร้อย",
-                totalAmount: 450.00,
-                itemsOrdered: [
-                    { name: "ค่าบริการขนส่งสินค้าควบคุมอุณหภูมิ/เวชภัณฑ์", qty: 1, price: 450 }
-                ],
-                documentImage: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: "202611006",
-                date: "2026-11-09",
-                supplier: "เพอร์เฟค คอมพาเนียน กรุ๊ป",
-                docType: "ใบเสร็จรับเงิน",
-                status: "ปกติ",
-                remark: "ชำระเงินเรียบร้อย มีใบเสร็จรับเงินยืนยัน",
-                totalAmount: 8900.00,
-                itemsOrdered: [
-                    { name: "Luvcare สุนัขพันธุ์กลาง รสตับ 500g", qty: 100, price: 45 },
-                    { name: "SmartHeart Gold 1.5kg", qty: 15, price: 293.33 }
-                ],
-                documentImage: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: "202611007",
-                date: "2026-11-08",
-                supplier: "ท็อป ฟีด มิลล์ จำกัด",
-                docType: "ใบส่งสินค้า/ใบส่งของ",
-                status: "ปกติ",
-                remark: "สินค้าส่งถึงหน้าร้านสถานีสัตว์เลี้ยง สุราษฎร์ธานี",
-                totalAmount: 11700.00,
-                itemsOrdered: [
-                    { name: "V55L อาหารหมู่ใหญ่ 30 กก.", qty: 30, price: 390 }
-                ],
-                documentImage: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: "202611008",
-                date: "2026-11-07",
-                supplier: "โรยัล คานิน (ประเทศไทย) จำกัด",
-                docType: "ใบส่งคืนสินค้า",
-                status: "ปกติ",
-                remark: "ส่งคืนสินค้าล็อตใกล้หมดอายุสำเร็จ",
-                totalAmount: 2000.00,
-                itemsOrdered: [
-                    { name: "RC GASTRO 2Kg (ส่งคืน)", qty: 2, price: 1000 }
-                ],
-                documentImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: "202611009",
-                date: "2026-11-06",
-                supplier: "โซเอทิส อิงค์",
-                docType: "ใบเคลมสินค้า",
-                status: "รอตรวจสอบ",
-                remark: "รอยืนยันใบลดหนี้ (CN) กรณีกล่องสินค้าชำรุด",
-                totalAmount: 850.00,
-                itemsOrdered: [
-                    { name: "Revolution Plus สุนัข (เคลมกล่องชำรุด)", qty: 1, price: 850 }
-                ],
-                documentImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-                id: "202611010",
-                date: "2026-11-05",
-                supplier: "บริการจัดพิมพ์ป้ายโฆษณาหน้าร้านสุราษฎร์",
-                docType: "อื่นๆ (ใบบันทึกข้อตกลงและค่าบริการป้ายโฆษณาหน้าร้าน)",
-                status: "ปกติ",
-                remark: "ค่าจัดทำป้ายไวนิลโปรโมชั่น Kaniva หน้าร้านสถานีสัตว์เลี้ยง",
-                totalAmount: 1500.00,
-                itemsOrdered: [
-                    { name: "ค่าออกแบบและพิมพ์ป้ายไวนิลหน้าร้านขนาด 3x1 เมตร", qty: 1, price: 1500 }
-                ],
-                documentImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80"
+                documentFiles: [
+                    { name: "Claim_Form_202611003.pdf", url: "#" },
+                    { name: "Damage_Report.pdf", url: "#" }
+                ]
             }
         ];
 
@@ -1514,7 +1494,6 @@
                 });
             }
             
-            // เริ่มต้นเรนเดอร์รายการตรวจสอบหลักฐาน
             renderTransactionList(transactionData);
         });
 
@@ -1538,6 +1517,12 @@
                 const filtered = transactionData.filter(item => item.status === status);
                 renderTransactionList(filtered);
             }
+        }
+
+        // ฟังก์ชันกรองตาม Pipeline เอกสาร 9 ขั้นตอน
+        function filterByPipeline(docTypeName) {
+            const filtered = transactionData.filter(item => item.docType.includes(docTypeName) || docTypeName.includes(item.docType));
+            renderTransactionList(filtered);
         }
 
         function renderTransactionList(items) {
@@ -1589,8 +1574,6 @@
             } else {
                 resolveContainer.classList.add('hidden');
             }
-
-            filterByStatus(currentFilterStatus);
         }
 
         function renderDetailView() {
@@ -1627,6 +1610,28 @@
                 `;
             }
 
+            // เรนเดอร์รูปภาพหลักฐาน (รองรับสูงสุด 5 ภาพ)
+            const imagesHtml = item.documentImages.map((imgUrl, imgIdx) => `
+                <div class="relative group block w-20 h-20 overflow-hidden rounded-xl border border-slate-300 bg-white cursor-pointer shadow-xs" onclick="openLightbox('${imgUrl}', 'ภาพหลักฐานที่ ${imgIdx + 1}')">
+                    <img src="${imgUrl}" alt="Evidence ${imgIdx + 1}" class="w-full h-full object-cover group-hover:scale-105 transition">
+                    <div class="absolute inset-0 bg-slate-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition text-white text-[10px] font-medium">ดู</div>
+                </div>
+            `).join('');
+
+            // เรนเดอร์ไฟล์เอกสาร (รองรับสูงสุด 5 ไฟล์ พร้อมปุ่มเปิดดู/ดาวน์โหลด)
+            const filesHtml = item.documentFiles.map((fileObj, fileIdx) => `
+                <div class="flex items-center justify-between p-2.5 bg-white border border-slate-200 rounded-xl text-xs">
+                    <div class="flex items-center gap-2 truncate">
+                        <i class="fa-solid fa-file-pdf text-red-600 text-base"></i>
+                        <span class="font-medium text-slate-700 truncate">${fileObj.name}</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <a href="${fileObj.url}" target="_blank" class="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold rounded-lg transition"><i class="fa-solid fa-eye"></i> เปิดดู</a>
+                        <a href="${fileObj.url}" download="${fileObj.name}" class="px-2.5 py-1 bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold rounded-lg transition"><i class="fa-solid fa-download"></i> โหลด</a>
+                    </div>
+                </div>
+            `).join('');
+
             detailView.innerHTML = `
                 <div>
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-100 pb-4 mb-4 gap-2">
@@ -1649,12 +1654,19 @@
                             ${itemsHtml}
                         </div>
 
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex flex-col items-center justify-center">
-                            <h3 class="text-xs font-bold text-slate-700 mb-2 self-start">📷 หลักฐานภาพถ่าย/PDF ที่อัปโหลด</h3>
-                            <a href="${item.documentImage}" target="_blank" class="relative group block w-full h-36 overflow-hidden rounded-xl border border-slate-300 bg-white">
-                                <img src="${item.documentImage}" alt="Document Evidence" class="w-full h-full object-cover group-hover:scale-105 transition">
-                                <div class="absolute inset-0 bg-slate-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition text-white text-xs font-medium">คลิกเพื่อดูรูปขยายเต็มจอ</div>
-                            </a>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-3">
+                            <div>
+                                <h3 class="text-xs font-bold text-slate-700 mb-2">📷 รูปภาพหลักฐาน (สูงสุด 5 ภาพ):</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    ${imagesHtml}
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xs font-bold text-slate-700 mb-1.5">📁 ไฟล์เอกสารแนบ (สูงสุด 5 ไฟล์):</h3>
+                                <div class="space-y-1.5 max-h-32 overflow-y-auto pr-1">
+                                    ${filesHtml}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1664,6 +1676,16 @@
                     </div>
                 </div>
             `;
+        }
+
+        function openLightbox(imgUrl, captionText) {
+            document.getElementById('lightboxImg').src = imgUrl;
+            document.getElementById('lightboxCaption').innerText = captionText;
+            document.getElementById('imageLightboxModal').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('imageLightboxModal').classList.add('hidden');
         }
 
         function toggleEditMode() {
@@ -1688,31 +1710,21 @@
             });
 
             item.totalAmount = newTotal;
-            
-            // อัปเดตสถานะเป็น "พบปัญหา/รอแก้ไข" ทันทีหลังกดบันทึกการแก้ไข จนกว่าจะกดตรวจสอบถูกต้อง
-            item.status = 'พบปัญหา/รอแก้ไข';
-            item.remark = 'มีการแก้ไขรายการเอกสารใหม่ อยู่ระหว่างรอตรวจสอบความถูกต้อง';
-
             isEditMode = false;
             renderDetailView();
-            document.getElementById('resolveProblemContainer').classList.remove('hidden');
-            filterByStatus(currentFilterStatus);
-            selectTransaction(currentSelectedId);
-            
-            alert('บันทึกการแก้ไขรายการเรียบร้อย! ระบบได้ปรับสถานะเป็น "พบปัญหา/รอแก้ไข" จนกว่าจะตรวจสอบความถูกต้องครับ');
+            alert('บันทึกการแก้ไขรายการและราคาเรียบร้อยแล้ว!');
         }
 
         function resolveProblem() {
             const item = transactionData.find(t => t.id === currentSelectedId);
             if (item) {
                 item.status = 'ปกติ';
-                item.remark = 'แก้ไขปัญหาและตรวจสอบความถูกต้องเรียบร้อยแล้ว';
+                item.remark = 'แก้ไขปัญหาเรียบร้อยแล้ว ตรวจสอบถูกต้อง';
             }
             alert('แก้ไขปัญหาเรียบร้อย! ระบบปรับสถานะเป็น "ปกติ" แล้ว');
             document.getElementById('resolveProblemContainer').classList.add('hidden');
             renderDetailView();
             filterByStatus(currentFilterStatus);
-            selectTransaction(currentSelectedId);
         }
 
         function saveAudit() {
@@ -1730,7 +1742,6 @@
             }
             document.getElementById('successPopup').classList.remove('hidden');
             filterByStatus(currentFilterStatus);
-            selectTransaction(currentSelectedId);
         }
 
         function closeSuccessPopup() {
